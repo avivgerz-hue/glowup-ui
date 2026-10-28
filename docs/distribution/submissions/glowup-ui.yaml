@@ -1,0 +1,27 @@
+name: Glowup UI
+repo: https://github.com/avivgerz-hue/glowup-ui
+tagline: Portable UI design workflows for creating, transforming and refining web apps.
+description: >-
+  MIT-licensed Agent Skill with CREATE, TRANSFORM and REFINE workflows,
+  Node helpers, preservation checks and reproducible desktop/mobile examples.
+  OpenCode skill-path installation is tested; native OpenCode activation and
+  comparative design quality remain unverified. Public preview v0.1.1.
+scope:
+  - project
+installation: |
+  Requires Node.js 20+ and Git. From the application's root directory:
+
+  ```bash
+  npx --yes --package=git+https://github.com/avivgerz-hue/glowup-ui.git#v0.1.1 glowup-ui install --agent opencode --scope project
+  ```
+
+  This installs the canonical payload at .agents/skills/glowup-ui/SKILL.md.
+  Start a fresh, trusted OpenCode session and explicitly ask it to load glowup-ui
+  with its native skill tool, read the full instructions and relevant references,
+  then refine the requested page while preserving behavior. Discovery is not
+  activation proof. No universal /glowup-ui slash command is claimed for OpenCode.
+
+  Release: https://github.com/avivgerz-hue/glowup-ui/releases/tag/v0.1.1
+  Compatibility: https://github.com/avivgerz-hue/glowup-ui/blob/v0.1.1/docs/compatibility.md
+  Installation/removal: https://github.com/avivgerz-hue/glowup-ui/blob/main/docs/installation.md
+  Native activation remains unverified; no npm registry publication is implied.

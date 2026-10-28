@@ -1,5 +1,7 @@
 # Installation audit · 28 October 2026
 
+> Historical preparation record: v0.1.1 was subsequently approved and published. Future-tense/tag-availability statements below describe preparation time, not current release status. See [current preview status](../PREVIEW-RELEASE.md) and [adoption evidence](../adoption-evidence.md). External listings and announcements still require separate approval.
+
 These checks used isolated temporary projects in Linux. They do not prove native activation. Inherited authentication/proxy/TLS controls were preserved; no agent login was attempted or copied.
 
 ## Published v0.1.0 — executed

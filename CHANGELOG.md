@@ -1,6 +1,11 @@
 # Changelog
 
-## v0.1.1 — Unreleased candidate
+## Unreleased
+
+- Correct the default installation pin and release status to published v0.1.1.
+- Prepare an exact OpenCode resource entry, independent testing guide and evidence-separated first-tester plan.
+
+## v0.1.1 — Public Preview · 2026-10-28
 
 - Original project identity, real source-hashed examples and an example-led README.
 - Tested one-command GitHub-source installation and optional standard-installer guidance.
@@ -9,7 +14,7 @@
 - Opt-in public experience reports and a version-pinned standard-installer example.
 - Release preparation and rule-checked directory submission drafts; no listings submitted.
 
-These changes do not alter the published v0.1.0 release or tag. The proposed patch release is v0.1.1: it repairs the documented REFINE invocation and improves distribution evidence without breaking existing usage. No v0.1.1 tag or release exists yet.
+Published as a backward-compatible public-preview patch. [v0.1.1 release](https://github.com/avivgerz-hue/glowup-ui/releases/tag/v0.1.1). The v0.1.0 tag/release remain unchanged.
 
 ## v0.1.0 — Public Preview · 2026-10-28
 
