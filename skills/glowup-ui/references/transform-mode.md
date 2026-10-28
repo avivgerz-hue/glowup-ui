@@ -1,7 +1,7 @@
 # TRANSFORM: redesign the presentation, preserve the product
 
 ## Match the request
-**Polish:** fix the requested local weaknesses; keep fonts, palette, composition and shell.
+**REFINE / polish:** fix the requested local weaknesses; keep fonts, palette, composition and shell. `composition.mjs --mode refine` gives the same preservation-focused scope as `--mode polish`.
 **Full redesign:** “redesign the app”, “improve the full design”, or “modernize the entire UI” authorizes meaningful composition, typography hierarchy, spacing, surfaces and shared-component changes. Preserve the logo, brand cues, content and behavior. Retain an established font family/palette unless the user requests a new identity; hierarchy, weight, width and layout can still change substantially. A different brand needs explicit intent. When scope is unclear, infer from the requested breadth and state your scope briefly; ask only if blocked.
 
 ## Baseline once

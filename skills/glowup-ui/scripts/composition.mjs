@@ -69,7 +69,7 @@ export const RECIPES = {
 };
 
 export function composition(product, { profile, mode = 'create' } = {}) {
-  if (!['create','redesign','polish'].includes(mode)) throw new Error('mode must be create, redesign or polish');
+  if (!['create','redesign','polish','refine'].includes(mode)) throw new Error('mode must be create, redesign, refine or polish');
   if (profile && !Object.hasOwn(RECIPES, profile)) throw new Error('Unknown profile');
   const words = String(product).toLowerCase().split(/[^a-z]+/);
   const candidates = Object.entries(RECIPES).filter(([id]) => id !== 'general').map(([id,r]) => ({ id, matches: r.terms.filter(term => words.includes(term) || words.includes(term+'s')) })).sort((a,b) => b.matches.length-a.matches.length);
@@ -78,7 +78,7 @@ export function composition(product, { profile, mode = 'create' } = {}) {
   const id = profile || (winner.matches.length && !ambiguous ? winner.id : 'general');
   const { terms, ...recipe } = RECIPES[id];
   return { profile: id, selection: profile ? 'explicit' : id === 'general' ? 'fallback; specify --profile if useful' : 'keyword heuristic; verify product fit', matched: candidates.filter(c=>c.matches.length), mode,
-    scope: mode === 'polish' ? 'Keep identity and composition; repair observed local weaknesses.' : mode === 'redesign' ? 'Improve composition, hierarchy and shared components across affected pages. Preserve brand and all behavior; adapt existing tokens before adding new ones.' : 'Choose the composition and shared visual system before implementing pages.', ...recipe };
+    scope: ['polish','refine'].includes(mode) ? 'Keep identity and composition; repair observed local weaknesses.' : mode === 'redesign' ? 'Improve composition, hierarchy and shared components across affected pages. Preserve brand and all behavior; adapt existing tokens before adding new ones.' : 'Choose the composition and shared visual system before implementing pages.', ...recipe };
 }
 export function formatComposition(plan) {
   return [`COMPOSITION: ${plan.profile} (${plan.selection})`, `Task: ${plan.goal}`, `Scope: ${plan.scope}`, `Layout: ${plan.composition}`, `Type: ${plan.type}`, `Phone: ${plan.responsive}`, `Signature: ${plan.signature}`, `Verify: ${plan.acceptance.join('; ')}.`].join('\n');

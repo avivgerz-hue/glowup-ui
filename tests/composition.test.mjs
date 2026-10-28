@@ -29,6 +29,13 @@ test('polish and full redesign have distinct scope and both preserve the product
   assert.match(composition('spa', {mode:'polish'}).scope, /Keep identity and composition/);
   assert.match(composition('spa', {mode:'redesign'}).scope, /Preserve brand and all behavior/);
 });
+test('REFINE is a supported preservation scope in both the API and CLI', () => {
+  assert.equal(composition('project workspace', {mode:'refine'}).scope, composition('project workspace', {mode:'polish'}).scope);
+  const result=spawnSync(process.execPath,['skills/glowup-ui/scripts/composition.mjs','--product','project workspace','--mode','refine','--json'],{encoding:'utf8'});
+  assert.equal(result.status,0,result.stderr);
+  assert.equal(JSON.parse(result.stdout).mode,'refine');
+  assert.match(JSON.parse(result.stdout).scope,/Keep identity and composition/);
+});
 test('CLI produces machine-readable recipes and rejects invalid usage', () => {
   const script='skills/glowup-ui/scripts/composition.mjs';
   const r=spawnSync(process.execPath,[script,'--product','booking','--mode','redesign','--json'],{encoding:'utf8'});
