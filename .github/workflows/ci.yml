@@ -42,6 +42,7 @@ jobs:
       - run: npm ci --no-audit --no-fund
       - run: npx playwright install --with-deps chromium
       - run: npm run test:browser
+      - run: node showcase.mjs --install --check
       - name: Report browser contract failures
         if: failure()
         run: node ci-report.mjs
@@ -55,6 +56,7 @@ jobs:
             benchmarks/results/create-smoke
             benchmarks/results/refine-journeys
             benchmarks/results/quality-smoke
+            benchmarks/results/showcase
           if-no-files-found: ignore
       - uses: actions/upload-artifact@v4
         if: always()

@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const phases = ['review-browser', 'create-smoke', 'refine-journeys', 'quality-smoke'];
+const phases = ['review-browser', 'create-smoke', 'refine-journeys', 'quality-smoke', 'showcase'];
 export function collectBrowserResults(base) {
   return phases.map(phase => {
     const file = path.join(base, phase, 'result.json');

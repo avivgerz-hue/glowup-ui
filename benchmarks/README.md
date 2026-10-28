@@ -15,7 +15,11 @@ npm run test:browser
 node chat-journey.mjs --out /absolute/path/to/private-evidence
 ```
 
-Use `GLOWUP_BROWSER_EXECUTABLE` for an existing Chromium. Checks cover measurements, two CREATE starter sizes, twelve native journeys and three existing apps: designed Plotline, helpdesk and booking. Before/after functionality and preservation checks must pass. These are scripted fixtures, not autonomous model comparisons or aesthetic scores.
+Use `GLOWUP_BROWSER_EXECUTABLE` for an existing Chromium. Checks cover measurements, two CREATE starter sizes, twelve browser interaction journeys and three existing apps: designed Plotline, helpdesk and booking. Before/after functionality and preservation checks must pass. These are scripted fixtures, not autonomous model comparisons or aesthetic scores.
+
+## Public examples
+
+`node benchmarks/showcase.mjs --install` (from the repository root, under Node 22) creates the source-hashed CREATE, TRANSFORM and restrained REFINE gallery. It tests the source apps and matching data, exercises interactions, and captures equal desktop/phone viewports. `--check` checks the examples and committed asset hashes without replacing published images. These are maintainer-directed/scripted demonstrations, not agent comparisons. [Provenance and reproduction](../docs/examples.md).
 
 ## Agent comparisons
 

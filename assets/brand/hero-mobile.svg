@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="380" viewBox="0 0 640 380" role="img" aria-labelledby="title desc">
+<title id="title">Glowup UI</title><desc id="desc">Your app works. Now make it look incredible. Create, Transform, Refine.</desc>
+<rect width="640" height="380" fill="#123b32"/>
+<g transform="translate(36 44)" color="#f5f4e8"><path d="M8 8H46V18H18V46H46V36H32V26H56V56H8Z" fill="currentColor"/><path d="M50 0H64V14H54V10H50Z" fill="#d6f65c"/></g>
+<g font-family="DejaVu Sans,Arial,sans-serif"><text x="120" y="99" fill="#f5f4e8" font-size="58" font-weight="600" letter-spacing="-3">Glowup UI</text>
+<text x="40" y="187" fill="#f5f4e8" font-size="34" letter-spacing="-1">Your app works.</text><text x="40" y="233" fill="#d6f65c" font-size="34" letter-spacing="-1">Now make it look incredible.</text>
+<path d="M40 285H600" stroke="#52736a"/><text x="40" y="334" fill="#f5f4e8" font-size="22">Create.</text><text x="220" y="334" fill="#f5f4e8" font-size="22">Transform.</text><text x="460" y="334" fill="#f5f4e8" font-size="22">Refine.</text></g></svg>

@@ -1,0 +1,36 @@
+name: Bug report
+description: Report a reproducible problem with installation, a helper or a workflow.
+title: "[Bug]: "
+body:
+  - type: markdown
+    attributes:
+      value: "Use fictional/minimal examples. Remove credentials, personal email addresses and private application details; do not paste raw agent transcripts."
+  - type: input
+    id: version
+    attributes:
+      label: Glowup version or commit
+    validations:
+      required: true
+  - type: input
+    id: agent
+    attributes:
+      label: Agent, version and operating system
+    validations:
+      required: true
+  - type: dropdown
+    id: mode
+    attributes:
+      label: Affected area
+      options: [Installation, CREATE, TRANSFORM, REFINE, Browser or verification, Documentation]
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Smallest reproduction
+      description: Commands or a minimal public fixture; include expected and observed behavior.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Redacted evidence and checks
+      description: State what actually ran. Screenshots should use fictional/public data with permission to share.
