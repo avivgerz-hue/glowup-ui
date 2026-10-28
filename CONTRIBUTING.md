@@ -21,6 +21,8 @@ node chat-journey.mjs --out /absolute/path/to/private-evidence
 
 Alternatively set `GLOWUP_BROWSER_EXECUTABLE` to an existing Chromium. Demo apps under `demo/before` and `demo/after` have their own locked dependencies, tests and builds. Read [benchmarks](benchmarks/README.md) before interpreting results.
 
+`node scripts/starter-lock.mjs` audits the starter's complete dependency graph. When dependencies or font recipes change, use npm 11 and run `node scripts/starter-lock.mjs --update`, review the template diff, and rerun CREATE checks. Scaffolding synchronizes the project name and retains only the selected fonts, so generated projects support `npm ci` on npm 10 without unlocked optional-peer resolution.
+
 ## Changes and evidence
 
 Preserve existing functionality and tests. Test meaningful helper changes. Changes to agent instructions need completed comparisons with identical tasks, model settings and tools. Do not describe a scripted fixture change, successful install or skill listing as proof of activation or design superiority. Retain negative findings honestly.

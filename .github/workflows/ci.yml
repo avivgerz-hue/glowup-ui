@@ -23,6 +23,7 @@ jobs:
       - run: npm audit --prefix benchmarks/fixtures/plotline-designed --package-lock-only --audit-level=low
       - run: npm audit --prefix benchmarks/fixtures/helpdesk-before --package-lock-only --audit-level=low
       - run: npm audit --prefix benchmarks/fixtures/booking-before --package-lock-only --audit-level=low
+      - run: node scripts/starter-lock.mjs
 
   browser:
     name: CREATE and REFINE browser contracts

@@ -115,6 +115,22 @@ export function scaffold({ name = "app", dir = ".", only = null, force = false, 
       fs.writeFileSync(pkg, JSON.stringify(manifest, null, 2) + "\n");
       design = { id: chosen.id, name: chosen.name, packages: system.packages, summary: chosen.summary, shell: chosen.shells[surface], moves: chosen.moves };
     }
+    const lockFile = path.join(root, "package-lock.json");
+    if (created.includes(pkg) && created.includes(lockFile)) {
+      // Keep the audited dependency graph; only the project identity and selected fonts vary.
+      // Unlocked optional-peer resolution can crash or stall npm 10's Arborist.
+      const manifest = JSON.parse(fs.readFileSync(pkg, "utf8"));
+      const lock = JSON.parse(fs.readFileSync(lockFile, "utf8"));
+      lock.name = lock.packages[""].name = manifest.name;
+      lock.version = lock.packages[""].version = manifest.version;
+      lock.packages[""].dependencies = manifest.dependencies;
+      lock.packages[""].devDependencies = manifest.devDependencies;
+      for (const name of Object.keys(manifest.dependencies).filter((name) => name.startsWith("@fontsource-variable/")))
+        if (!lock.packages[`node_modules/${name}`]) throw new Error(`Starter dependency lock is missing font package: ${name}`);
+      for (const name of Object.keys(lock.packages).filter((name) => name.startsWith("node_modules/@fontsource-variable/")))
+        if (!manifest.dependencies[name.slice("node_modules/".length)]) delete lock.packages[name];
+      fs.writeFileSync(lockFile, JSON.stringify(lock, null, 2) + "\n");
+    }
   }
   return { root, created, skipped, design };
 }

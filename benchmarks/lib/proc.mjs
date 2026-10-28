@@ -2,7 +2,7 @@ import { spawn, spawnSync } from "node:child_process";
 
 export function sh(cmd, args, opts = {}) {
   const r = spawnSync(cmd, args, { encoding: "utf8", timeout: opts.timeout ?? 300000, cwd: opts.cwd, env: { ...process.env, CI: "1", ...(opts.env || {}) }, shell: process.platform === "win32" });
-  return { status: r.status, out: `${r.stdout || ""}${r.stderr || ""}`, signal: r.signal };
+  return { status: r.status, out: `${r.stdout || ""}${r.stderr || ""}`, signal: r.signal, error: r.error?.message };
 }
 
 export async function startPreview(cwd, port) {

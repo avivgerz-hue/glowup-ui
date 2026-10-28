@@ -7,6 +7,7 @@ An open-source design skill for coding agents to build new interfaces or substan
 - Recoverable installation/removal for documented Claude Code, Codex and other agent discovery paths.
 - Reproducible browser checks and independent paired-evaluation tooling.
 - Patched demo, fixture and starter test dependencies (Vitest 4.1.12).
+- Audited, synchronized starter locks avoid the reproduced npm 10 dependency-resolution failure.
 
 Requirements: an agent with file access and its own authentication; Node.js 20+ for helpers. Browser capture requires an available browser or optional Playwright. Current-preview native activation, design superiority and cost/speed advantages remain unverified. No fabricated benchmark scores or adoption claims.
 

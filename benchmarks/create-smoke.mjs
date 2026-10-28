@@ -20,7 +20,7 @@ const tree = (dir) => fs.readdirSync(dir, { withFileTypes: true }).filter((e) =>
 try {
   for (const kit of ["minimal", "full"]) {
     const cwd = path.join(root, kit);
-    const run = (cmd, args, dir = cwd) => { const r = sh(cmd, args, { cwd: dir }); if (r.status !== 0) throw new Error(`${cmd} ${args.join(" ")}: ${r.out}`); return r; };
+    const run = (cmd, args, dir = cwd) => { const r = sh(cmd, args, { cwd: dir }); if (r.status !== 0) throw new Error(`${cmd} ${args.join(" ")} [status=${r.status}, signal=${r.signal}, error=${r.error ?? "none"}]: ${r.out}`); return r; };
     const scaffold = run(process.execPath, [path.join(here, "../skills/glowup-ui/scripts/scaffold.mjs"), "--dir", cwd, "--name", "Fieldnote", "--product", "stationery shop", "--surface", "commerce", "--kit", kit, "--install"], root);
     const files = tree(cwd).filter((f) => !f.includes(`${path.sep}node_modules${path.sep}`) && !f.endsWith("package-lock.json"));
     run("npm", ["test"]); run("npm", ["run", "build"]);
