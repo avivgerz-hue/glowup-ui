@@ -88,6 +88,7 @@ One canonical skill, no separate prompt forks. **Installation and discovery are 
 ## Build with us
 
 - [Contributing and development checks](CONTRIBUTING.md)
+- [Share an installation result or real example](docs/feedback.md)
 - [Report a bug or suggest a feature](https://github.com/avivgerz-hue/glowup-ui/issues/new/choose) · [Security reporting](SECURITY.md)
 - [Benchmarks and independent review](benchmarks/PAIRED-EVALUATION.md) · [Research](docs/research/open-source-skill-landscape.md)
 - [Roadmap](docs/ROADMAP.md) · [Changelog](CHANGELOG.md) · [Releases](https://github.com/avivgerz-hue/glowup-ui/releases)

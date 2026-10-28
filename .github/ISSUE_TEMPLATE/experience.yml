@@ -1,0 +1,57 @@
+name: Installation result or real example
+description: Optionally share an installation outcome, problem, or example without private data.
+title: "[Experience]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This is an optional PUBLIC GitHub issue. GitHub displays your account name.
+        Do not include personal email addresses, credentials, private app names, local paths,
+        raw agent transcripts, or client data. Use fictional data in screenshots.
+        No telemetry is collected by Glowup. A successful install does not prove activation.
+        For sensitive problems, use SECURITY.md instead. You can report text only.
+  - type: dropdown
+    id: outcome
+    attributes:
+      label: What are you reporting?
+      options:
+        - Successful installation
+        - Installation or usage problem
+        - Real application example
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version or commit
+      description: For example, v0.1.0 or a public commit SHA. Do not paste local paths.
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Agent version and operating system
+    validations:
+      required: true
+  - type: dropdown
+    id: method
+    attributes:
+      label: Installation method
+      options: [Glowup installer, Standard skills CLI, Claude plugin, Manual copy, Other]
+  - type: dropdown
+    id: evidence
+    attributes:
+      label: Furthest stage actually verified
+      options:
+        - Installation failed
+        - Files installed only
+        - Skill discovered or listed
+        - Full instructions and relevant references read
+        - Used on an application and functionality checked
+  - type: textarea
+    id: details
+    attributes:
+      label: What happened?
+      description: Brief result, checks run, and limitations. Optional public source or sanitized screenshots that you own or may share. No raw logs required.
+    validations:
+      required: true

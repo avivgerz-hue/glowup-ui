@@ -1,9 +1,7 @@
-# v0.1.0 public preview
+# Public preview releases
 
-Repository: https://github.com/avivgerz-hue/glowup-ui
+The public repository is https://github.com/avivgerz-hue/glowup-ui. [v0.1.0](https://github.com/avivgerz-hue/glowup-ui/releases/tag/v0.1.0) is published as a pre-release and remains unchanged.
 
-Prepared for a future GitHub pre-release. No GitHub release or npm package is published by this preparation. Keep the repository private until the owner chooses to publish.
+The current preparation branch proposes **v0.1.1**, not a published release. [Candidate notes](release/NOTES-v0.1.1.md) and [approval checklist](release/LAUNCH-CHECKLIST.md) separate preparation from tag/release creation. Do not change the stable installation pin until the new tag and artifact have been verified.
 
-The skill supports CREATE, full TRANSFORM and scoped polish. Installation compatibility and browser functionality checks do not establish full native activation, better design quality or lower model cost. These remain unverified.
-
-This repository was initialized by its owner and receives a clean source import. No previous commit graph, development transcripts, historical benchmark results, private reports or backup material is included. Reproducible fixtures and evaluation tooling are retained. [Release notes](release/NOTES-v0.1.0.md), [compatibility](compatibility.md), [benchmark procedure](../benchmarks/README.md).
+CREATE, TRANSFORM and REFINE are documented scopes. Installer and browser checks do not establish full native activation, better design quality or lower model cost. These remain unverified. See [compatibility](compatibility.md), [evaluation status](evaluation-status.md) and the [benchmark procedure](../benchmarks/README.md).

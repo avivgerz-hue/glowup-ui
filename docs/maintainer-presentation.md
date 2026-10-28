@@ -4,7 +4,7 @@ Proposed description: **A portable design skill for coding agents. Create, trans
 
 Proposed topics: `agent-skills`, `ai-coding`, `ui-design`, `frontend`, `claude-code`, `codex`, `opencode`, `design-systems`, `developer-tools`. These describe current scope, not certified native execution.
 
-The GitHub integration returned **HTTP 403: Resource not accessible by integration** when updating repository metadata. No visibility or security settings were changed. An owner can apply the description/topics from the repository **About → gear icon → Description / Topics → Save changes**.
+During the earlier upgrade, integration metadata writes returned HTTP 403. A fresh read on 28 October 2026 now confirms that the public description and relevant topics are populated. No further About edit is required for this sprint, and no visibility or security settings were changed. The values above remain an editorial proposal, not a claim that they match the owner’s current wording.
 
 The original social image is [assets/brand/social-preview.png](../assets/brand/social-preview.png), 1280×640. GitHub has no supported repository-social-image REST upload used by this PR. After review, use **Settings → General → Social preview → Edit → Upload an image**. Brand sources and reproduction are in [the asset guide](../assets/brand/README.md). This image is branding, not a product screenshot.
 
