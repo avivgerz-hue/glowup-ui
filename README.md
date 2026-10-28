@@ -5,14 +5,14 @@
 
 A portable design skill for coding agents. **Create a considered interface, transform an existing app, or refine what already works — while preserving functionality.**
 
-[![CI](https://github.com/avivgerz-hue/glowup-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/avivgerz-hue/glowup-ui/actions/workflows/ci.yml) · [v0.1.0 · Public Preview](https://github.com/avivgerz-hue/glowup-ui/releases/tag/v0.1.0) · [MIT](LICENSE)
+[![CI](https://github.com/avivgerz-hue/glowup-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/avivgerz-hue/glowup-ui/actions/workflows/ci.yml) · [v0.1.1 · Public Preview](https://github.com/avivgerz-hue/glowup-ui/releases/tag/v0.1.1) · [MIT](LICENSE)
 
 ## Try it in your app
 
 From your project, with Node 20+ and Git:
 
 ```bash
-npx --yes --package=git+https://github.com/avivgerz-hue/glowup-ui.git#v0.1.0 glowup-ui install --agent codex --scope project
+npx --yes --package=git+https://github.com/avivgerz-hue/glowup-ui.git#v0.1.1 glowup-ui install --agent codex --scope project
 ```
 
 Then start a new Codex session and ask:
@@ -88,7 +88,7 @@ One canonical skill, no separate prompt forks. **Installation and discovery are 
 ## Build with us
 
 - [Contributing and development checks](CONTRIBUTING.md)
-- [Share an installation result or real example](docs/feedback.md)
+- [Try the independent testing guide](docs/INDEPENDENT-TESTING.md) · [Share an installation result or real example](docs/feedback.md)
 - [Report a bug or suggest a feature](https://github.com/avivgerz-hue/glowup-ui/issues/new/choose) · [Security reporting](SECURITY.md)
 - [Benchmarks and independent review](benchmarks/PAIRED-EVALUATION.md) · [Research](docs/research/open-source-skill-landscape.md)
 - [Roadmap](docs/ROADMAP.md) · [Changelog](CHANGELOG.md) · [Releases](https://github.com/avivgerz-hue/glowup-ui/releases)

@@ -1,5 +1,7 @@
 # Approval and launch checklist
 
+> Historical preparation record: v0.1.1 was subsequently approved and published. Future-tense/tag-availability statements below describe preparation time, not current release status. See [current preview status](../PREVIEW-RELEASE.md) and [adoption evidence](../adoption-evidence.md). External listings and announcements still require separate approval.
+
 Preparation is not publication. No external listing, release (including draft), npm package, tag or visibility change is authorized by this sprint.
 
 ## Approvals needed

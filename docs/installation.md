@@ -2,10 +2,10 @@
 
 ## One command, from your app
 
-Requires Node 20+ and Git. This runs **our installer from the published GitHub v0.1.0 source**, not an unpublished npm package:
+Requires Node 20+ and Git. This runs **our installer from the published GitHub v0.1.1 source**, not an unpublished npm package:
 
 ```bash
-npx --yes --package=git+https://github.com/avivgerz-hue/glowup-ui.git#v0.1.0 glowup-ui install --agent codex --scope project
+npx --yes --package=git+https://github.com/avivgerz-hue/glowup-ui.git#v0.1.1 glowup-ui install --agent codex --scope project
 ```
 
 For Claude Code, replace `codex` with `claude`. Omit `--agent` to install both default payloads. For all projects, explicitly choose `--scope user`. Different existing copies are kept unless `--force` is requested; replacements go to recoverable backups. No agent configuration, application dependency or Git ignore file is silently modified.
@@ -30,10 +30,10 @@ Remove using the same installer source and agent/scope/project choices, replacin
 The third-party [skills CLI](https://github.com/vercel-labs/skills) was tested with this repository's canonical folder. It currently requires Node 22.20+. Example for a POSIX shell, with its telemetry disabled:
 
 ```bash
-DISABLE_TELEMETRY=1 DO_NOT_TRACK=1 npx skills add https://github.com/avivgerz-hue/glowup-ui/tree/v0.1.0/skills/glowup-ui --skill glowup-ui -a codex --copy
+DISABLE_TELEMETRY=1 DO_NOT_TRACK=1 npx skills add https://github.com/avivgerz-hue/glowup-ui/tree/v0.1.1/skills/glowup-ui --skill glowup-ui -a codex --copy
 ```
 
-The full URL pins the skill payload to v0.1.0; the repository shorthand follows the default branch and can install unreleased changes. The CLI itself is a third-party tool whose version may change.
+The full URL pins the skill payload to v0.1.1; the repository shorthand follows the default branch and can install unreleased changes. The CLI itself is a third-party tool whose version may change.
 
 Follow that tool's own update/removal semantics. Do not layer different installers into the same destination. This option does not establish native activation. Glowup's own installer has no telemetry.
 
@@ -50,6 +50,6 @@ Follow that tool's own update/removal semantics. Do not layer different installe
 
 `node bin/glowup-ui.mjs doctor --project /path/to/app` reports files and conflicting copies. It does not prove full loading, runtime behavior or design quality.
 
-## Current release and prepared candidate
+## Current published release
 
-The default command installs published **v0.1.0**, not the newer README or every change on `main`. The pending **v0.1.1** patch adds the explicit REFINE helper alias and distribution improvements; no v0.1.1 tag exists yet. Use a reviewed checkout for unreleased work. [Installation audit and candidate checks](release/INSTALLATION-AUDIT.md) distinguish published, main and candidate payloads. Never document an unpublished tag as an already-working quick start.
+The default commands above pin published **v0.1.1**. A checkout of `main` can include later unreleased documentation changes. The earlier [installation audit](release/INSTALLATION-AUDIT.md) records preparation-time v0.1.0 and local candidate checks; the [current adoption evidence](adoption-evidence.md) separately records successful remote v0.1.1 installations. Both v0.1.0 and v0.1.1 tags remain unchanged.

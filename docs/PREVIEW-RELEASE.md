@@ -1,7 +1,9 @@
 # Public preview releases
 
-The public repository is https://github.com/avivgerz-hue/glowup-ui. [v0.1.0](https://github.com/avivgerz-hue/glowup-ui/releases/tag/v0.1.0) is published as a pre-release and remains unchanged.
+[v0.1.1](https://github.com/avivgerz-hue/glowup-ui/releases/tag/v0.1.1) is the current published GitHub pre-release, from main commit `df273c5aa448a61989ba57634a7c754b49fe2355`. [v0.1.0](https://github.com/avivgerz-hue/glowup-ui/releases/tag/v0.1.0) remains unchanged. No npm package was published.
 
-The current preparation branch proposes **v0.1.1**, not a published release. [Candidate notes](release/NOTES-v0.1.1.md) and [approval checklist](release/LAUNCH-CHECKLIST.md) separate preparation from tag/release creation. Do not change the stable installation pin until the new tag and artifact have been verified.
+The README and [installation guide](installation.md) now pin v0.1.1. Remote Claude/Codex file installs and the telemetry-disabled standard CLI install were verified against the canonical payload. This is not native activation proof. GitHub source archives are available; separate installer/checksum asset uploads were blocked and were not represented as attached assets.
 
-CREATE, TRANSFORM and REFINE are documented scopes. Installer and browser checks do not establish full native activation, better design quality or lower model cost. These remain unverified. See [compatibility](compatibility.md), [evaluation status](evaluation-status.md) and the [benchmark procedure](../benchmarks/README.md).
+See [release notes](release/NOTES-v0.1.1.md), [independent testing](INDEPENDENT-TESTING.md) and [adoption evidence](adoption-evidence.md). The earlier [launch checklist](release/LAUNCH-CHECKLIST.md) records the preparation procedure; it does not authorize new listings or announcements.
+
+CREATE, TRANSFORM and REFINE are documented scopes. Functional/packaging checks do not establish better model output, broad adoption or lower cost. Future releases, external listings and announcements need separate owner approval.
