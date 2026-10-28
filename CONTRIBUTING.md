@@ -36,3 +36,5 @@ Use the [security policy](SECURITY.md) for sensitive findings. Contributions are
 Start with a small reproducible problem: a broken example, clearer instructions, a helper edge case or a documented accessibility issue. [Bug reports and suggestions](https://github.com/avivgerz-hue/glowup-ui/issues/new/choose) are welcome; no large proposal document is required.
 
 For the public gallery, run `node benchmarks/showcase.mjs --install` under Node 22, inspect desktop and phone captures, and keep the sanitized source/image hashes in `assets/examples/evidence.json`. `--check` exercises the examples without changing committed captures. Original SVG artwork is rendered with `node benchmarks/brand-assets.mjs`; preserve accessible labels and avoid external images or tracking URLs. Keep the published release tag immutable.
+
+Optional [installation outcomes and real examples](docs/feedback.md) are welcome. No telemetry or raw logs are required. Clearly separate installation, discovery, full instruction loading and actual implementation; never convert self-reports into controlled benchmark claims.

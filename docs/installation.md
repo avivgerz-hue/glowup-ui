@@ -30,8 +30,10 @@ Remove using the same installer source and agent/scope/project choices, replacin
 The third-party [skills CLI](https://github.com/vercel-labs/skills) was tested with this repository's canonical folder. It currently requires Node 22.20+. Example for a POSIX shell, with its telemetry disabled:
 
 ```bash
-DISABLE_TELEMETRY=1 DO_NOT_TRACK=1 npx skills add avivgerz-hue/glowup-ui --skill glowup-ui -a codex --copy
+DISABLE_TELEMETRY=1 DO_NOT_TRACK=1 npx skills add https://github.com/avivgerz-hue/glowup-ui/tree/v0.1.0/skills/glowup-ui --skill glowup-ui -a codex --copy
 ```
+
+The full URL pins the skill payload to v0.1.0; the repository shorthand follows the default branch and can install unreleased changes. The CLI itself is a third-party tool whose version may change.
 
 Follow that tool's own update/removal semantics. Do not layer different installers into the same destination. This option does not establish native activation. Glowup's own installer has no telemetry.
 
@@ -47,3 +49,7 @@ Follow that tool's own update/removal semantics. Do not layer different installe
 | Unsupported agent | Use a currently documented custom `--dest` or the file-reading fallback in [compatibility](compatibility.md); do not guess a directory. |
 
 `node bin/glowup-ui.mjs doctor --project /path/to/app` reports files and conflicting copies. It does not prove full loading, runtime behavior or design quality.
+
+## Current release and prepared candidate
+
+The default command installs published **v0.1.0**, not the newer README or every change on `main`. The pending **v0.1.1** patch adds the explicit REFINE helper alias and distribution improvements; no v0.1.1 tag exists yet. Use a reviewed checkout for unreleased work. [Installation audit and candidate checks](release/INSTALLATION-AUDIT.md) distinguish published, main and candidate payloads. Never document an unpublished tag as an already-working quick start.
