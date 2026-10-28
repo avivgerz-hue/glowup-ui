@@ -1,0 +1,16 @@
+name: Feature suggestion
+description: Explain the user problem and a small, useful improvement.
+title: "[Idea]: "
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What are you trying to do?
+      description: Use a concrete task without private project or customer details.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Smallest useful change
+      description: Explain the result you need and any alternatives. Avoid unsupported quality or speed claims.

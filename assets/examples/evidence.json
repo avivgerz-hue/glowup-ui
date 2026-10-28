@@ -1,0 +1,128 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-10-28T12:47:49.009Z",
+  "kind": "maintainer-directed examples and controlled fixture edits; not native activation or a model A/B benchmark",
+  "browser": {
+    "name": "Chromium",
+    "version": "154.0.8037.57",
+    "deviceScaleFactor": 1,
+    "colorScheme": "light",
+    "locale": "en-US",
+    "timezoneId": "UTC",
+    "reducedMotion": "reduce"
+  },
+  "captures": [
+    {
+      "file": "create-desktop.png",
+      "width": 1440,
+      "height": 900,
+      "route": "/#overview",
+      "sha256": "0d19dd96aa6aeb8c071ffb3748330b649f3f9d1ac1be0ba36ea763ba2b7c0103"
+    },
+    {
+      "file": "transform-before-desktop.png",
+      "width": 1440,
+      "height": 900,
+      "route": "/",
+      "sha256": "f85edb31eaabd023403acf78d6ee3092ae3f27f7689e68fb96198d60b066db7f"
+    },
+    {
+      "file": "transform-after-desktop.png",
+      "width": 1440,
+      "height": 900,
+      "route": "/",
+      "sha256": "aa5f39421df643671c4da19cc297229f1db716b322e439f418ba43dc8b2c5534"
+    },
+    {
+      "file": "refine-after-desktop.png",
+      "width": 1440,
+      "height": 900,
+      "route": "/",
+      "sha256": "a7fb122215a083e32292f60d841d37e035c718b3f31eccd3d88c9c7a7c66fd68"
+    },
+    {
+      "file": "create-mobile.png",
+      "width": 390,
+      "height": 844,
+      "route": "/#overview",
+      "sha256": "8bc2db888d1f9f52afe828bf5391463ebfb15d387d6ade34fcf5b5d96bc0931e"
+    },
+    {
+      "file": "transform-before-mobile.png",
+      "width": 390,
+      "height": 844,
+      "route": "/",
+      "sha256": "a892fccd3f1a96ccd2a203c951872849f4320d6e1f97fb295ed701a3c949480a"
+    },
+    {
+      "file": "transform-after-mobile.png",
+      "width": 390,
+      "height": 844,
+      "route": "/",
+      "sha256": "fc9a9fe93722b836c1a2aade00343f68f1aa5c9e21177a6eb3dceb89d2fc0973"
+    },
+    {
+      "file": "refine-after-mobile.png",
+      "width": 390,
+      "height": 844,
+      "route": "/",
+      "sha256": "2c9d4a5324541f146202e9f5ae8c96cf2cd53566fd1f82d45dbd4ac19aae4f89"
+    }
+  ],
+  "checks": [
+    "CREATE search filters rows",
+    "CREATE category/search empty state",
+    "CREATE validated transaction persists",
+    "CREATE reload retains local state",
+    "CREATE preferences save",
+    "CREATE all three phone routes fit",
+    "REFINE desktop: 44px logout and named keyboard chart",
+    "REFINE mobile: 44px logout and named keyboard chart",
+    "TRANSFORM identical data and 12 original tests on each version",
+    "REFINE keeps CSS, logo, data and original tests unchanged"
+  ],
+  "tests": {
+    "transformBefore": 12,
+    "transformAfter": 12,
+    "refineAfter": 12,
+    "createModel": 3
+  },
+  "sources": {
+    "transform": {
+      "before": "demo/before",
+      "after": "demo/after",
+      "provenance": "Bundled maintainer fixtures, freshly rendered from this clean repository. No native-agent quality comparison is claimed."
+    },
+    "refine": {
+      "before": "demo/after",
+      "operation": "benchmarks/lib/refine-edits.mjs: improve(E)",
+      "provenance": "Scripted, identity-preserving changes: logout touch target and a named, keyboard-scrollable chart.",
+      "preservationPassed": true
+    },
+    "create": {
+      "directory": "demo/create-ledger",
+      "provenance": "Maintainer-directed Codex implementation in this PR after explicit CREATE/finance-reference reading; not independent native activation or an A/B trial.",
+      "designDecisions": [
+        "Dominant balance and trend",
+        "Subordinate monthly context",
+        "Aligned integer-cent amounts",
+        "Shared navigation and phone-adapted composition"
+      ]
+    }
+  },
+  "baselineFindings": [
+    {
+      "device": "mobile",
+      "kind": "pre-existing document overflow",
+      "preservedInBeforeScreenshot": true
+    }
+  ],
+  "pass": true,
+  "dataHash": "01576527fb27e4ef86a7fd1e74e64fbe7af11c36d64e928f87d7ec8dece71bb2",
+  "sourceHashes": {
+    "create": "0ef0092de1d52682e7a10611aa654153122f695e390d0a1a65d51b4b42136b5c",
+    "transformBefore": "497a4fd2b7ed03217730f46f79f91c3e45dcce8513909783c0e074124cbff2b7",
+    "transformAfter": "6e79e1e134d0eb95181c9affc6207939673fb5965d36a36211d3940000393b11",
+    "refineEdit": "3a96189c2abca35665b69f48f63b6c1c33d1b5d91a70cba6ba07cc23534a8c75"
+  }
+}

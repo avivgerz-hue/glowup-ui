@@ -1,6 +1,6 @@
 ---
 name: glowup-ui
-description: Build distinctive new web apps or substantially redesign existing frontends. Use when asked for app creation, full UI redesign, modernization, visual hierarchy, responsive layouts, or scoped visual polish. CREATE establishes composition and shared components on the first pass. TRANSFORM improves an existing app across affected pages while preserving routes, content, data, APIs, behavior and branding. Match visual change to the request; a full redesign permits layout and typography changes, minor polish stays local. Especially useful for React, Vite, Next.js and Tailwind; adapt to the existing stack. Skip backend-only work.
+description: Build distinctive new web apps, transform existing frontends, or refine already-designed interfaces. Use when asked for app creation, full UI redesign, modernization, visual hierarchy, responsive layouts, or scoped visual polish. CREATE establishes composition and shared components on the first pass. TRANSFORM improves an existing app across affected pages while preserving routes, content, data, APIs, behavior and branding. REFINE preserves identity and composition while repairing observed weaknesses. Especially useful for React, Vite, Next.js and Tailwind; adapt to the existing stack. Skip backend-only work.
 license: MIT
 compatibility: Agent Skills-compatible coding agents including Claude Code and Codex. Helpers use Node.js 20+ built-ins. Browser review uses an available browser or optional Playwright; never installs silently. No paid service required by the skill.
 metadata:
@@ -15,6 +15,7 @@ Turn the user's task into a deliberate composition, then implement it. `<skill-d
 ## Select scope
 - **CREATE:** empty project/new standalone product. Read [create-mode.md](references/create-mode.md). Establish the design in the first implementation.
 - **TRANSFORM:** existing product, including new pages within it. Read [transform-mode.md](references/transform-mode.md). **Polish** keeps composition and identity. **Full redesign** may change layout, type hierarchy and shared visual components; it preserves brand, product and behavior. Do not interpret every redesign as tiny polish. Rebranding requires explicit intent.
+- **REFINE** (polish): an already-designed interface or a local improvement. Use TRANSFORM's polish scope; preserve identity and composition, fix observed weaknesses.
 - One element or bug: fix that scope using the existing system; skip scaffolding and broad audit.
 
 ## Execute

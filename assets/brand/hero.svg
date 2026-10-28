@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420" role="img" aria-labelledby="title desc">
+<title id="title">Glowup UI</title><desc id="desc">Your app works. Now make it look incredible. An open-source design skill for coding agents. Create, Transform, Refine.</desc>
+<rect width="1280" height="420" fill="#123b32"/><path d="M880 48V372" stroke="#52736a"/>
+<g transform="translate(62 70) scale(1.18)" color="#f5f4e8"><path d="M8 8H46V18H18V46H46V36H32V26H56V56H8Z" fill="currentColor"/><path d="M50 0H64V14H54V10H50Z" fill="#d6f65c"/></g>
+<g font-family="DejaVu Sans,Arial,sans-serif"><text x="158" y="135" fill="#f5f4e8" font-size="72" font-weight="600" letter-spacing="-4">Glowup UI</text>
+<text x="64" y="220" fill="#f5f4e8" font-size="38" letter-spacing="-1">Your app works.</text><text x="64" y="270" fill="#d6f65c" font-size="38" letter-spacing="-1">Now make it look incredible.</text>
+<text x="64" y="376" fill="#c1d2c6" font-size="12" letter-spacing="2">AN OPEN-SOURCE DESIGN SKILL FOR CODING AGENTS</text>
+<g fill="#f5f4e8" font-size="25" letter-spacing="-.5"><text x="946" y="100">Create.</text><text x="946" y="180">Transform.</text><text x="946" y="260">Refine.</text></g>
+<g fill="#b3c9ba" font-size="11" letter-spacing="1.2"><text x="946" y="124">START WITH INTENTION</text><text x="946" y="204">RETHINK THE WHOLE UI</text><text x="946" y="284">KEEP WHAT WORKS</text></g></g></svg>
