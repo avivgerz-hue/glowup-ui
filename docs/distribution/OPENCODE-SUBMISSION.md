@@ -9,7 +9,7 @@ Checked 28 October 2026. **Not submitted. No fork or upstream PR created.**
 - Proposed title: `docs: add Glowup UI design skill resource`
 - Exact upstream file: **`data/resources/glowup-ui.yaml`**, copied unchanged from [the prepared YAML](submissions/glowup-ui.yaml).
 
-Resources is the category for guides/templates/configuration. A portable skill is not an OpenCode plugin, theme or built-in agent. Do not edit README.md; upstream generates it. Required fields are name, repo, tagline (at most 120 characters) and description; the schema also supports the installation field used here. No guessed minimum OpenCode version or misleading `.opencode` scope metadata is added.
+Resources is the category for guides/templates/configuration. A portable skill is not an OpenCode plugin, theme or built-in agent. Do not edit README.md; upstream generates it. Required fields are name, repo, tagline (at most 120 characters) and description; the schema also supports the installation field used here. The entry explicitly sets `scope: [project]` because its command uses project scope; omission would default to global in upstream export. Actual discovery is `.agents/skills`, as documented in the installation field. No minimum OpenCode version is guessed.
 
 ## Proposed PR body
 

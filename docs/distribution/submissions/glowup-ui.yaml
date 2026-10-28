@@ -6,6 +6,8 @@ description: >-
   Node helpers, preservation checks and reproducible desktop/mobile examples.
   OpenCode skill-path installation is tested; native OpenCode activation and
   comparative design quality remain unverified. Public preview v0.1.1.
+scope:
+  - project
 installation: |
   Requires Node.js 20+ and Git. From the application's root directory:
 
