@@ -76,9 +76,9 @@ Prepared line:
 - [avivgerz-hue/glowup-ui](https://github.com/avivgerz-hue/glowup-ui/tree/main/skills/glowup-ui) - UI creation, redesign and refinement with preservation checks
 ```
 
-Prepared title: `Add avivgerz-hue/glowup-ui to Development`
+Prepared title: `Add avivgerz-hue/glowup-ui to Development and Testing`
 
-Prepared context: “Submitted for the author, with AI assistance. Public MIT-licensed skill with examples and installation tests. [Insert the exact existing category name in the title and verified eligibility facts at submission time.] Native activation and design superiority are not certified.”
+Prepared context: “Submitted for the author, with AI assistance. Public MIT-licensed skill with examples and installation tests. Append to the verified Development and Testing category; record freshly verified eligibility facts at submission time. Native activation and design superiority are not certified.”
 
 ## 5. Composio
 
