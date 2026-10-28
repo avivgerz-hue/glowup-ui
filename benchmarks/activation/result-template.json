@@ -1,0 +1,49 @@
+{
+  "status": "not-run",
+  "agent": null,
+  "agentVersion": null,
+  "model": null,
+  "effort": null,
+  "condition": null,
+  "taskHash": null,
+  "skillHash": null,
+  "activation": {
+    "discovered": null,
+    "requested": null,
+    "fullBodyDelivered": null,
+    "referenceEvidence": [],
+    "behaviorEvidence": []
+  },
+  "efficiency": {
+    "seconds": null,
+    "inputTokens": null,
+    "outputTokens": null,
+    "toolCalls": null,
+    "reviewIterations": null,
+    "addedDependencies": null
+  },
+  "checks": {
+    "baselineTests": null,
+    "afterTests": null,
+    "build": null,
+    "keyboardAndPrimaryFlow": null
+  },
+  "screenshots": [],
+  "blindReview": {
+    "reviewer": null,
+    "overallPolish": null,
+    "typography": null,
+    "composition": null,
+    "hierarchy": null,
+    "distinctiveness": null,
+    "consistency": null,
+    "responsive": null,
+    "accessibility": null,
+    "functionalCorrectness": null,
+    "rationale": null,
+    "referenceFidelity": null
+  },
+  "limitations": [
+    "Null means unmeasured; never replace missing evidence with zero or an estimated score."
+  ]
+}

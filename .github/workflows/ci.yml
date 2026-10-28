@@ -1,0 +1,109 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  security:
+    name: Dependency security audits
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm audit --prefix benchmarks --package-lock-only --audit-level=low
+      - run: npm audit --prefix demo/before --package-lock-only --audit-level=low
+      - run: npm audit --prefix demo/after --package-lock-only --audit-level=low
+      - run: npm audit --prefix benchmarks/fixtures/plotline-designed --package-lock-only --audit-level=low
+      - run: npm audit --prefix benchmarks/fixtures/helpdesk-before --package-lock-only --audit-level=low
+      - run: npm audit --prefix benchmarks/fixtures/booking-before --package-lock-only --audit-level=low
+
+  browser:
+    name: CREATE and REFINE browser contracts
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: benchmarks
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: benchmarks/package-lock.json
+      - run: npm ci --no-audit --no-fund
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:browser
+      - run: node chat-journey.mjs --out results/ci-chat
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: chat-browser-evidence
+          path: benchmarks/results/ci-chat
+          if-no-files-found: ignore
+
+  test:
+    name: Tests (Node ${{ matrix.node }}, ${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        node: [20, 22]
+        include:
+          - os: windows-latest
+            node: 22
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - run: node bin/glowup-ui.mjs validate
+      - run: node scripts/run-tests.mjs
+      - run: node benchmarks/refine-safety.mjs
+
+  spec:
+    name: Agent Skills spec + Claude plugin manifest
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate with the reference validator (skills-ref)
+        run: |
+          pip install skills-ref
+          agentskills validate skills/glowup-ui
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate Claude Code plugin + marketplace manifests
+        run: npx --yes @anthropic-ai/claude-code plugin validate .
+
+  demo:
+    name: Demo app (${{ matrix.variant }}) builds and tests
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        variant: [before, after]
+    defaults:
+      run:
+        working-directory: demo/${{ matrix.variant }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: demo/${{ matrix.variant }}/package-lock.json
+      - run: npm ci
+      - run: npm test
+      - run: npm run build

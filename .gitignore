@@ -1,0 +1,16 @@
+node_modules/
+dist/
+.demo-work/
+.glowup/
+.glowup-ui/
+.DS_Store
+.env
+.env.*
+!.env.example
+benchmarks/results/
+docs/screenshots/
+*.bundle
+*.private
+*.private.*
+privacy-backups/
+launch-evidence/

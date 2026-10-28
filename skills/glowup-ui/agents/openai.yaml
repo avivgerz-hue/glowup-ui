@@ -1,0 +1,8 @@
+interface:
+  display_name: "Glowup UI"
+  short_description: "Create apps; redesign layouts while preserving behavior"
+  brand_color: "#7C3AED"
+  default_prompt: "Use $glowup-ui for this UI task. Build a new app when requested; for an existing app match polish or full redesign scope, improve composition and shared components, and preserve brand, content and behavior."
+
+policy:
+  allow_implicit_invocation: true

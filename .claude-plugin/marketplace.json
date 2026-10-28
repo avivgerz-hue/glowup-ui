@@ -1,0 +1,14 @@
+{
+  "name": "glowup-ui",
+  "description": "Glowup UI: redesign existing web apps without changing behavior.",
+  "owner": {
+    "name": "Glowup UI contributors"
+  },
+  "plugins": [
+    {
+      "name": "glowup-ui",
+      "source": "./",
+      "description": "Redesign an existing web app across every page: design system, consistent pages, accessibility, and before/after screenshots."
+    }
+  ]
+}

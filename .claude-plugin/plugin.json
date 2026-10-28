@@ -1,0 +1,20 @@
+{
+  "name": "glowup-ui",
+  "description": "Build new web UIs with a distinct visual direction, or redesign existing apps across every page without changing behavior.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Glowup UI contributors"
+  },
+  "homepage": "https://github.com/avivgerz-hue/glowup-ui",
+  "repository": "https://github.com/avivgerz-hue/glowup-ui",
+  "license": "MIT",
+  "keywords": [
+    "design",
+    "ui",
+    "redesign",
+    "tailwind",
+    "react",
+    "nextjs",
+    "accessibility"
+  ]
+}

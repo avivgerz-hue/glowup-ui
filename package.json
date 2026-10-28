@@ -1,0 +1,44 @@
+{
+  "name": "glowup-ui",
+  "version": "0.1.0",
+  "description": "An Agent Skill for Claude Code, Codex, and other coding agents that builds new web UIs with a distinct visual direction, or redesigns existing ones without changing behavior.",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "glowup-ui": "bin/glowup-ui.mjs"
+  },
+  "files": [
+    "bin/",
+    "lib/",
+    "skills/",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/avivgerz-hue/glowup-ui.git"
+  },
+  "keywords": [
+    "agent-skills",
+    "claude-code",
+    "codex",
+    "github-copilot",
+    "gemini-cli",
+    "opencode",
+    "cursor",
+    "design",
+    "ui",
+    "redesign",
+    "tailwind",
+    "react",
+    "nextjs"
+  ],
+  "scripts": {
+    "test": "node scripts/run-tests.mjs",
+    "validate": "node bin/glowup-ui.mjs validate",
+    "check": "npm run validate && npm test"
+  }
+}
