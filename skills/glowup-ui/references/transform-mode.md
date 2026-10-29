@@ -16,6 +16,7 @@ Use `--scope refine` instead for polish. The helper describes structure; it cann
 Checkpoint includes dirty user files, writes once and never restores files. For a new task use a separate `--file .glowup/<task>.json`; never regenerate after editing. Read shell/theme/shared controls, representative routes and original tests in one batch. Run the original build and relevant tests; separate existing failures. Capture original affected routes at desktop and phone with the same data/state planned for after.
 
 ## Decide and implement
+For substantial work follow [design-decisions.md](design-decisions.md): distinguish recompose from reframe, choose a product-specific composition and account for requested screens/states. Honor layout constraints without confusing brand preservation with preserving a weak layout.
 Choose up to three **priorities**, not three tiny edits. Describe an observed problem and an acceptance condition for each. Example: “Booking selection and summary compete; make selection dominant, group date/time choices, put an accurate summary beside them on desktop and near submission on phone.” This may affect layout, type, controls and multiple pages.
 
 If hierarchy is unclear, use `composition.mjs --product "..." --mode redesign` for a compact recipe. Use existing tokens/components before inventing another system; no generated replacement theme, kit copying or dependency additions. Plan the page's dominant region and subordinate context before tuning borders.

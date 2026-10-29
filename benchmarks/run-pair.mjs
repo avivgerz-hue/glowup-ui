@@ -7,13 +7,13 @@ import { spawn, spawnSync } from 'node:child_process';
 import { parseArgs } from 'node:util';
 import { pairFromManifest, agentCommand, codexMetrics, blocker, eventBlocker, applicationHash } from './lib/pair.mjs';
 import { parseTranscript } from './lib/metrics.mjs';
-const {values:a}=parseArgs({options:{manifest:{type:'string'},kind:{type:'string'},agent:{type:'string'},model:{type:'string'},effort:{type:'string'},bin:{type:'string'},out:{type:'string'},run:{type:'boolean'},'timeout-ms':{type:'string',default:'600000'},'isolation-note':{type:'string'}}});
-if(!a.manifest || !['create','refine'].includes(a.kind)) throw new Error('Use --manifest FILE --kind create|refine --agent claude|codex --model EXACT --effort LEVEL [--run --isolation-note TEXT]');
+const {values:a}=parseArgs({options:{manifest:{type:'string'},left:{type:'string',default:'without'},right:{type:'string',default:'with'},kind:{type:'string'},agent:{type:'string'},model:{type:'string'},effort:{type:'string'},bin:{type:'string'},out:{type:'string'},run:{type:'boolean'},'timeout-ms':{type:'string',default:'600000'},'isolation-note':{type:'string'}}});
+if(!a.manifest || !['create','refine','finance','booking'].includes(a.kind)) throw new Error('Use --manifest FILE --kind create|refine|finance|booking [--left baseline --right candidate] --agent claude|codex --model EXACT --effort LEVEL [--run --isolation-note TEXT]');
 const timeout=Number(a['timeout-ms']);
 if(!Number.isInteger(timeout)||timeout<1000||timeout>3600000) throw new Error('timeout-ms must be 1000..3600000');
 if(a.run&&!a['isolation-note']?.trim()) throw new Error('Before --run, audit global/ancestor/plugin skills and tools for both conditions; record how in --isolation-note. Do not disable all skills/tools only for the control.');
-const pair=pairFromManifest(a.manifest,a.kind);
-const specs=pair.map(c=>agentCommand(a.agent,a.bin,a.model,a.effort,c.project,c.task,c.condition));
+const pair=pairFromManifest(a.manifest,a.kind,{conditions:[a.left,a.right]});
+const specs=pair.map(c=>agentCommand(a.agent,a.bin,a.model,a.effort,c.project,c.task,c.skillHash?'with':'without'));
 const out=a.out?path.resolve(a.out):fs.mkdtempSync(path.join(os.tmpdir(),'glowup-pair-'));
 if(a.out) fs.mkdirSync(out,{recursive:false,mode:0o700});
 const report={status:'prepared-not-run',agent:a.agent,model:a.model,effort:a.effort,timeoutMs:timeout,startingAppHash:pair[0].appHash,taskHash:pair[0].taskHash,isolationNote:a['isolation-note']??null,isolationVerified:false,order:pair.map(c=>c.condition),cases:pair.map(c=>({condition:c.condition,project:c.project,skillHash:c.skillHash,status:'not-run',screenshots:[],blindScores:null}))};
@@ -56,7 +56,7 @@ if(a.run){
   for(let i=0;i<pair.length;i++){
     const c=pair[i], runResult=await run(specs[i],c.condition);
     const log=path.join(out,c.condition+'.jsonl');
-    const canonical=c.condition==='with'?fs.readFileSync(path.join(c.project,'.agents/skills/glowup-ui/SKILL.md'),'utf8'):'';
+    const canonical=c.skillHash?fs.readFileSync(path.join(c.project,'.agents/skills/glowup-ui/SKILL.md'),'utf8'):'';
     const metrics=a.agent==='claude'?parseTranscript(log,c.project):codexMetrics(fs.readFileSync(log,'utf8'),canonical);
     report.cases[i]={...report.cases[i],...runResult,metrics,status:runResult.blocked||(runResult.error?'blocked-cli':runResult.timedOut?'blocked-timeout':(runResult.exitCode===0||runResult.cleanupAfterCompletion)&&metrics.completed?'completed':'incomplete'),finalAppHash:applicationHash(c.project),build:null,functionality:null};
     save();

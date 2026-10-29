@@ -5,6 +5,8 @@ Build a new app, site, or page that looks designed from the first screenshot. Ta
 ## 1. Brief (extend the opening scope statement; no separate plan)
 Product and audience; only the routes or screens needed by the request; the key data and its realistic sample values; the main action per screen; surface type; brand constraints. Choose routes that make a complete product (a store has browse, product, cart, checkout, confirmation; a dashboard has overview, a list, a detail or report, settings, sign-in).
 
+Compare two or three composition directions using [design-decisions.md](design-decisions.md) before committing to the first implementation, unless the user has already specified the direction. Choose from real content and constraints; do not build multiple prototypes.
+
 ## 2. Project in one call
 New project (no `package.json`):
 ```
