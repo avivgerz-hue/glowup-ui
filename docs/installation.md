@@ -27,15 +27,30 @@ Remove using the same installer source and agent/scope/project choices, replacin
 
 ## Optional standard installer
 
-The third-party [skills CLI](https://github.com/vercel-labs/skills) was tested with this repository's canonical folder. It currently requires Node 22.20+. Example for a POSIX shell, with its telemetry disabled:
+The third-party [skills CLI](https://github.com/vercel-labs/skills) requires **Node 22.20+** and Git. Run from the application's root. This POSIX-shell command pins both CLI **1.7.4** and Glowup **v0.1.1**, disables telemetry/security-audit requests, and uses project scope:
 
 ```bash
-DISABLE_TELEMETRY=1 DO_NOT_TRACK=1 npx skills add https://github.com/avivgerz-hue/glowup-ui/tree/v0.1.1/skills/glowup-ui --skill glowup-ui -a codex --copy
+DISABLE_TELEMETRY=1 DO_NOT_TRACK=1 npx --yes skills@1.7.4 add 'avivgerz-hue/glowup-ui#v0.1.1' --skill glowup-ui -a codex --copy
 ```
 
-The full URL pins the skill payload to v0.1.1; the repository shorthand follows the default branch and can install unreleased changes. The CLI itself is a third-party tool whose version may change.
+`#v0.1.1` selects the Git ref; `--skill glowup-ui` selects the canonical skill. The unpinned shorthand `avivgerz-hue/glowup-ui` follows the default branch, so it can install unreleased changes. `--copy` avoids symlink installation. Project scope is the default; omit `-g` to avoid user-wide installation. For Claude Code, the standard CLI's agent name is `claude-code` (our installer's name is `claude`); OpenCode uses `opencode`. See the [upstream command reference](https://github.com/vercel-labs/skills/blob/main/docs/commands.md) and [compatibility limits](compatibility.md).
 
-Follow that tool's own update/removal semantics. Do not layer different installers into the same destination. This option does not establish native activation. Glowup's own installer has no telemetry.
+Inspect and remove a project installation with the same tool:
+
+```bash
+DISABLE_TELEMETRY=1 DO_NOT_TRACK=1 npx --yes skills@1.7.4 list -a codex
+DISABLE_TELEMETRY=1 DO_NOT_TRACK=1 npx --yes skills@1.7.4 remove glowup-ui -a codex
+```
+
+Review existing copies before installing: the standard CLI can overwrite destinations, and its removal deletes the selected installation rather than using Glowup's recoverable backups. Do not layer installers or assume a same-name skill is a separate version. Codex and OpenCode share the project `.agents/skills` location, so removing that payload can affect both. Keep local customizations separately before changing installer or source. Avoid unreviewed `skills update` when retaining an exact release; deliberately reinstall a reviewed ref instead.
+
+**Verified 29 October 2026:** one actual standard-CLI 1.7.4 install/removal cycle for Codex in a disposable Linux project, with an isolated user directory/cache and telemetry disabled. All **53 canonical payload files** matched the GitHub v0.1.1 archive byte-for-byte; an installed composition helper executed; project listing reflected installation/removal; the removed payload and lock entry were absent afterward. Unrelated files and another skill remained unchanged; no user-wide installation was created. Standard-CLI installation/removal for other hosts/platforms and native agent activation were not tested in this check. These are maintainer infrastructure checks, not independent usage or design-quality evidence.
+
+### How skills.sh discovery works
+
+The CLI discovers `skills/glowup-ui/SKILL.md` directly in GitHub; no new discovery manifest is needed. Website indexing is separate. The [closing response in upstream issue #2367](https://github.com/vercel-labs/skills/issues/2367#issuecomment-6029866319) states that genuine installations with telemetry enabled normally trigger indexing and that no manual reindex request is needed. Discovery-only checks and the telemetry-disabled commands above do not send that installation event.
+
+For an intended real use of Glowup, an owner may choose to run the same pinned install **once**, without the `DISABLE_TELEMETRY` / `DO_NOT_TRACK` opt-outs set for that process. The third-party CLI then sends its normal public-source installation event and may request a security audit; Glowup itself has no telemetry. This is optional, requires an informed privacy choice, and is not a guarantee of indexing or a native activation test. Do not replay telemetry, repeat installs to raise counts, or assume a propagation deadline. If the listing remains absent after a genuine install, inspect the actual result before considering any further action. Automated validation keeps both opt-outs enabled.
 
 ## First-use troubleshooting
 
