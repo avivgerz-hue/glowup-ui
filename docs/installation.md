@@ -36,7 +36,7 @@ Run this from an existing app root. Review `installed`, `missingFiles`, validati
 
 Doctor inspects default/configured shared and Claude paths plus ancestors, not every plugin cache or host root. If multiple copies appear, identify what the host actually loads before removing any; identical copies can also coexist. Do not guess precedence or delete both. For custom roots, consult the host's documentation and use an explicit `--dest` when appropriate. A file-reading fallback can be useful, but is not native activation certification. See [activation diagnostics](ACTIVATION-DEBUG.md) for opt-in temporary probes; no marker belongs in the production skill.
 
-Current-checkout diagnostic improvements are **unreleased**; the pinned v0.1.1 command above retains its published output. In that release, use JSON for detailed findings and consult [troubleshooting](#first-use-troubleshooting) rather than assuming every command supports `--help`.
+**v0.1.2 includes** doctor help, stricter project-root validation, detailed text findings and multiple-location warnings. The pinned v0.1.1 command above predates those fixes: use JSON for detailed findings and consult [troubleshooting](#first-use-troubleshooting). Until v0.1.2 is published, test its improvements from a reviewed checkout below; do not assume the v0.1.1 tag contains them.
 
 ## Reviewed checkout or downloaded release
 
@@ -47,7 +47,7 @@ node bin/glowup-ui.mjs validate
 node bin/glowup-ui.mjs install --agent codex --scope project --project /absolute/path/to/app
 ```
 
-This uses current source. The one-command path above pins the published release. Changes listed as unreleased in the changelog are available from a reviewed checkout until the next release. Do not relabel an existing tag to update it.
+This uses the reviewed checkout, including v0.1.2 when its package/skill metadata says 0.1.2. The one-command path above deliberately pins published v0.1.1 until the new tag exists and remote installation is verified. Never substitute a moving branch for an exact candidate in a controlled comparison. Do not relabel an existing tag to update documentation.
 
 Remove using the same installer source and agent/scope/project choices, replacing `install` with `uninstall`. Removal moves the recognized payload to a backup, including local customizations. Review backups before discarding them. `--dry-run` writes nothing. Updates use a reviewed new checkout/release and an explicit `install --force` after inspecting differences; no silent update or npm publication is implied.
 
@@ -104,4 +104,4 @@ Run from the same app root. Match the original agent, scope, custom `--dest` or 
 
 ## Current published release
 
-The default commands above pin published **v0.1.1**. A checkout of `main` can include later unreleased documentation changes. The earlier [installation audit](release/INSTALLATION-AUDIT.md) records preparation-time v0.1.0 and local candidate checks; the [current adoption evidence](adoption-evidence.md) separately records successful remote v0.1.1 installations. Both v0.1.0 and v0.1.1 tags remain unchanged.
+The default commands above pin published **v0.1.1**. A checkout of `main` can include later unreleased documentation changes. The earlier [installation audit](release/INSTALLATION-AUDIT.md) records preparation-time v0.1.0 and local candidate checks; the [current adoption evidence](adoption-evidence.md) separately records successful remote v0.1.1 installations. v0.1.2 is the prepared release target; see its [notes and publication gates](release/NOTES-v0.1.2.md). Candidate package checks are distinct from the earlier remote v0.1.1 checks. Both v0.1.0 and v0.1.1 tags remain unchanged.

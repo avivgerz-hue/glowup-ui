@@ -7,6 +7,8 @@ A portable design skill for coding agents. **Create a considered interface, tran
 
 [![CI](https://github.com/avivgerz-hue/glowup-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/avivgerz-hue/glowup-ui/actions/workflows/ci.yml) · [v0.1.1 · Public Preview](https://github.com/avivgerz-hue/glowup-ui/releases/tag/v0.1.1) · [MIT](LICENSE)
 
+**v0.1.2 release preparation:** [engineering fixes and verification limits](docs/release/NOTES-v0.1.2.md). The commands below deliberately retain published v0.1.1 until the new tag is published and verified. To test the candidate now, use a reviewed checkout as described in the [installation guide](docs/installation.md#reviewed-checkout-or-downloaded-release).
+
 ## Try it in your app
 
 From your project, with Node 20+ and Git:

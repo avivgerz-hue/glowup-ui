@@ -1,5 +1,7 @@
 # Skill reliability sprint · 29 October 2026
 
+> Historical PR #4 record: the fixes are now merged into main and included in the v0.1.2 release target. Original candidate hashes and results below remain unchanged for reproducibility; they are not current publication or native-activation claims. See [release preparation](../release/NOTES-v0.1.2.md).
+
 Candidate for review, not a released version. Base: `0cdbd06cceaf6444edfe5646dcb3b66ed0204b7d` (merged PR #3). Public preview remains v0.1.1; tags/releases unchanged. See the [testing handoff](testing-agent-handoff.md) for the exact implementation commit.
 
 ## Five highest-impact findings
