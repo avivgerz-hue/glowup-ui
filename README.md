@@ -25,6 +25,16 @@ $glowup-ui Transform this app across all pages. Improve composition, navigation,
 
 Claude Code: replace `codex` with `claude`, then invoke `/glowup-ui`. The command runs our installer from the tagged GitHub source; **no npm publication is implied**. [Other agents, updates, safe uninstall and troubleshooting →](docs/installation.md)
 
+### Or use the standard skills CLI
+
+With Node **22.20+** and Git, from your app's root (project scope; telemetry disabled):
+
+```bash
+DISABLE_TELEMETRY=1 DO_NOT_TRACK=1 npx --yes skills@1.7.4 add 'avivgerz-hue/glowup-ui#v0.1.1' --skill glowup-ui -a codex --copy
+```
+
+Both the CLI and skill release are pinned. For Claude Code, use `-a claude-code`. The standard CLI can replace existing copies; review them first and use one installer per destination. Our installer above supports Node 20+ and recoverable backups. Installation is not native activation proof. [Removal, compatibility and skills.sh indexing →](docs/installation.md#optional-standard-installer)
+
 ## See the difference
 
 **Real renders. Fictional data. Maintainer examples, not controlled agent benchmarks.**
