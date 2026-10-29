@@ -37,7 +37,17 @@ export function measurePage() {
     const points = [[.5,.5],[.25,.25],[.75,.25],[.25,.75],[.75,.75]];
     const hits = points.map(([x,y]) => document.elementFromPoint(left + (right-left)*x, top + (bottom-top)*y));
     const reaches = hit => hit && (el === hit || el.contains(hit) || hit.closest('label')?.control === el);
-    if (hits.every(hit => !reaches(hit))) occlusion.blocked.push({ tag: el.tagName.toLowerCase(), name: name(el), blockers: [...new Set(hits.map(hit => hit?.tagName.toLowerCase() || 'none'))] });
+    if (hits.every(hit => !reaches(hit))) {
+      let anchored = false, scrollable = document.documentElement.scrollHeight > innerHeight + 1;
+      for (let node = el; node; node = node.parentElement) {
+        const style = styleOf(node);
+        if (['fixed','sticky'].includes(style.position)) anchored = true;
+        if (/auto|scroll/.test(style.overflowY) && node.scrollHeight > node.clientHeight + 1) scrollable = true;
+      }
+      // Sampling the current viewport cannot prove that scrolling won't reveal
+      // normal-flow content. Retain that finding for direct interaction review.
+      occlusion.blocked.push({ tag: el.tagName.toLowerCase(), name: name(el), scrollReview: !anchored && scrollable, blockers: [...new Set(hits.map(hit => hit?.tagName.toLowerCase() || 'none'))] });
+    }
   }
   const colors = new Map(), canvas = document.createElement("canvas"); canvas.width = canvas.height = 1;
   const ctx = canvas.getContext("2d", { willReadFrequently: true });

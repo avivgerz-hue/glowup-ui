@@ -16,7 +16,7 @@ The full owner-supplied research report was read as recommendations, not runtime
 
 `verify-flow.mjs` is an optional Node helper using the existing Playwright discovery/browser settings. It accepts a small local JSON sequence of clicks/fills and explicit rendered-text or URL outcomes. It requires an outcome assertion, bounds steps/timeouts, records a contract hash and fails on observed runtime/console errors. It does not execute code supplied in the JSON, install dependencies, infer expectations or replace original tests. Reuse the same pre-edit assertions, including when markup changes. Missing browser support must be reported as unverified.
 
-Rendered measurement now samples five viewport-visible points on up to 200 enabled controls/non-inline links. If every point is intercepted, review emits an `obscured-controls` blocker. Truncation is a review finding; offscreen controls are skipped. Existing manifest version 1 remains readable because the new field is additive. Historical manifests lacking it do not establish obstruction coverage.
+Rendered measurement now samples five viewport-visible points on up to 200 enabled controls/non-inline links. If every point is intercepted on anchored/non-scrollable controls, review emits an `obscured-controls` blocker; scroll-dependent content gets a separate review finding. Truncation is a review finding; offscreen controls are skipped. Existing manifest version 1 remains readable because the new field is additive. Historical manifests lacking it do not establish obstruction coverage.
 
 CREATE/REFINE guidance and transformation priorities remain intact; the canonical entry point adds only a tool pointer. The verification reference loads focused behavior guidance when needed. No dependency, installer, release metadata or application-source changes.
 
@@ -36,3 +36,5 @@ GLOWUP_BROWSER_EXECUTABLE=/path/to/chromium node benchmarks/review-browser.mjs
 ```
 
 Use normally available Chromium/Playwright; do not disable the sandbox or silently install dependencies. `benchmarks` now includes the new regression in its existing `npm run test:browser` chain, so hosted browser CI runs it too. Fixture tests exercise real DOM and interactions, not an agent's instruction compliance. Generated/private evidence stays outside Git.
+
+Scrollable normal-flow controls intercepted in the current view remain `obscured-scroll-content` review findings, not proven unreachable controls. Fixed/sticky controls and non-scrollable obstruction remain blockers. Newly introduced scroll-obstruction findings still register as regressions. A real browser fixture confirms that scrolling can reveal and activate an initially covered normal-flow button; this avoids making unchanged, scroll-reachable content a fatal failure.

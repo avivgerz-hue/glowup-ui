@@ -28,6 +28,16 @@ try {
  assert.equal(review({shots:[before]}).ok,true);
  await page.setViewportSize({width:1440,height:900});
  assert.ok((await page.evaluate(measurePage)).occlusion.blocked.length>0,'desktop obstruction is also detected');
+ // Ordinary scrollable content behind fixed chrome needs interaction evidence.
+ await page.setViewportSize({width:390,height:844});
+ await page.setContent('<style>body{margin:0;height:1800px}#task{position:absolute;top:800px;width:110px;height:44px}nav{position:fixed;bottom:0;height:64px;width:100%;background:white}</style><main><h1>Tasks</h1><button id="task" onclick="this.textContent=\'Done\'">Task</button></main><nav>Navigation</nav>');
+ const scrollShot=await shot();
+ assert.ok(scrollShot.measurements.occlusion.blocked.some(c=>c.scrollReview));
+ const scrollReview=review({shots:[scrollShot]},{shots:[scrollShot]});
+ assert.equal(scrollReview.ok,true);assert.equal(scrollReview.status,'review');
+ const unobscured=structuredClone(scrollShot);unobscured.measurements.occlusion.blocked=[];
+ assert.ok(review({shots:[scrollShot]},{shots:[unobscured]}).regressions.some(f=>f.kind==='obscured-scroll-content'));
+ await page.locator('#task').click({timeout:3000});assert.equal(await page.locator('#task').innerText(),'Done');
  // A click on an associated label is valid, as are children inside a control.
  await page.setContent('<main><h1>Settings</h1><label for="check" style="position:absolute;width:70px;height:50px;background:white;z-index:2">Enable</label><input id="check" type="checkbox" style="width:50px;height:50px"><button style="width:100px;height:48px"><span>Save</span></button></main>');
  assert.deepEqual((await page.evaluate(measurePage)).occlusion.blocked,[]);
