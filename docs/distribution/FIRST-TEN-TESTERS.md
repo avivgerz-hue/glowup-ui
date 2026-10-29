@@ -2,7 +2,7 @@
 
 A recruitment target, not a claim of ten existing users. Aim for four Codex, four Claude Code and two OpenCode volunteers; adapt to actual availability rather than inventing a balanced cohort. Maintainer retries and multiple agent installs by one person do not create more testers.
 
-1. After approval, submit only the reviewed Awesome OpenCode resource entry. Do not turn a listing into a claim of native activation or acceptance.
+1. Track the already-open [Awesome OpenCode PR #971](https://github.com/awesome-opencode/awesome-opencode/pull/971); do not submit a duplicate. Do not turn a listing into a claim of native activation or acceptance.
 2. After approval, make one relevant project-sharing/tester invitation in a permitted community category below. Disclose authorship, preview status and activation limits; ask for failures as well as successes. No unsolicited DMs, cross-post flood, artificial installs or star requests.
 3. Direct volunteers to [the short independent guide](../INDEPENDENT-TESTING.md). Start with one existing-page refinement; keep their stack and normal authentication. Participation and public feedback are optional.
 4. Review the first three reports before recruiting the remaining seven. If installation or functional preservation repeatedly fails, fix that defect and rerun affected checks first. Do not keep recruiting against a known broken flow.

@@ -3,7 +3,11 @@
   <img src="assets/brand/hero.svg" alt="Glowup UI — Your app works. Now make it look incredible." width="1280">
 </picture>
 
-A portable design skill for coding agents. **Create a considered interface, transform an existing app, or refine what already works — while preserving functionality.**
+# Glowup UI
+
+**Redesign existing web apps with preservation checks.** An MIT-licensed Agent Skill for AI coding agents, focused on improving composition, typography, navigation and shared components while keeping routes, content, data and behavior. Also supports new apps (**CREATE**) and focused polish (**REFINE**).
+
+Use it with Claude Code, Codex, OpenCode or GitHub Copilot through one canonical skill. Installation is tested; native activation and a comparative design-quality advantage remain unverified. [Compatibility and evidence →](docs/compatibility.md)
 
 [![CI](https://github.com/avivgerz-hue/glowup-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/avivgerz-hue/glowup-ui/actions/workflows/ci.yml) · [v0.1.1 · Public Preview](https://github.com/avivgerz-hue/glowup-ui/releases/tag/v0.1.1) · [MIT](LICENSE)
 
@@ -25,7 +29,7 @@ $glowup-ui Transform this app across all pages. Improve composition, navigation,
  Inspect matching desktop and mobile screenshots before and after.
 ```
 
-Claude Code: replace `codex` with `claude`, then invoke `/glowup-ui`. The command runs our installer from the tagged GitHub source; **no npm publication is implied**. [Other agents, updates, safe uninstall and troubleshooting →](docs/installation.md)
+Claude Code: replace `codex` with `claude`, then invoke `/glowup-ui`. OpenCode uses `--agent opencode`; VS Code Copilot uses `--agent copilot`. Their loading conventions vary: follow the [host-specific first-use steps](docs/installation.md#confirm-installation-then-load-the-skill), rather than assuming the Codex prompt works everywhere. The command runs our installer from the tagged GitHub source; **no npm publication is implied**. [Other agents, updates, safe uninstall and troubleshooting →](docs/installation.md)
 
 ### Or use the standard skills CLI
 
@@ -39,7 +43,9 @@ Both the CLI and skill release are pinned. For Claude Code, use `-a claude-code`
 
 Skill listed but not used? [Confirm full instruction loading, inspect candidate copies, and uninstall safely →](docs/installation.md#confirm-installation-then-load-the-skill). Discovery and the agent saying “I used Glowup” are not activation proof.
 
-## See the difference
+For a first trial, choose a disposable copy or a clean branch of your app. Start with one page using REFINE, or explicitly request TRANSFORM for a full redesign. Save the original views, verify that the agent read the instructions and selected reference, then inspect the actual result and run the app's checks. [Short independent testing guide →](docs/INDEPENDENT-TESTING.md)
+
+## Inspect the examples
 
 **Real renders. Fictional data. Maintainer examples, not controlled agent benchmarks.**
 

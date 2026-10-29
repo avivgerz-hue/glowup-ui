@@ -11,6 +11,10 @@ A dated maintainer evidence snapshot, not analytics or a user-count dashboard. N
 | Functional examples | Existing source-hashed fixtures and CI verify application behavior, builds and preservation. | Maintainer-directed/scripted evidence, not adoption or a controlled same-agent advantage. |
 | Directory/community distribution | Submission and invitation drafts only. No upstream PR, external post, unsolicited message or listing submission. | No acceptance, endorsement or resulting audience is claimed. |
 
+## Distribution update · 29 October 2026
+
+The older table above remains a dated snapshot. Read-only GitHub API checks now confirm [Awesome OpenCode PR #971](https://github.com/awesome-opencode/awesome-opencode/pull/971) is open and unmerged. This establishes a submission, not directory acceptance or adoption. Current public interest remains **1 star and 0 forks**; no new independent-usage or activation evidence was reviewed. Traffic views/clones returned HTTP 403 under this integration, so visitors, clones and conversion rates are unavailable here. The skills.sh website is network-blocked, not verified absent. See the [current growth plan](distribution/GROWTH-PLAN.md) for evidence boundaries and next actions.
+
 ## Native activation attempt
 
 Ran `node scripts/test-activation.mjs --run --agents claude,codex --claude-bin <normally available official CLI> --timeout-ms 30000` once with private evidence outside Git. It copies the canonical skill into temporary projects and adds diagnostic markers only there. Production skill bytes remain unchanged. The run's explicit cases were blocked before completion; the harness correctly skipped subsequent cases for those providers. Native OpenCode was not available here and was not tested.

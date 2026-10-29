@@ -12,6 +12,8 @@ For Claude Code, replace `codex` with `claude`. Omit `--agent` to install both d
 
 Start a **new agent session**. In Codex: `$glowup-ui Refine the existing settings page while preserving its identity and behavior.` In Claude Code: `/glowup-ui Refine the existing settings page while preserving its identity and behavior.` Ask the agent to identify the loaded workflow and inspect the result. A successful install is not activation proof.
 
+Windows PowerShell: the first install command works with `npx.cmd` in place of `npx` if script execution policy blocks `npx.ps1`; do not weaken execution policy. Use the PowerShell variant below for the standard CLI's environment variables.
+
 ## Confirm installation, then load the skill
 
 Choose one installer and one intended scope. Our CLI defaults to **user** scope when omitted; the standard CLI defaults to **project** scope. The commands above explicitly use project installation. Default project entry points are:
@@ -21,6 +23,7 @@ Choose one installer and one intended scope. Our CLI defaults to **user** scope 
 | Codex | `codex` / `codex` | `.agents/skills/glowup-ui/SKILL.md` | `$glowup-ui` followed by your task |
 | Claude Code | `claude` / `claude-code` | `.claude/skills/glowup-ui/SKILL.md` | `/glowup-ui` followed by your task; plugin names may differ |
 | OpenCode | `opencode` / `opencode` | `.agents/skills/glowup-ui/SKILL.md` | Ask its native `skill` tool to load `glowup-ui`; no universal slash command is assumed |
+| VS Code Copilot | `copilot` / `github-copilot` | `.agents/skills/glowup-ui/SKILL.md` | In Agent mode, request Glowup by name and verify full instruction/reference delivery; settings and VS Code version affect native discovery |
 
 1. End the old conversation/session, open the **same application root**, and start a new trusted agent conversation. In a CLI host, launch the agent from that directory. Reloading a terminal alone does not establish a fresh agent context. Use the host's normal trust and permissions; do not bypass a denial.
 2. Explicitly invoke the installed skill with your real task. Ask: “Before editing, load the full Glowup UI instructions and relevant reference, identify CREATE/TRANSFORM/REFINE, and state what you will preserve.” No separate planning artifact is needed.
@@ -57,6 +60,14 @@ The third-party [skills CLI](https://github.com/vercel-labs/skills) requires **N
 
 ```bash
 DISABLE_TELEMETRY=1 DO_NOT_TRACK=1 npx --yes skills@1.7.4 add 'avivgerz-hue/glowup-ui#v0.1.1' --skill glowup-ui -a codex --copy
+```
+
+PowerShell equivalent (the opt-outs apply to this terminal process):
+
+```powershell
+$env:DISABLE_TELEMETRY = '1'
+$env:DO_NOT_TRACK = '1'
+npx.cmd --yes skills@1.7.4 add 'avivgerz-hue/glowup-ui#v0.1.1' --skill glowup-ui -a codex --copy
 ```
 
 `#v0.1.1` selects the Git ref; `--skill glowup-ui` selects the canonical skill. The unpinned shorthand `avivgerz-hue/glowup-ui` follows the default branch, so it can install unreleased changes. `--copy` avoids symlink installation. Project scope is the default; omit `-g` to avoid user-wide installation. For Claude Code, the standard CLI's agent name is `claude-code` (our installer's name is `claude`); OpenCode uses `opencode`. See the [upstream command reference](https://github.com/vercel-labs/skills/blob/main/docs/commands.md) and [compatibility limits](compatibility.md).
