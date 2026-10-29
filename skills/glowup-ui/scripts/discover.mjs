@@ -9,6 +9,7 @@ import { fileURLToPath } from "node:url";
 
 const IGNORE_DIRS = new Set([
   "node_modules", ".git", ".next", ".nuxt", ".svelte-kit", ".astro", ".output",
+  ".agents", ".claude", ".opencode", ".glowup-ui",
   "dist", "build", "out", "coverage", ".turbo", ".vercel", ".glowup", ".cache",
 ]);
 const CODE_EXT = /\.(jsx?|tsx?|mjs|cjs|vue|svelte|astro|mdx?)$/;

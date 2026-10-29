@@ -9,8 +9,10 @@ From the actual app root:
 ```
 git status --short
 node <skill-dir>/scripts/checkpoint.mjs save
-node <skill-dir>/scripts/inspect.mjs .
+node <skill-dir>/scripts/inspect.mjs . --scope redesign
 ```
+Use `--scope refine` instead for polish. The helper describes structure; it cannot infer the user's intended scope from source files.
+
 Checkpoint includes dirty user files, writes once and never restores files. For a new task use a separate `--file .glowup/<task>.json`; never regenerate after editing. Read shell/theme/shared controls, representative routes and original tests in one batch. Run the original build and relevant tests; separate existing failures. Capture original affected routes at desktop and phone with the same data/state planned for after.
 
 ## Decide and implement

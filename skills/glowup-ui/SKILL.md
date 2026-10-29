@@ -29,7 +29,7 @@ Turn the user's task into a deliberate composition, then implement it. `<skill-d
 A full redesign is complete only when its identified hierarchy/composition weaknesses are addressed across affected pages, shared controls agree, and phone layouts and primary interactions work. Color/shadow-only edits do not satisfy a composition problem. Preserve already-strong sections; do not chase diff size or force novelty.
 
 ## Tools and effort
-- `scripts/inspect.mjs [dir]`: one orientation pass with routes, shared files and project checks.
+- `scripts/inspect.mjs [dir] [--scope redesign|refine]`: one orientation pass with routes, shared files and project checks; scope follows the request, not detected styling.
 - `scripts/checkpoint.mjs save|check [dir]`: original-state fingerprints; save before edits, never reset to hide a failure. Warnings require review, not blind rollback of authorized design changes.
 - `scripts/composition.mjs`: compact product/layout/type/phone decisions; explicit `--profile finance|commerce|productivity|portfolio|booking|chat|general` overrides keyword matching. Read-only, no network.
 - `scripts/scaffold.mjs` / `scripts/direction.mjs`: CREATE foundation; keep an existing stack and brand. Do not scaffold inside an existing app.

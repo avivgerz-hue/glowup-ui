@@ -10,7 +10,7 @@ import { fileURLToPath } from "node:url";
 import { wiringOccurrences, copyStrings, countVisuals } from "./audit.mjs";
 import { detectLook } from "./look.mjs";
 
-const SKIP = new Set(["node_modules", ".git", ".glowup", ".next", ".nuxt", ".svelte-kit", ".claude", ".agents", "dist", "build", "coverage", ".cache", "vendor"]);
+const SKIP = new Set(["node_modules", ".git", ".glowup", ".next", ".nuxt", ".svelte-kit", ".claude", ".agents", ".opencode", ".glowup-ui", "dist", "build", "coverage", ".cache", "vendor"]);
 const SOURCE = /\.(?:[cm]?[jt]sx?|vue|svelte|astro|html|css|scss|sass|less)$/i;
 const ASSET = /\.(?:svg|png|jpe?g|webp|avif|gif|ico|woff2?|ttf|otf)$/i;
 const TEST = /(?:^|\/)(?:tests?|__tests__|e2e|cypress|playwright)(?:\/|\.)|\.(?:test|spec)\.[^.]+$/i;

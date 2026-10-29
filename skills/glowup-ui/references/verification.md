@@ -37,5 +37,5 @@ Budget: two capture-review-fix rounds. Stop earlier when the checklist passes. L
 2. What changed: shell, type, color, components, pages (counts, not file lists).
 3. Checks run with results: build, tests, audit, screenshots viewed (desktop and mobile, which routes).
 4. Not verified or left undone, and known limitations.
-5. "Nothing was committed" and how to review: `git diff --stat`.
+5. Actual commit/publication status (only act when authorized) and how to review: `git diff --stat`.
 No scores you did not compute, no claims of testing in real browsers other than the one used.
