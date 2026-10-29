@@ -198,3 +198,35 @@ test('project installation refuses symlinked discovery directories outside the p
  fs.symlinkSync(outside,path.join(project,'.agents'),process.platform==='win32'?'junction':'dir');
  assert.throws(()=>install({agent:'codex',scope:'project',project,home}),/escapes/);assert.deepEqual(fs.readdirSync(outside),[]);
 });
+
+
+test('Claude custom config root agrees with doctor for installation and reversible removal', async () => {
+  const { doctor } = await import('../lib/doctor.mjs');
+  const { uninstall } = await import('../lib/uninstall.mjs');
+  const { root, home, project } = sandbox();
+  const claudeHome = path.join(root, 'custom-claude');
+  try {
+    const options = { agent: 'claude', scope: 'user', home, project, claudeHome };
+    const [installed] = install(options);
+    assert.equal(installed.dir, path.join(claudeHome, 'skills/glowup-ui'));
+    assert.equal(doctor({ home, project, claudeHome }).status, 'payload-readable');
+    assert.equal(install(options)[0].action, 'up-to-date');
+    assert.equal(targetDir({ target: 'claude', scope: 'project', home, project, claudeHome }), path.join(project, '.claude/skills/glowup-ui'));
+    const [removed] = uninstall(options);
+    assert.equal(hashDir(removed.backup), hashDir(SKILL_SOURCE));
+    assert.equal(doctor({ home, project, claudeHome }).status, 'not-installed');
+  } finally { fs.rmSync(root, { recursive: true, force: true }); }
+});
+
+test('Claude user target honors CLAUDE_CONFIG_DIR in a real CLI process', () => {
+  const { root, home, project } = sandbox();
+  const claudeHome = path.join(root, 'config-from-env');
+  try {
+    const result = spawnSync(process.execPath, [CLI, 'install', '--agent', 'claude', '--scope', 'user'], {
+      cwd: project, env: { ...process.env, HOME: home, USERPROFILE: home, CLAUDE_CONFIG_DIR: claudeHome }, encoding: 'utf8',
+    });
+    assert.equal(result.status, 0, result.stderr);
+    assert.equal(hashDir(path.join(claudeHome, 'skills/glowup-ui')), hashDir(SKILL_SOURCE));
+    assert.equal(fs.existsSync(path.join(home, '.claude/skills/glowup-ui')), false);
+  } finally { fs.rmSync(root, { recursive: true, force: true }); }
+});

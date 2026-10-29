@@ -64,7 +64,7 @@ test("review: low contrast is surfaced and losing contrast coverage cannot hide 
 });
 
 test("inspect: existing designed apps get a compact preservation plan with real commands and files", () => {
-  const r = inspect("demo/after");
+  const r = inspect("demo/after", { scope: "refine" });
   assert.match(r.mode, /REFINE/);
   assert.ok(r.readFirst.includes("src/index.css"));
   assert.deepEqual(r.checks.build, ["npm run build"]);

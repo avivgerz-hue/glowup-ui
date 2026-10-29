@@ -7,7 +7,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { hexToOklch } from "./palette.mjs";
 
-const SKIP = new Set(["node_modules", ".git", "dist", "build", ".next", ".nuxt", ".svelte-kit", ".claude", ".agents", ".glowup", "coverage", "tests", "test", "__tests__"]);
+const SKIP = new Set(["node_modules", ".git", "dist", "build", ".next", ".nuxt", ".svelte-kit", ".claude", ".agents", ".opencode", ".glowup-ui", ".glowup", "coverage", "tests", "test", "__tests__"]);
 const SOURCE = /\.(css|scss|jsx?|tsx?|vue|svelte|astro|html)$/;
 const HUE_WORDS = { red: [345, 30], orange: [30, 70], amber: [70, 100], yellow: [70, 110], green: [110, 170], emerald: [140, 170], teal: [170, 205], cyan: [195, 225], sky: [225, 245], blue: [245, 265], indigo: [265, 285], violet: [285, 305], purple: [290, 330], fuchsia: [315, 335], pink: [330, 360], rose: [350, 10] };
 const NEUTRALS = new Set(["gray", "slate", "zinc", "neutral", "stone", "white", "black"]);
@@ -23,7 +23,7 @@ function listFiles(root, dir = root, out = []) {
     if (SKIP.has(e.name) || e.name.startsWith(".")) continue;
     const p = path.join(dir, e.name);
     if (e.isDirectory()) listFiles(root, p, out);
-    else if (SOURCE.test(e.name) && fs.statSync(p).size < 400_000) out.push(p);
+    else if (e.isFile() && SOURCE.test(e.name) && fs.statSync(p).size < 400_000) out.push(p);
   }
   return out;
 }
@@ -94,7 +94,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   else {
     console.log(`Current look of ${path.resolve(root)} (${look.files} source files scanned)`);
     console.log(`  scheme: ${look.scheme}   accent: ${look.accent || "none found (neutral or default)"}   shell: ${look.shell || "unknown"}   font: ${look.font || "system default"}`);
-    if (look.designed) console.log(`  Designed identity detected (${look.brand ? `brand ${look.brand}, ` : ""}${look.designSignals.themeTokens} theme tokens${look.designSignals.webFont ? ", web fonts" : ""}). REFINE: keep brand, logo, fonts, and shell; no theme generation needed.`);
-    else console.log(`  No strong identity signals detected. Default to REFINE; REPLACE only for an explicit request for a different visual style.`);
+    if (look.designed) console.log(`  Designed identity detected (${look.brand ? `brand ${look.brand}, ` : ""}${look.designSignals.themeTokens} theme tokens${look.designSignals.webFont ? ", web fonts" : ""}). Preserve brand and fonts; choose redesign or polish from the request, not identity detection.`);
+    else console.log(`  No strong identity signals detected. Choose redesign or polish from the request; a new identity requires explicit intent.`);
   }
 }

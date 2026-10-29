@@ -2,7 +2,7 @@
 
 Build a new app, site, or page that looks designed from the first screenshot. Target: a finished, multi-page result in one pass, not a template you restyle later.
 
-## 1. Brief (about 6 lines, no file)
+## 1. Brief (extend the opening scope statement; no separate plan)
 Product and audience; only the routes or screens needed by the request; the key data and its realistic sample values; the main action per screen; surface type; brand constraints. Choose routes that make a complete product (a store has browse, product, cart, checkout, confirmation; a dashboard has overview, a list, a detail or report, settings, sign-in).
 
 ## 2. Project in one call
@@ -38,7 +38,7 @@ Make it this product's own: **edit the shell, headings, card and button recipes 
 6. Run `npm run build`, `npm test`, and `node <skill-dir>/scripts/lint.mjs src`; fix failures.
 
 ## 5. Check
-Follow [verification.md](verification.md): serve with `npm run build && npx vite preview --port <free port>` in the background, capture desktop and mobile of every route, fix, capture once more, stop the server.
+Follow [verification.md](verification.md). Reuse the build and preview server when available; capture desktop/mobile of the requested routes, inspect, fix observed problems, and recapture only affected views. Stop any server you started.
 
 ## Quality notes specific to new builds
 - Content is design: real names, plausible prices and dates, product-specific microcopy. No lorem ipsum, no "Acme", no feature claims that imply integrations that do not exist.
