@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Clarify installed paths, fresh sessions, full-loading evidence, installer scope/removal differences and voluntary tester feedback.
+- Make doctor help/project validation actionable, expose detailed text findings and flag multiple candidate locations without claiming host precedence.
+- Limit post-install invocation hints to installed target families; label manual file reading separately from native activation.
+
 - Correct the default installation pin and release status to published v0.1.1.
 - Prepare an exact OpenCode resource entry, independent testing guide and evidence-separated first-tester plan.
 

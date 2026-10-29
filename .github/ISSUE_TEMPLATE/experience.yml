@@ -10,6 +10,7 @@ body:
         raw agent transcripts, or client data. Use fictional data in screenshots.
         No telemetry is collected by Glowup. A successful install does not prove activation.
         For sensitive problems, use SECURITY.md instead. You can report text only.
+        Do not attach raw doctor JSON: it contains local paths. Diagnostic fields are optional.
   - type: dropdown
     id: outcome
     attributes:
@@ -24,15 +25,16 @@ body:
     id: version
     attributes:
       label: Version or commit
-      description: For example, v0.1.0 or a public commit SHA. Do not paste local paths.
-    validations:
-      required: true
+      description: For example, v0.1.1 or a public commit SHA; say unknown if unsure. Do not paste local paths.
   - type: input
     id: environment
     attributes:
       label: Agent version and operating system
-    validations:
-      required: true
+  - type: input
+    id: model
+    attributes:
+      label: Model and effort, if known
+      description: Public model name/settings only; no keys, account details or private endpoints.
   - type: dropdown
     id: method
     attributes:
@@ -41,17 +43,29 @@ body:
   - type: dropdown
     id: evidence
     attributes:
-      label: Furthest stage actually verified
+      label: Skill loading actually verified
+      description: Self-report only. Completing a task does not establish instruction loading.
       options:
+        - Not checked or not sure
         - Installation failed
         - Files installed only
         - Skill discovered or listed
-        - Full instructions and relevant references read
-        - Used on an application and functionality checked
+        - Loading requested but delivery not confirmed
+        - Full instructions and relevant reference delivery observed
+  - type: textarea
+    id: task
+    attributes:
+      label: Task attempted, if any
+      description: State CREATE, TRANSFORM or REFINE and a generic task description. No private app names or source needed.
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Reproduction steps, if applicable
+      description: Sanitized command/steps, expected result and actual result. Replace local paths with placeholders; no private project upload required.
   - type: textarea
     id: details
     attributes:
       label: What happened?
-      description: Brief result, checks run, and limitations. Optional public source or sanitized screenshots that you own or may share. No raw logs required.
+      description: What worked, what failed, checks run, and what remains unverified. Optional public source or sanitized screenshots that you own or may share. No raw logs required.
     validations:
       required: true
