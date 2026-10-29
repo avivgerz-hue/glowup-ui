@@ -34,6 +34,7 @@ A full redesign is complete only when its identified hierarchy/composition weakn
 - `scripts/composition.mjs`: compact product/layout/type/phone decisions; explicit `--profile finance|commerce|productivity|portfolio|booking|chat|general` overrides keyword matching. Read-only, no network.
 - `scripts/scaffold.mjs` / `scripts/direction.mjs`: CREATE foundation; keep an existing stack and brand. Do not scaffold inside an existing app.
 - `scripts/screenshot.mjs`, `scripts/review.mjs`, `scripts/compare.mjs`: capture and group rendered issues. Measurements are not aesthetic scores or proof of preserved behavior.
+- `scripts/verify-flow.mjs`: optional browser outcome assertions when existing behavior tests do not cover an affected flow; see verification guidance.
 - `scripts/palette.mjs`, `scripts/contrast.mjs`, `scripts/lint.mjs`: focused checks when relevant. Do not run every helper by habit.
 
 Batch related reads; change shared components before repeating page edits. Small polish needs targeted checks, full redesign needs route/phone coverage. Reuse the browser and check results; no repeated analysis, mandatory planning files, decorative dependencies, invented content, silent commits or uploads. Never claim activation, visual improvement or testing without evidence.
