@@ -1,7 +1,7 @@
 {
   "name": "glowup-ui",
   "description": "Build new web UIs with a distinct visual direction, or redesign existing apps across every page without changing behavior.",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": {
     "name": "Glowup UI contributors"
   },

@@ -4,6 +4,8 @@ Glowup UI maintains **one canonical skill**, `skills/glowup-ui/`. Installation c
 
 **No current-preview agent has verified full activation in an authenticated native session.** A file copy or discovery listing proves neither full instruction loading nor design influence. Use the [activation procedure](ACTIVATION-DEBUG.md) to verify the chosen host; do not treat an installation as current cross-agent certification.
 
+The reviewed source targets **v0.1.2**; public installation commands remain on v0.1.1 until publication/remote verification. v0.1.2 contains the custom Claude-root and source-inspection fixes; do not infer that an older tagged installer includes them. See [release notes and verification boundaries](release/NOTES-v0.1.2.md).
+
 ## Tested installation and documented behavior
 
 “Packaging/install tested” means actual copy, payload hash verification and reversible removal in temporary project **and user** directories on Linux. Discovery/activation must still be checked in the host. “Documented format compatibility” means an official source describes the expected layout, without local execution. “Experimental” is reserved for integrations under active trial. “Unverified” means evidence was insufficient; no guessed alias is provided.

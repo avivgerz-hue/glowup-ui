@@ -1,6 +1,6 @@
 # Agent guide for Glowup UI
 
-Glowup UI is an Agent Skill. The canonical product is `skills/glowup-ui/`; one maintained payload serves Claude Code, Codex and other compatible agents. Published public preview: 0.1.1.
+Glowup UI is an Agent Skill. The canonical product is `skills/glowup-ui/`; one maintained payload serves Claude Code, Codex and other compatible agents. Release target: 0.1.2. Published preview pins remain at 0.1.1 until the new tag is approved, published and remotely verified.
 
 - Read `CONTRIBUTING.md` and preserve existing changes.
 - Run `npm test` and `node bin/glowup-ui.mjs validate` before and after changes.

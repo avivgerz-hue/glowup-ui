@@ -1,5 +1,7 @@
 # Handoff to the independent app-testing agent
 
+> Historical PR #4 record: the fixes are now merged into main and included in the v0.1.2 release target. Original candidate hashes and results below remain unchanged for reproducibility; they are not current publication or native-activation claims. See [release preparation](../release/NOTES-v0.1.2.md).
+
 Test candidate implementation commit **`f1c136b5d7f67c1e2362c0a9090c36dd948630c7`** against unchanged base **`0cdbd06cceaf6444edfe5646dcb3b66ed0204b7d`**. The branch adds documentation after the implementation commit; use the exact implementation hash for reproducibility. This is an unreleased candidate, not the published v0.1.1 payload. Do not use the pinned v0.1.1 installer and assume it contains these fixes.
 
 ## Install and prove what loaded

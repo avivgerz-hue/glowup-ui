@@ -1,6 +1,8 @@
-# Try v0.1.1 independently
+# Independent testing: published release and v0.1.2 candidate
 
 Use a disposable copy of a small non-sensitive app and a normally authenticated agent. No subscription to a Glowup service, stars, social post or positive review is required. Your agent may charge for model usage. Stop if normal authentication, network or permissions block execution; do not paste credentials, copy authentication files or disable safeguards.
+
+For the v0.1.2 candidate, use an exact reviewed checkout and its local installer (`node bin/glowup-ui.mjs install --agent codex --scope project --project /absolute/path/to/test-copy`); installed metadata must say **0.1.2**. The published commands below still select v0.1.1 and cannot evaluate the newer fixes. Keep existing controlled trials pinned to their original specified commits; do not silently update the testing agent’s application. The [v0.1.2 notes](release/NOTES-v0.1.2.md) separate candidate checks from post-publication checks.
 
 ## 1. Install the published version
 

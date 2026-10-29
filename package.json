@@ -1,6 +1,6 @@
 {
   "name": "glowup-ui",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "An Agent Skill for Claude Code, Codex, and other coding agents that builds new web UIs with a distinct visual direction, or redesigns existing ones without changing behavior.",
   "license": "MIT",
   "type": "module",
