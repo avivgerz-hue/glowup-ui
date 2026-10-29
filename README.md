@@ -15,7 +15,7 @@ From your project, with Node 20+ and Git:
 npx --yes --package=git+https://github.com/avivgerz-hue/glowup-ui.git#v0.1.1 glowup-ui install --agent codex --scope project
 ```
 
-Then start a new Codex session and ask:
+This installs `.agents/skills/glowup-ui/SKILL.md` in that project. End the old agent session and start a new trusted Codex conversation in the same app root; then ask:
 
 ```text
 $glowup-ui Transform this app across all pages. Improve composition, navigation,
@@ -24,6 +24,18 @@ $glowup-ui Transform this app across all pages. Improve composition, navigation,
 ```
 
 Claude Code: replace `codex` with `claude`, then invoke `/glowup-ui`. The command runs our installer from the tagged GitHub source; **no npm publication is implied**. [Other agents, updates, safe uninstall and troubleshooting →](docs/installation.md)
+
+### Or use the standard skills CLI
+
+With Node **22.20+** and Git, from your app's root (project scope; telemetry disabled):
+
+```bash
+DISABLE_TELEMETRY=1 DO_NOT_TRACK=1 npx --yes skills@1.7.4 add 'avivgerz-hue/glowup-ui#v0.1.1' --skill glowup-ui -a codex --copy
+```
+
+Both the CLI and skill release are pinned. For Claude Code, use `-a claude-code`. The standard CLI can replace existing copies; review them first and use one installer per destination. Our installer above supports Node 20+ and recoverable backups. Installation is not native activation proof. [Removal, compatibility and skills.sh indexing →](docs/installation.md#optional-standard-installer)
+
+Skill listed but not used? [Confirm full instruction loading, inspect candidate copies, and uninstall safely →](docs/installation.md#confirm-installation-then-load-the-skill). Discovery and the agent saying “I used Glowup” are not activation proof.
 
 ## See the difference
 
