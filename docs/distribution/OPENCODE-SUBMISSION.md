@@ -1,6 +1,8 @@
-# First submission: Awesome OpenCode · review only
+# First submission: Awesome OpenCode
 
-Checked 28 October 2026. **Not submitted. No fork or upstream PR created.**
+**Status checked 29 October 2026:** [upstream PR #971](https://github.com/awesome-opencode/awesome-opencode/pull/971) is open, not merged. It proposes one resource YAML file. Do not create a duplicate or describe this as an accepted listing. No external change was made during this status check.
+
+The preparation record below dates from 28 October 2026. Its “proposed” wording and validation refer to the original submission preparation, not a new submission authorization.
 
 - Upstream: https://github.com/awesome-opencode/awesome-opencode
 - Rules: https://github.com/awesome-opencode/awesome-opencode/blob/main/contributing.md
