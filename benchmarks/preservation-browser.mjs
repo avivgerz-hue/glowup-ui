@@ -60,7 +60,7 @@ try {
  try {
    const cli=async (flow,route)=>{
      const file=path.join(root,'flow.json');fs.writeFileSync(file,JSON.stringify(flow));
-     const child=spawn(process.execPath,[path.join(repoRoot,'skills/glowup-ui/scripts/verify-flow.mjs'), '--flow',file,'--base-url',`http://127.0.0.1:${server.address().port}`,'--path',route,'--timeout','500'],{cwd:repoRoot,env:process.env});
+     const child=spawn(process.execPath,[path.join(repoRoot,'skills/glowup-ui/scripts/verify-flow.mjs'), '--flow',file,'--base-url',`http://127.0.0.1:${server.address().port}`,'--path',route,'--timeout','500'],{cwd:path.join(repoRoot,'benchmarks'),env:process.env});
      let stdout='',stderr='';child.stdout.on('data',b=>stdout+=b);child.stderr.on('data',b=>stderr+=b);
      const code=await new Promise(resolve=>child.on('close',resolve));
      assert.ok(stdout,stderr);return {code,result:JSON.parse(stdout)};
