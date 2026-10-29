@@ -2,6 +2,7 @@
 // glowup-ui CLI: install the skill for any Agent Skills-compatible coding agent, or validate a skill folder.
 
 import path from "node:path";
+import fs from "node:fs";
 import { parseArgs } from "node:util";
 import { install, SKILL_SOURCE, TARGETS, AGENT_TARGETS } from "../lib/install.mjs";
 import { validateSkill } from "../lib/validate.mjs";
@@ -16,7 +17,7 @@ Usage:
   glowup-ui validate [skill-dir]
   glowup-ui uninstall [--agent <name>] [--scope user|project] [--project <dir>] [--dry-run]
   glowup-ui where
-  glowup-ui doctor [--project <dir>] [--json]
+  glowup-ui doctor [--project <dir>] [--json] [--help]
 
 Agents (default: all):
   all        default shared + Claude paths; not a guarantee for every agent
@@ -34,6 +35,9 @@ Options:
   --force          Replace an existing different copy (moved to .glowup-ui/backups in the selected project or home)
   --link           Symlink to this checkout instead of copying (for contributors)
   --codex-legacy   Use $CODEX_HOME/skills (~/.codex/skills) instead of ~/.agents/skills
+
+where prints the bundled source path, not an installed location.
+Use doctor --project <app-dir> to inspect installed copies; it does not test activation.
 `;
 
 const INSTALL_OPTIONS = {
@@ -94,14 +98,21 @@ function installWith(values) {
 
   if (!values["dry-run"] && !conflict) {
     const skillFile = path.join(results[0].dir, "SKILL.md");
+    const hints = [];
+    const requested = values.agent.split(",").map(a => a.trim().toLowerCase());
+    const shared = results.some(r => r.target === "agents");
+    const broad = requested.some(a => ["all", "both", "universal", "agents"].includes(a));
+    if (results.some(r => r.target === "claude")) hints.push("  Claude Code: /glowup-ui");
+    if ((shared && (broad || requested.includes("codex"))) || results.some(r => r.target === "codex-legacy")) hints.push("  Codex: $glowup-ui");
+    if (shared && (broad || requested.includes("opencode"))) hints.push('  OpenCode: ask its native skill tool to load glowup-ui.');
     console.log(`
-Next: start a new agent session in your project, then ask for a redesign:
-  Claude Code, VS Code (Copilot):  /glowup-ui
-  Codex:                           $glowup-ui
-  Any other agent:                 "Redesign this app's UI with the glowup-ui skill"
+Next: start a new agent session in the same project. For the host you installed for:
+${hints.length ? hints.join("\n") : "  Explicitly request glowup-ui using that host's documented skill-loading mechanism."}
+Installation is not activation proof. Verify successful full SKILL.md and relevant reference delivery in the host's tool transcript.
 
 Agent without Agent Skills support? Point it at the file directly:
-  "Read ${skillFile} and follow it to redesign this app's UI."`);
+  "Read ${skillFile} and follow it to redesign this app's UI."
+That is a manual file-reading fallback, not native skill activation.`);
   }
   return conflict ? 1 : 0;
 }
@@ -113,6 +124,26 @@ function runValidate(argv) {
   for (const e of result.errors) console.error(`error: ${e}`);
   console.log(result.ok ? `✓ ${dir} is a valid skill` : `✗ ${dir} has ${result.errors.length} error(s)`);
   return result.ok ? 0 : 1;
+}
+
+function formatDoctor(r) {
+  const present = r.installed.filter(c => c.status !== "absent");
+  const lines = [`Canonical: ${r.canonical.dir}`, `Payload status: ${r.status}`];
+  for (const c of present) {
+    lines.push(`${c.agent} ${c.scope}: ${c.dir} — ${c.status}, matches canonical: ${c.matchesCanonical}`);
+    if (c.detail) lines.push(`  ${c.detail}`);
+    for (const error of c.errors || []) lines.push(`  error: ${error}`);
+    for (const file of c.missingFiles || []) lines.push(`  missing payload file: ${file}`);
+    for (const warning of c.warnings || []) lines.push(`  warning: ${warning}`);
+  }
+  if (r.conflicts.length) lines.push(`Conflicting copies: ${r.conflicts.join(", ")}`);
+  for (const agent of new Set(present.map(c => c.agent))) {
+    if (present.filter(c => c.agent === agent).length > 1) lines.push(`Multiple candidate locations for ${agent}; confirm host discovery and the selected version before removing any copy.`);
+  }
+  if (r.status === "not-installed") lines.push("No installation found in the inspected locations. Choose your agent and project scope with install --help, or check your host's custom skill roots.");
+  if (r.status === "review") lines.push("Review local customizations and intended release first. Use the original installer's removal/reinstall procedure; do not force replacement or delete copies blindly.");
+  lines.push(r.activation, r.limits);
+  return lines.join("\n");
 }
 
 const [command, ...rest] = process.argv.slice(2);
@@ -134,9 +165,18 @@ switch (command) {
   case "where": console.log(SKILL_SOURCE); code = 0; break;
   case "doctor": {
     try {
-      const { values } = parseArgs({ args: rest, options: { project: { type: "string", default: process.cwd() }, json: { type: "boolean", default: false } } });
-      const r = doctor({ project: values.project });
-      console.log(values.json ? JSON.stringify(r, null, 2) : `Canonical: ${r.canonical.dir}\nPayload status: ${r.status}\n${r.installed.filter((c) => c.status !== "absent").map((c) => `${c.agent} ${c.scope}: ${c.dir} — ${c.status}, matches canonical: ${c.matchesCanonical}`).join("\n")}\n${r.conflicts.length ? `Conflicting copies: ${r.conflicts.join(", ")}\n` : ""}${r.activation}\n${r.limits}`);
+      const { values } = parseArgs({ args: rest, options: { project: { type: "string", default: process.cwd() }, json: { type: "boolean", default: false }, help: { type: "boolean", short: "h", default: false } } });
+      if (values.help) { console.log(HELP); code = 0; break; }
+      const project = path.resolve(values.project);
+      let stat;
+      try { stat = fs.statSync(project); }
+      catch (error) {
+        if (error.code === "ENOENT") throw new Error(`Project directory does not exist: ${project}. Choose the existing application root with --project.`);
+        throw error;
+      }
+      if (!stat.isDirectory()) throw new Error(`Project path is not a directory: ${project}. Choose the application root with --project.`);
+      const r = doctor({ project });
+      console.log(values.json ? JSON.stringify(r, null, 2) : formatDoctor(r));
       code = r.status === "payload-readable" ? 0 : 1;
     } catch (error) { console.error(error.message); code = 64; }
     break;

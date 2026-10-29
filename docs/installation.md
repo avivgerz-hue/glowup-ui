@@ -12,6 +12,32 @@ For Claude Code, replace `codex` with `claude`. Omit `--agent` to install both d
 
 Start a **new agent session**. In Codex: `$glowup-ui Refine the existing settings page while preserving its identity and behavior.` In Claude Code: `/glowup-ui Refine the existing settings page while preserving its identity and behavior.` Ask the agent to identify the loaded workflow and inspect the result. A successful install is not activation proof.
 
+## Confirm installation, then load the skill
+
+Choose one installer and one intended scope. Our CLI defaults to **user** scope when omitted; the standard CLI defaults to **project** scope. The commands above explicitly use project installation. Default project entry points are:
+
+| Host | Our installer / standard CLI agent | Installed file | Explicit request in the host |
+|---|---|---|---|
+| Codex | `codex` / `codex` | `.agents/skills/glowup-ui/SKILL.md` | `$glowup-ui` followed by your task |
+| Claude Code | `claude` / `claude-code` | `.claude/skills/glowup-ui/SKILL.md` | `/glowup-ui` followed by your task; plugin names may differ |
+| OpenCode | `opencode` / `opencode` | `.agents/skills/glowup-ui/SKILL.md` | Ask its native `skill` tool to load `glowup-ui`; no universal slash command is assumed |
+
+1. End the old conversation/session, open the **same application root**, and start a new trusted agent conversation. In a CLI host, launch the agent from that directory. Reloading a terminal alone does not establish a fresh agent context. Use the host's normal trust and permissions; do not bypass a denial.
+2. Explicitly invoke the installed skill with your real task. Ask: “Before editing, load the full Glowup UI instructions and relevant reference, identify CREATE/TRANSFORM/REFINE, and state what you will preserve.” No separate planning artifact is needed.
+3. Inspect successful tool results privately: complete `SKILL.md` delivery and the selected references establish loading evidence. A discovery list, read request, truncated result or the agent saying “I used Glowup” is insufficient. Subsequent implementation and functional checks are separate evidence; loading alone proves neither useful behavior nor better design.
+
+For locally missing or stale instructions, inspect the exact published installer payload without changing the app:
+
+```bash
+npx --yes --package=git+https://github.com/avivgerz-hue/glowup-ui.git#v0.1.1 glowup-ui doctor --project . --json
+```
+
+Run this from an existing app root. Review `installed`, `missingFiles`, validation `errors`, hashes and invocation restrictions locally. `matchesCanonical` compares with the **invoked installer version**, not “the latest release”; an intentional candidate can differ. `payload-readable` means readable files, not native activation. `where` prints the invoked installer's bundled/cache source, **not** the app's installed location. Doctor output includes local paths: do not post raw JSON publicly.
+
+Doctor inspects default/configured shared and Claude paths plus ancestors, not every plugin cache or host root. If multiple copies appear, identify what the host actually loads before removing any; identical copies can also coexist. Do not guess precedence or delete both. For custom roots, consult the host's documentation and use an explicit `--dest` when appropriate. A file-reading fallback can be useful, but is not native activation certification. See [activation diagnostics](ACTIVATION-DEBUG.md) for opt-in temporary probes; no marker belongs in the production skill.
+
+Current-checkout diagnostic improvements are **unreleased**; the pinned v0.1.1 command above retains its published output. In that release, use JSON for detailed findings and consult [troubleshooting](#first-use-troubleshooting) rather than assuming every command supports `--help`.
+
 ## Reviewed checkout or downloaded release
 
 ```bash
@@ -52,14 +78,25 @@ The CLI discovers `skills/glowup-ui/SKILL.md` directly in GitHub; no new discove
 
 For an intended real use of Glowup, an owner may choose to run the same pinned install **once**, without the `DISABLE_TELEMETRY` / `DO_NOT_TRACK` opt-outs set for that process. The third-party CLI then sends its normal public-source installation event and may request a security audit; Glowup itself has no telemetry. This is optional, requires an informed privacy choice, and is not a guarantee of indexing or a native activation test. Do not replay telemetry, repeat installs to raise counts, or assume a propagation deadline. If the listing remains absent after a genuine install, inspect the actual result before considering any further action. Automated validation keeps both opt-outs enabled.
 
+## Remove using the original method
+
+For the project-scoped **Glowup installer** shown above, preview removal first:
+
+```bash
+npx --yes --package=git+https://github.com/avivgerz-hue/glowup-ui.git#v0.1.1 glowup-ui uninstall --agent codex --scope project --dry-run
+npx --yes --package=git+https://github.com/avivgerz-hue/glowup-ui.git#v0.1.1 glowup-ui uninstall --agent codex --scope project
+```
+
+Run from the same app root. Match the original agent, scope, custom `--dest` or legacy choice; use `claude` for a Claude-only own-installer copy. Removal moves recognized payloads into `.glowup-ui/backups` outside discovery; it does not remove other skills. Keep backups private/out of Git and review them before discarding. A direct checkout uses its own `node bin/glowup-ui.mjs uninstall ...` instead. The standard CLI's removal command is in its section above and does not provide Glowup's backup semantics. Do not use one method's removal to manage the other's lock state. Plugin installs should use the host's plugin management.
+
 ## First-use troubleshooting
 
 | Symptom | Check |
 |---|---|
-| Agent does not list Glowup | Restart in the correct project. Check its documented skills path and trust/permission settings. |
+| Agent does not list Glowup | Confirm the installed file above, selected scope and app root; start a fresh trusted session. Use doctor JSON to inspect candidate paths. |
 | Skill listed but no visible influence | Explicitly invoke it and verify body/reference delivery using [activation diagnostics](ACTIVATION-DEBUG.md). Discovery alone is insufficient. |
 | Existing-copy conflict | Inspect it first. Use `--force` only to deliberately replace it with a backup. |
-| Duplicate versions | Remove the redundant copy with its original installer; plugins/global/project roots can overlap. |
+| Duplicate versions | Inspect candidate paths AND the host transcript, then remove only the redundant copy with its original installer; plugins/user/project roots can overlap. |
 | Browser capture unavailable | Use the host's browser if available or report visual verification as unavailable. Helpers never silently install a browser. |
 | Unsupported agent | Use a currently documented custom `--dest` or the file-reading fallback in [compatibility](compatibility.md); do not guess a directory. |
 
