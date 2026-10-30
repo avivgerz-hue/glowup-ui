@@ -3,13 +3,15 @@
   <img src="assets/brand/hero.svg" alt="Glowup UI — Your app works. Now make it look incredible." width="1280">
 </picture>
 
-# Glowup UI
+# Glowup UI — frontend design skill for existing apps
 
-**Redesign existing web apps with preservation checks.** An MIT-licensed Agent Skill for AI coding agents, focused on improving composition, typography, navigation and shared components while keeping routes, content, data and behavior. Also supports new apps (**CREATE**) and focused polish (**REFINE**).
+**UI redesign with preservation checks.** Glowup UI is an MIT-licensed Agent Skill for AI coding agents. It focuses on improving composition, typography, navigation and shared components in existing web apps while retaining routes, content, data and behavior. It also supports new apps (**CREATE**) and focused polish (**REFINE**).
 
 Use it with Claude Code, Codex, OpenCode or GitHub Copilot through one canonical skill. Installation is tested; native activation and a comparative design-quality advantage remain unverified. [Compatibility and evidence →](docs/compatibility.md)
 
 [![CI](https://github.com/avivgerz-hue/glowup-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/avivgerz-hue/glowup-ui/actions/workflows/ci.yml) · [v0.1.1 · Public Preview](https://github.com/avivgerz-hue/glowup-ui/releases/tag/v0.1.1) · [MIT](LICENSE)
+
+**Skill source:** [published v0.1.1 skill](https://github.com/avivgerz-hue/glowup-ui/blob/v0.1.1/skills/glowup-ui/SKILL.md) · [development instructions](skills/glowup-ui/SKILL.md). These links identify the canonical Agent Skill maintained in this repository; the tagged source matches the pinned installation commands below.
 
 **v0.1.2 release preparation:** [engineering fixes and verification limits](docs/release/NOTES-v0.1.2.md). The commands below deliberately retain published v0.1.1 until the new tag is published and verified. To test the candidate now, use a reviewed checkout as described in the [installation guide](docs/installation.md#reviewed-checkout-or-downloaded-release).
 
@@ -43,7 +45,7 @@ Both the CLI and skill release are pinned. For Claude Code, use `-a claude-code`
 
 Skill listed but not used? [Confirm full instruction loading, inspect candidate copies, and uninstall safely →](docs/installation.md#confirm-installation-then-load-the-skill). Discovery and the agent saying “I used Glowup” are not activation proof.
 
-For a first trial, choose a disposable copy or a clean branch of your app. Start with one page using REFINE, or explicitly request TRANSFORM for a full redesign. Save the original views, verify that the agent read the instructions and selected reference, then inspect the actual result and run the app's checks. [Short independent testing guide →](docs/INDEPENDENT-TESTING.md)
+For a first trial, choose a disposable copy or a clean branch of your app. Start with one page using REFINE, or explicitly request TRANSFORM for a full redesign. Save the original views, verify that the agent read the instructions and selected reference, then inspect the actual result and run the app's checks. [Short independent testing guide →](docs/INDEPENDENT-TESTING.md) · [Reproducible two-session redesign challenge →](docs/REDESIGN-CHALLENGE.md)
 
 ## Inspect the examples
 

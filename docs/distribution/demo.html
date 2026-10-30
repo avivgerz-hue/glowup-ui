@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Glowup UI · inspect the Plotline example</title>
+<style>
+  :root{color-scheme:light;font:16px/1.6 system-ui,sans-serif;color:#172c24;background:#f6f7f2}
+  *{box-sizing:border-box}body{margin:0;padding:clamp(20px,4vw,64px)}main{max-width:1440px;margin:auto}
+  h1{font-size:clamp(28px,4vw,52px);line-height:1.1;max-width:900px}a{color:#185b43;text-underline-offset:3px}
+  .intro{max-width:850px}.label{font-size:13px;text-transform:uppercase;letter-spacing:.1em;font-weight:700}
+  .notice{padding:16px 20px;border-left:4px solid #527c65;background:#e8eee4;max-width:1000px}
+  .views{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:32px 0}figure{margin:0}img{display:block;width:100%;height:auto;border:1px solid #c3cdbf;background:white}figcaption{padding:10px 0;font-weight:600}
+  .phone{max-width:390px;margin:auto}.links{display:flex;gap:20px;flex-wrap:wrap}summary{cursor:pointer;padding:14px 0;font-weight:700}footer{border-top:1px solid #c3cdbf;padding-top:24px;margin-top:40px}a:focus-visible,summary:focus-visible{outline:3px solid #185b43;outline-offset:4px}
+  @media(max-width:700px){.views{grid-template-columns:1fr}.views figure+figure{margin-top:12px}}
+</style>
+<main>
+<p class="label">Glowup UI · inspectable example</p>
+<h1>A working dashboard, a different composition.</h1>
+<p class="intro">Plotline before and after: the same fictional project data at matching desktop and phone dimensions. The source, behavior tests and capture hashes are available for inspection.</p>
+<p class="notice"><strong>Maintainer-directed demonstration.</strong> These are existing genuine renders, not results from a controlled skill/no-skill agent trial. They do not establish native activation or design superiority. Both source versions retain their original 12 behavior tests.</p>
+<nav class="links" aria-label="Evidence"><a href="https://github.com/avivgerz-hue/glowup-ui">Project and install</a><a href="../examples.md">Provenance</a><a href="../../assets/examples/evidence.json">Capture hashes</a><a href="../INDEPENDENT-TESTING.md">Test it independently</a></nav>
+<h2>Desktop · original captures 1440 × 900</h2>
+<div class="views">
+<figure><a href="../../assets/examples/transform-before-desktop.png"><img src="../../assets/examples/transform-before-desktop.png" width="1440" height="900" alt="Original Plotline dashboard: a plain project list and summary"></a><figcaption>Before · functional fixture</figcaption></figure>
+<figure><a href="../../assets/examples/transform-after-desktop.png"><img src="../../assets/examples/transform-after-desktop.png" width="1440" height="900" alt="Maintainer-transformed Plotline dashboard with stronger hierarchy, typography and shared navigation"></a><figcaption>After · maintainer transformation</figcaption></figure>
+</div>
+<details open><summary>Phone · original captures 390 × 844</summary>
+<p>The original phone has a recorded overflow defect. It remains visible in the unedited before capture; it is not a newly observed agent regression.</p>
+<div class="views">
+<figure class="phone"><a href="../../assets/examples/transform-before-mobile.png"><img src="../../assets/examples/transform-before-mobile.png" width="390" height="844" alt="Original Plotline phone dashboard, including its pre-existing overflow"></a><figcaption>Before · recorded baseline</figcaption></figure>
+<figure class="phone"><a href="../../assets/examples/transform-after-mobile.png"><img src="../../assets/examples/transform-after-mobile.png" width="390" height="844" alt="Transformed Plotline phone dashboard with responsive composition and navigation"></a><figcaption>After · same sample data</figcaption></figure>
+</div></details>
+<footer><p><a href="../REDESIGN-CHALLENGE.md">Try a reproducible comparison</a> · <a href="https://github.com/avivgerz-hue/glowup-ui/tree/main/demo/before">Before source</a> · <a href="https://github.com/avivgerz-hue/glowup-ui/tree/main/demo/after">After source</a></p><p>Static offline comparison. No analytics, remote scripts, added dependencies or uploads. Images are scaled equally for display; links open the original files. Published preview: v0.1.1. Newer main-branch work is not automatically part of that release.</p></footer>
+</main>
+</html>
