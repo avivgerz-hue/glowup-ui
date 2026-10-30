@@ -20,6 +20,11 @@ export function findings(shot) {
   if (shot.runtimeErrors?.length) add("blocker", "runtime-errors", shot.runtimeErrors.join("; "), shot.runtimeErrors.length);
   if (!m || m.version !== 1) { add("blocker", "missing-measurements", "Recapture with the current screenshot helper"); return out; }
   if (m.truncated) add("blocker", "measurement-limit", "Page exceeds the 10000-node measurement limit; complete manual review rather than claiming full coverage");
+  const obscured = (m.occlusion?.blocked || []).filter(c => !c.scrollReview);
+  const scrollObscured = (m.occlusion?.blocked || []).filter(c => c.scrollReview);
+  if (obscured.length) add("blocker", "obscured-controls", `${obscured.length} enabled controls intercepted at every sampled viewport point; inspect overlays and navigation`, obscured.length, obscured.slice(0, 3).map(c => c.name || c.tag));
+  if (scrollObscured.length) add("review", "obscured-scroll-content", `${scrollObscured.length} controls intercepted in scrollable content; verify they become reachable by scrolling`, scrollObscured.length, scrollObscured.slice(0, 3).map(c => c.name || c.tag));
+  if (m.occlusion?.truncated) add("review", "occlusion-limit", "Only the first 200 control/link candidates were hit-tested; remaining controls are unverified");
   const h1 = m.headings.filter((h) => h.level === 1);
   if (h1.length !== 1) add("review", "page-title", `Expected one visible page h1, found ${h1.length}`);
   if (m.globalHeaders > 1) add("review", "duplicate-header", `${m.globalHeaders} global header candidates; check for stacked chrome`, m.globalHeaders - 1);
@@ -75,7 +80,7 @@ export function review(current, before = null) {
     group.captures.push({ route: page.route, viewport: page.viewport });
     group.examples = [...new Set([...group.examples, ...finding.examples])].slice(0, 3);
   }
-  const order = ["capture", "runtime-errors", "page-overflow", "unnamed-controls", "broken-images", "duplicate-header", "keyboard-scroll", "text-contrast", "main-landmark", "page-title", "touch-targets", "tiny-text", "line-length"];
+  const order = ["capture", "runtime-errors", "page-overflow", "obscured-controls", "obscured-scroll-content", "unnamed-controls", "broken-images", "duplicate-header", "keyboard-scroll", "text-contrast", "main-landmark", "page-title", "touch-targets", "tiny-text", "line-length"];
   const ok = !coverage.length && !regressions.length && !blockers.length;
   return { ok, status: !ok ? "blocked" : groups.size ? "review" : "clear", compared: Boolean(before), pages, coverage, regressions, improvements, blockers,
     priorities: [...groups.values()].sort((a, b) => (a.severity === "blocker" ? 0 : 1) - (b.severity === "blocker" ? 0 : 1) || order.indexOf(a.kind) - order.indexOf(b.kind)).slice(0, 8),

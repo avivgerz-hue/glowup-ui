@@ -24,6 +24,31 @@ export function measurePage() {
   const longLines = prose.filter((el) => el.matches("p") && el.textContent.length > 120 && el.getBoundingClientRect().width / parseFloat(styleOf(el).fontSize) > 45).map((el) => text(el.textContent));
   const scrollRegions = elements.filter((el) => el.scrollWidth > el.clientWidth + 2 && /auto|scroll/.test(styleOf(el).overflowX)).map((el) => ({ name: name(el), keyboard: el.tabIndex >= 0 || Boolean(el.querySelector('a[href],button,input,select,textarea,[tabindex="0"]')) }));
   const banners = elements.filter((el) => el.matches('[role="banner"], header') && !el.closest("main, article, aside, section, nav, [role='main']"));
+  // Bounded viewport hit-testing. This is not a full-page overlap oracle.
+  const modal = elements.filter(el => el.matches('dialog:modal,[role="dialog"][aria-modal="true"]')).at(-1);
+  const candidates = [...controls, ...links].filter(el => !el.matches(':disabled,[aria-disabled="true"]') && (!modal || modal.contains(el)) && !(el.tagName === 'A' && styleOf(el).display === 'inline'));
+  const occlusion = { checked: 0, skipped: 0, truncated: candidates.length > 200, blocked: [] };
+  for (const el of candidates.slice(0, 200)) {
+    const r = el.getBoundingClientRect();
+    const left = Math.max(0, r.left), right = Math.min(innerWidth, r.right);
+    const top = Math.max(0, r.top), bottom = Math.min(innerHeight, r.bottom);
+    if (right - left < 2 || bottom - top < 2) { occlusion.skipped++; continue; }
+    occlusion.checked++;
+    const points = [[.5,.5],[.25,.25],[.75,.25],[.25,.75],[.75,.75]];
+    const hits = points.map(([x,y]) => document.elementFromPoint(left + (right-left)*x, top + (bottom-top)*y));
+    const reaches = hit => hit && (el === hit || el.contains(hit) || hit.closest('label')?.control === el);
+    if (hits.every(hit => !reaches(hit))) {
+      let anchored = false, scrollable = document.documentElement.scrollHeight > innerHeight + 1;
+      for (let node = el; node; node = node.parentElement) {
+        const style = styleOf(node);
+        if (['fixed','sticky'].includes(style.position)) anchored = true;
+        if (/auto|scroll/.test(style.overflowY) && node.scrollHeight > node.clientHeight + 1) scrollable = true;
+      }
+      // Sampling the current viewport cannot prove that scrolling won't reveal
+      // normal-flow content. Retain that finding for direct interaction review.
+      occlusion.blocked.push({ tag: el.tagName.toLowerCase(), name: name(el), scrollReview: !anchored && scrollable, blockers: [...new Set(hits.map(hit => hit?.tagName.toLowerCase() || 'none'))] });
+    }
+  }
   const colors = new Map(), canvas = document.createElement("canvas"); canvas.width = canvas.height = 1;
   const ctx = canvas.getContext("2d", { willReadFrequently: true });
   const rgb = (value) => {
@@ -68,7 +93,7 @@ export function measurePage() {
   }
   return {
     version: 1, nodes: nodes.length, truncated: nodes.length > 10000,
-    headings,
+    headings, occlusion,
     globalHeaders: banners.length,
     mainLandmarks: elements.filter((el) => el.matches('main,[role="main"]')).length,
     controls: controls.map((el) => ({ tag: el.tagName.toLowerCase(), type: el.getAttribute("type") || "", name: name(el), field: el.getAttribute("name") || el.id || "" })),
