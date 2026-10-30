@@ -3,13 +3,15 @@
   <img src="assets/brand/hero.svg" alt="Glowup UI — Your app works. Now make it look incredible." width="1280">
 </picture>
 
-# Glowup UI
+# Glowup UI — frontend design skill for existing apps
 
-**Redesign existing web apps with preservation checks.** An MIT-licensed Agent Skill for AI coding agents, focused on improving composition, typography, navigation and shared components while keeping routes, content, data and behavior. Also supports new apps (**CREATE**) and focused polish (**REFINE**).
+**UI redesign with preservation checks.** Glowup UI is an MIT-licensed Agent Skill for AI coding agents. It focuses on improving composition, typography, navigation and shared components in existing web apps while retaining routes, content, data and behavior. It also supports new apps (**CREATE**) and focused polish (**REFINE**).
 
 Use it with Claude Code, Codex, OpenCode or GitHub Copilot through one canonical skill. Installation is tested; native activation and a comparative design-quality advantage remain unverified. [Compatibility and evidence →](docs/compatibility.md)
 
 [![CI](https://github.com/avivgerz-hue/glowup-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/avivgerz-hue/glowup-ui/actions/workflows/ci.yml) · [v0.1.1 · Public Preview](https://github.com/avivgerz-hue/glowup-ui/releases/tag/v0.1.1) · [MIT](LICENSE)
+
+**Skill source:** [published v0.1.1 skill](https://github.com/avivgerz-hue/glowup-ui/blob/v0.1.1/skills/glowup-ui/SKILL.md) · [development instructions](skills/glowup-ui/SKILL.md). These links identify the canonical Agent Skill maintained in this repository; the tagged source matches the pinned installation commands below.
 
 **v0.1.2 release preparation:** [engineering fixes and verification limits](docs/release/NOTES-v0.1.2.md). The commands below deliberately retain published v0.1.1 until the new tag is published and verified. To test the candidate now, use a reviewed checkout as described in the [installation guide](docs/installation.md#reviewed-checkout-or-downloaded-release).
 
