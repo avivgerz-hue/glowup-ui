@@ -12,11 +12,13 @@ Bounded, honest checks. Run each once, fix what is wrong, confirm once. Never cl
 1. `node <skill-dir>/scripts/screenshot.mjs --check`. For an existing system Chromium, set `GLOWUP_BROWSER_EXECUTABLE=/path/to/chromium`; the helper never installs a browser or disables its sandbox. If Playwright is missing, do not install silently: use the agent's own browser tool if it has one, or skip and say "visual check not performed".
 2. Build once (`npm run build`), then capture with the server handled for you (it starts `--serve` if the URL is down and stops it afterwards):
    `node <skill-dir>/scripts/screenshot.mjs --base-url http://localhost:4173 --serve "npx vite preview --port 4173" --routes auto --label after`
-   (desktop 1440x900 and mobile 390x844; `contact-sheet.png` is written beside them). `--routes auto` takes the static routes found in the code; add dynamic ones by hand with a real id (`/tickets/T-1042`), and states reachable by URL. Use the project's own preview or start script in `--serve` if it is not Vite, or start your own server and omit `--serve`. For auth-gated routes use the app's own dev login, or report them as not captured. Do not change ports or env files to make it start.
+   (desktop 1440x900 and mobile 390x844; `contact-sheet.png` is written beside them). `--routes auto` takes the static routes found in the code; it does not cover tabs, dialogs or interaction states at the same URL. Capture those with the available browser tool or project test harness; mark unsupported states unverified. Add dynamic routes by hand with a real id (`/tickets/T-1042`), and states reachable by URL. Use the project's own preview or start script in `--serve` if it is not Vite, or start your own server and omit `--serve`. For auth-gated routes use the app's own dev login, or report them as not captured. Do not change ports or env files to make it start.
 3. For async pages, pass `--ready-selector "<page-specific selector>"` instead of relying on network idle (polling apps may never idle). After navigating between pages with identically labelled forms, wait for the new page's heading/readiness marker before filling fields.
 4. Look at the output: lines marked `[horizontal overflow]` or a non-ok status need fixing before you judge the design.
 5. Open the **contact sheet** first, then the full-size image of each weak page and every mobile page. Never describe an image you did not open.
 6. Before/after: in TRANSFORM, capture `--label before` first (same command, before editing) and run `node <skill-dir>/scripts/compare.mjs` for a side-by-side page. Match data, theme, scroll and viewport. After seeding storage, reload before capturing: hash-only navigation may retain stale in-memory state. Wait for the expected visible content, not just any heading.
+
+For TRANSFORM, compare each stated design priority against the matching original view: what visible relationship changed, and does it solve the observed weakness? Passing tests, different pixels and a clean measured review cannot answer this. If a priority remains unmet, fix its cause within the existing two-round budget and recapture the changed views. Missing baseline or browser access must be reported, never replaced with an imagined comparison.
 
 ## Measured review
 `node <skill-dir>/scripts/review.mjs --current .glowup/screenshots/after/manifest.json --before .glowup/screenshots/before/manifest.json` compares the same routes and dimensions. For CREATE, omit `--before`. It groups measured problems across routes so you can fix a shared cause once: overflow, unnamed controls, broken images, stacked global headers, keyboard-inaccessible scroll regions, simple text contrast, touch targets, and very small text. It flags lost rendered controls/links and changed fonts. Do not treat a clean result as a design score or a substitute for original behavior tests. A 44px target hint needs context for inline text, native checkboxes, and dense layouts. Contrast over images, gradients, opacity, SVG text, and blends is unverified; use a full accessibility tool when available and inspect actual surfaces.
@@ -34,8 +36,8 @@ Budget: two capture-review-fix rounds. Stop earlier when the checklist passes. L
 
 ## Report (15 lines or fewer)
 1. Mode and direction chosen (name) and why, in one line.
-2. What changed: shell, type, color, components, pages (counts, not file lists).
-3. Checks run with results: build, tests, audit, screenshots viewed (desktop and mobile, which routes).
+2. Preserved / changed / regressed / unverified, grouping screens with the same outcome. For TRANSFORM, account for every requested screen and any unmet design priority; do not call unfinished work complete.
+3. Checks run with results: build, tests, audit, screenshots actually viewed (desktop/mobile, screens/states and evidence paths).
 4. Not verified or left undone, and known limitations.
 5. Actual commit/publication status (only act when authorized) and how to review: `git diff --stat`.
 No scores you did not compute, no claims of testing in real browsers other than the one used.
