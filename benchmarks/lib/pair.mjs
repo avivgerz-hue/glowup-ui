@@ -4,18 +4,23 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import { hashDir } from '../../lib/install.mjs';
 export const sha = value => crypto.createHash('sha256').update(value).digest('hex');
-export function pairFromManifest(file, kind) {
+export function pairFromManifest(file, kind, {conditions=['without','with']}={}) {
+  if(conditions.length!==2||new Set(conditions).size!==2||conditions.some(c=>!['without','with','control','baseline','candidate'].includes(c))) throw new Error('Select two distinct supported conditions');
   const root = path.dirname(path.resolve(file));
   const manifest = JSON.parse(fs.readFileSync(file, 'utf8'));
-  const cases = ['without','with'].map(condition => manifest.cases.find(c => c.kind === kind && c.condition === condition));
-  if (cases.some(c => !c)) throw new Error('Need one without/with pair from prepare-comparison.mjs');
+  const cases = conditions.map(condition => manifest.cases.find(c => c.kind === kind && c.condition === condition));
+  if (cases.some(c => !c)) throw new Error('Need one cell for each selected condition in the comparison manifest');
   const pair = cases.map(c => {
     const task = fs.readFileSync(path.join(root, `${kind}-${c.condition}.task.txt`), 'utf8');
     if (sha(task) !== c.taskHash) throw new Error('Task changed after preparation');
     const installed = path.join(c.project, '.agents/skills/glowup-ui');
-    if (c.condition === 'with' ? hashDir(installed) !== c.skillHash : (fs.existsSync(installed)||fs.existsSync(path.join(c.project,'.claude/skills/glowup-ui')))) throw new Error('Skill payload changed or baseline contaminated');
-    if (c.condition === 'with' && hashDir(path.join(c.project,'.claude/skills/glowup-ui')) !== c.skillHash) throw new Error('Claude and Codex payloads differ');
-    return {...c, task, appHash: applicationHash(c.project)};
+    const treatment=['with','baseline','candidate'].includes(c.condition);
+    if(treatment&&!c.skillHash) throw new Error('Treatment payload hash required');
+    if (treatment ? hashDir(installed) !== c.skillHash : (fs.existsSync(installed)||fs.existsSync(path.join(c.project,'.claude/skills/glowup-ui')))) throw new Error('Skill payload changed or baseline contaminated');
+    if (treatment && hashDir(path.join(c.project,'.claude/skills/glowup-ui')) !== c.skillHash) throw new Error('Claude and Codex payloads differ');
+    const appHash=applicationHash(c.project);
+    if(c.appHash&&c.appHash!==appHash) throw new Error('Starting application changed after preparation');
+    return {...c, task, appHash};
   });
   if (pair[0].task !== pair[1].task || pair[0].appHash !== pair[1].appHash) throw new Error('Starting applications or task specifications differ');
   return pair;
