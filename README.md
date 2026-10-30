@@ -43,7 +43,7 @@ Both the CLI and skill release are pinned. For Claude Code, use `-a claude-code`
 
 Skill listed but not used? [Confirm full instruction loading, inspect candidate copies, and uninstall safely →](docs/installation.md#confirm-installation-then-load-the-skill). Discovery and the agent saying “I used Glowup” are not activation proof.
 
-For a first trial, choose a disposable copy or a clean branch of your app. Start with one page using REFINE, or explicitly request TRANSFORM for a full redesign. Save the original views, verify that the agent read the instructions and selected reference, then inspect the actual result and run the app's checks. [Short independent testing guide →](docs/INDEPENDENT-TESTING.md)
+For a first trial, choose a disposable copy or a clean branch of your app. Start with one page using REFINE, or explicitly request TRANSFORM for a full redesign. Save the original views, verify that the agent read the instructions and selected reference, then inspect the actual result and run the app's checks. [Short independent testing guide →](docs/INDEPENDENT-TESTING.md) · [Reproducible two-session redesign challenge →](docs/REDESIGN-CHALLENGE.md)
 
 ## Inspect the examples
 
