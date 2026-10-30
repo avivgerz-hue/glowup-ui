@@ -8,6 +8,8 @@ Bounded, honest checks. Run each once, fix what is wrong, confirm once. Never cl
 - Fix failures you caused. Report pre-existing failures; do not fix unrelated code.
 - TRANSFORM: `node <skill-dir>/scripts/checkpoint.mjs check` compares with the actual starting state, including uncommitted work. Review every failure/warning; run original behavior tests. `audit.mjs --base <ref>` is an additional Git audit when useful, not a replacement for the checkpoint.
 
+For preservation-sensitive changes, verify actual outcomes using existing tests or [focused behavior assertions](behavior-checks.md). Keep the same pre-edit expectations for before/after; a static checkpoint pass alone does not prove behavior. Rendered hit-testing can flag obscured navigation/controls, but inspect the actual screenshots and exercise the flow independently of aesthetic critique.
+
 ## Screenshots (when a browser exists)
 1. `node <skill-dir>/scripts/screenshot.mjs --check`. For an existing system Chromium, set `GLOWUP_BROWSER_EXECUTABLE=/path/to/chromium`; the helper never installs a browser or disables its sandbox. If Playwright is missing, do not install silently: use the agent's own browser tool if it has one, or skip and say "visual check not performed".
 2. Build once (`npm run build`), then capture with the server handled for you (it starts `--serve` if the URL is down and stops it afterwards):

@@ -5,7 +5,7 @@
   "description": "Reproducible benchmark harness for comparing coding-agent runs with and without Glowup UI.",
   "scripts": {
     "test": "node refine-safety.mjs",
-    "test:browser": "node review-browser.mjs && node create-smoke.mjs && node refine-journeys.mjs && node quality-smoke.mjs"
+    "test:browser": "node preservation-browser.mjs && node review-browser.mjs && node create-smoke.mjs && node refine-journeys.mjs && node quality-smoke.mjs"
   },
   "devDependencies": {
     "axe-core": "^4.10.0",
