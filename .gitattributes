@@ -1,0 +1,3 @@
+# These text sources have byte-level provenance hashes; preserve bytes on Windows.
+skills/glowup-ui/assets/studies/*.html text eol=lf
+skills/glowup-ui/assets/studies/*.css text eol=lf

@@ -83,7 +83,18 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
       - run: node bin/glowup-ui.mjs validate
-      - run: node scripts/run-tests.mjs
+      - run: node scripts/run-tests.mjs 2>&1 | tee test-results.log
+        shell: bash
+      - name: Surface failing test names for API-only review
+        if: failure()
+        shell: bash
+        run: |
+          node --input-type=module <<'JS'
+          import fs from 'node:fs';
+          if (fs.existsSync('test-results.log')) for (const line of fs.readFileSync('test-results.log','utf8').split('\n')) {
+            if (/^not ok \d+ - /.test(line)) console.log('::error::' + line.replaceAll('%','%25').replaceAll('\r','%0D'));
+          }
+          JS
       - run: node benchmarks/refine-safety.mjs
 
   spec:
