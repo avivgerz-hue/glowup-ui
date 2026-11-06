@@ -1,0 +1,127 @@
+{
+  "schema": 1,
+  "kind": "original hand-authored instructional compositions, not agent comparisons",
+  "sources": [
+    {
+      "file": "study.css",
+      "sha256": "74a821229ada90f4c3d1339633a73a2c9b026321b15fb1295f1b46c4b8673877"
+    },
+    {
+      "file": "task-workspace.html",
+      "sha256": "fd4c0c6639a815927f7e4d4efa1bb48caa7a57a1c4b5519b981a930c79d09d82"
+    },
+    {
+      "file": "selection-summary.html",
+      "sha256": "e5f6be2be62d7fd5f9212dabd67120c15ca26939fb5229279ac8877e5e9d6092"
+    }
+  ],
+  "captures": [
+    {
+      "file": "task-before-desktop.png",
+      "study": "task",
+      "version": "before",
+      "device": "desktop",
+      "width": 1440,
+      "height": 900,
+      "sha256": "e6272bb56c53d02511583953c0e21eb73b085854b61e6ccd92df72517a413362",
+      "contentSha256": "0a4cadf66d858c7f973ddcde8e6d012da7ba7b7b358b7e7776deee2857215368"
+    },
+    {
+      "file": "task-after-desktop.png",
+      "study": "task",
+      "version": "after",
+      "device": "desktop",
+      "width": 1440,
+      "height": 900,
+      "sha256": "a0318fa5c60dde3be0411e4e99e2af8d910bf493511fdedbe6e53179125f734b",
+      "contentSha256": "0a4cadf66d858c7f973ddcde8e6d012da7ba7b7b358b7e7776deee2857215368"
+    },
+    {
+      "file": "task-before-mobile.png",
+      "study": "task",
+      "version": "before",
+      "device": "mobile",
+      "width": 390,
+      "height": 844,
+      "sha256": "3a36b413c557d5e25a44e1f29f2d932546bf00d4a89b76e54aff99d8e826f232",
+      "contentSha256": "0a4cadf66d858c7f973ddcde8e6d012da7ba7b7b358b7e7776deee2857215368"
+    },
+    {
+      "file": "task-after-mobile.png",
+      "study": "task",
+      "version": "after",
+      "device": "mobile",
+      "width": 390,
+      "height": 844,
+      "sha256": "aaa73a14c01c24f459c1d9e702ed3a2bc2a2bd420adce68743f4582a9332de68",
+      "contentSha256": "0a4cadf66d858c7f973ddcde8e6d012da7ba7b7b358b7e7776deee2857215368"
+    },
+    {
+      "file": "selection-before-desktop.png",
+      "study": "selection",
+      "version": "before",
+      "device": "desktop",
+      "width": 1440,
+      "height": 900,
+      "sha256": "2cc13dcbc6925b8c887994dded488cbbf9a6a90f9ed4e731c526d02365ac99d0",
+      "contentSha256": "57d5ebcf5f6dbf40b51ae42156190721ad9260c4cec39dec4ae0dcde1bc7fe0a"
+    },
+    {
+      "file": "selection-after-desktop.png",
+      "study": "selection",
+      "version": "after",
+      "device": "desktop",
+      "width": 1440,
+      "height": 900,
+      "sha256": "4ee24259216b3d4a5d71028041895ff970f13e768acfd31c4bc036e81c72dc39",
+      "contentSha256": "57d5ebcf5f6dbf40b51ae42156190721ad9260c4cec39dec4ae0dcde1bc7fe0a"
+    },
+    {
+      "file": "selection-before-mobile.png",
+      "study": "selection",
+      "version": "before",
+      "device": "mobile",
+      "width": 390,
+      "height": 844,
+      "sha256": "6938ed45739b9941f67c7b33a4d5ca782e183cfa9dcd2ccf1e2a159c83e11d36",
+      "contentSha256": "57d5ebcf5f6dbf40b51ae42156190721ad9260c4cec39dec4ae0dcde1bc7fe0a"
+    },
+    {
+      "file": "selection-after-mobile.png",
+      "study": "selection",
+      "version": "after",
+      "device": "mobile",
+      "width": 390,
+      "height": 844,
+      "sha256": "f9f80f38f0d06b3d5dabaa71e6e2fdcc7c37fe7d6c1016020c2502cd9065156c",
+      "contentSha256": "57d5ebcf5f6dbf40b51ae42156190721ad9260c4cec39dec4ae0dcde1bc7fe0a"
+    }
+  ],
+  "checks": [
+    {
+      "study": "task",
+      "device": "desktop",
+      "sameContent": true,
+      "documentOverflow": false
+    },
+    {
+      "study": "task",
+      "device": "mobile",
+      "sameContent": true,
+      "documentOverflow": false
+    },
+    {
+      "study": "selection",
+      "device": "desktop",
+      "sameContent": true,
+      "documentOverflow": false
+    },
+    {
+      "study": "selection",
+      "device": "mobile",
+      "sameContent": true,
+      "documentOverflow": false
+    }
+  ],
+  "pass": true
+}

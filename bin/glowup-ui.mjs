@@ -4,7 +4,9 @@
 import path from "node:path";
 import fs from "node:fs";
 import { parseArgs } from "node:util";
-import { install, SKILL_SOURCE, TARGETS, AGENT_TARGETS } from "../lib/install.mjs";
+import { install, hashDir, SKILL_SOURCE, TARGETS, AGENT_TARGETS } from "../lib/install.mjs";
+import { terminalProgress } from "../lib/terminal.mjs";
+import { setImmediate as yieldToTerminal } from "node:timers/promises";
 import { validateSkill } from "../lib/validate.mjs";
 import { doctor } from "../lib/doctor.mjs";
 import { uninstall } from "../lib/uninstall.mjs";
@@ -13,7 +15,7 @@ const HELP = `glowup-ui — install or validate the Glowup UI agent skill
 
 Usage:
   glowup-ui install [--agent <name>[,<name>...]] [--scope user|project] [--project <dir>]
-                    [--dest <skills-dir>] [--dry-run] [--force] [--link] [--codex-legacy]
+                    [--dest <skills-dir>] [--dry-run] [--force] [--link] [--codex-legacy] [--no-animation]
   glowup-ui validate [skill-dir]
   glowup-ui uninstall [--agent <name>] [--scope user|project] [--project <dir>] [--dry-run]
   glowup-ui where
@@ -35,6 +37,7 @@ Options:
   --force          Replace an existing different copy (moved to .glowup-ui/backups in the selected project or home)
   --link           Symlink to this checkout instead of copying (for contributors)
   --codex-legacy   Use $CODEX_HOME/skills (~/.codex/skills) instead of ~/.agents/skills
+  --no-animation  Plain output; animation is also off in CI, pipes, NO_COLOR and dumb terminals
 
 where prints the bundled source path, not an installed location.
 Use doctor --project <app-dir> to inspect installed copies; it does not test activation.
@@ -49,10 +52,11 @@ const INSTALL_OPTIONS = {
   force: { type: "boolean", default: false },
   link: { type: "boolean", default: false },
   "codex-legacy": { type: "boolean", default: false },
+  "no-animation": { type: "boolean", default: false },
   help: { type: "boolean", short: "h", default: false },
 };
 
-function runInstall(argv) {
+async function runInstall(argv) {
   let values;
   try {
     ({ values } = parseArgs({ args: argv, options: INSTALL_OPTIONS }));
@@ -68,9 +72,17 @@ function runInstall(argv) {
   return installWith(values);
 }
 
-function installWith(values) {
-  let results;
+async function installWith(values) {
+  let results, sourceVersion;
+  const progress = terminalProgress({ disabled: values['no-animation'] || values['dry-run'] });
   try {
+    progress.update('checking the bundled skill');
+    await yieldToTerminal();
+    const validated = validateSkill(SKILL_SOURCE);
+    if (!validated.ok) throw new Error(`Bundled skill is invalid: ${validated.errors.join('; ')}`);
+    sourceVersion = validated.data.metadata?.version || 'unknown';
+    progress.update(values['dry-run'] ? 'planning installation' : `installing ${sourceVersion}`);
+    await yieldToTerminal();
     results = install({
       agent: values.agent,
       dest: values.dest,
@@ -81,12 +93,24 @@ function installWith(values) {
       link: values.link,
       codexLegacy: values["codex-legacy"],
     });
+    if (!values['dry-run']) {
+      progress.update('verifying installed bytes');
+      await yieldToTerminal();
+      const sourceHash = hashDir(SKILL_SOURCE);
+      for (const result of results.filter(r => r.action !== 'conflict')) {
+        if (hashDir(result.dir) !== sourceHash) throw new Error('Installed payload differs from its bundled source. Keep backups and inspect the destination before retrying.');
+      }
+    }
   } catch (error) {
+    progress.finish();
     console.error(`${error.message}\n`);
     console.error(HELP);
     return 64;
+  } finally {
+    progress.finish();
   }
 
+  console.log(`Glowup UI ${sourceVersion}${values['dry-run'] ? ' · installation plan' : ' · bundled source'}`);
   let conflict = false;
   for (const r of results) {
     const tag = { install: "installed", link: "linked", replace: "replaced", "up-to-date": "unchanged", conflict: "SKIPPED" }[r.action];
@@ -160,7 +184,7 @@ switch (command) {
     } catch (error) { console.error(error.message); code = 1; }
     break;
   }
-  case "install": code = runInstall(rest); break;
+  case "install": code = await runInstall(rest); break;
   case "validate": code = runValidate(rest); break;
   case "where": console.log(SKILL_SOURCE); code = 0; break;
   case "doctor": {

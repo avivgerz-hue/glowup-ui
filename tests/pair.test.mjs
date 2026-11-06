@@ -19,6 +19,11 @@ test('Codex full-body evidence rejects requested reads, partial bodies and faile
 });
 test('transport and authentication blocks are distinguished',()=>{assert.equal(blocker('HTTP CONNECT 403'),'blocked-network');assert.equal(blocker('Your access token could not be refreshed'),'blocked-auth');assert.equal(blocker('completed'),null);});
 
+test('reproduced native initialization failure is a runtime blocker, not a design result',()=>{
+ assert.equal(blocker('Error: failed to initialize in-process app-server client: Read-only file system (os error 30)'),'blocked-runtime');
+ assert.equal(blocker('App displays Read-only file system in a user message'),null);
+});
+
 test('native error classifier ignores login phrases in app content and successful answers',async()=>{
  const {eventBlocker}=await import('../benchmarks/lib/pair.mjs');
  for(const event of [{type:'item.completed',item:{type:'command_execution',aggregated_output:'Not logged in; HTTP CONNECT 403'}},{type:'result',subtype:'success',is_error:false,result:'Display Not logged in on this page'}])assert.equal(eventBlocker(event),null);
