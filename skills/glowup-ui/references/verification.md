@@ -19,6 +19,7 @@ For preservation-sensitive changes, verify actual outcomes using existing tests 
 4. Look at the output: lines marked `[horizontal overflow]` or a non-ok status need fixing before you judge the design.
 5. Open the **contact sheet** first, then the full-size image of each weak page and every mobile page. Never describe an image you did not open.
 6. Before/after: in TRANSFORM, capture `--label before` first (same command, before editing) and run `node <skill-dir>/scripts/compare.mjs` for a side-by-side page. Match data, theme, scroll and viewport. After seeding storage, reload before capturing: hash-only navigation may retain stale in-memory state. Wait for the expected visible content, not just any heading.
+7. Motion: the screenshot helper requests reduced motion and disables animations, so its images do not verify animation quality. Inspect requested motion live with normal motion preferences, then check the reduced-motion experience separately; if that cannot be done, report motion as unverified.
 
 For TRANSFORM, compare each stated design priority against the matching original view: what visible relationship changed, and does it solve the observed weakness? Passing tests, different pixels and a clean measured review cannot answer this. If a priority remains unmet, fix its cause within the existing two-round budget and recapture the changed views. Missing baseline or browser access must be reported, never replaced with an imagined comparison.
 
