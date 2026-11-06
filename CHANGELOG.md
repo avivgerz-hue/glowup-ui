@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.2.0-dev.1 — Development candidate (unreleased)
+## v0.2.0-dev.2 — Development candidate (unreleased)
 
 - Add two original worked composition studies with matched desktop/phone renders, structural code, rejection cases and cross-screen adaptations. Retrieve at most one by an observed hierarchy or selection problem; polish needs no study lookup.
 - Distinguish explicit brand commitments from incidental starter styling during a substantial redesign. Preserve product behavior, content, routes and user constraints.
