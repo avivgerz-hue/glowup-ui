@@ -95,6 +95,8 @@ typography and layout. Fix evidenced spacing, focus and phone usability issues.
 
 The agent reads one concise workflow, inspects the project, chooses a product-appropriate composition, implements shared primitives, and checks real desktop/phone views. Optional Node helpers provide design recipes, contrast-checked directions, a small starter, starting-state checkpoints and rendered issue reports. Detailed references load only when relevant.
 
+**Development candidate: 0.2.0-dev.1.** This branch adds original, rendered composition studies selected by an observed problem, clearer full-redesign permissions, and version-verified installation with terminal progress. It is not a published release; the commands above still install v0.1.1. [Candidate changes and evaluation boundaries](docs/engineering/v0.2-candidate.md).
+
 An existing app keeps its framework and working logic. The agent is instructed to preserve routes, handlers, data, content and tests. Checkpoints, original tests and browser review help detect regressions; they do not guarantee every change is safe or aesthetically better. Review the diff.
 
 ## Coding-agent support

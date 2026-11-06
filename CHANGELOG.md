@@ -1,5 +1,16 @@
 # Changelog
 
+## v0.2.0-dev.1 — Development candidate (unreleased)
+
+- Add two original worked composition studies with matched desktop/phone renders, structural code, rejection cases and cross-screen adaptations. Retrieve at most one by an observed hierarchy or selection problem; polish needs no study lookup.
+- Distinguish explicit brand commitments from incidental starter styling during a substantial redesign. Preserve product behavior, content, routes and user constraints.
+- Keep the concise CREATE/TRANSFORM/REFINE workflows, motion guidance, screen coverage and existing bounded rendered-correction loop.
+- Validate the installer source before copying, verify installed bytes, report the actual version, and show terminal-only progress tied to real stages. No animation delay, dependencies or telemetry; plain-output opt-out and safe replacement/removal remain available.
+- Classify the reproduced native Codex read-only initialization failure as a runtime blocker, not an unsuccessful design trial.
+
+This is a test candidate, not a release or a claim of design superiority. Native-agent and human-preference evidence remain separate from functional tests and hand-authored examples. See [candidate verification](docs/engineering/v0.2-candidate.md).
+
+
 ## v0.1.2 — Public Preview (release preparation)
 
 Prepared patch release; no tag or publication is performed by this PR. Public installation pins stay on v0.1.1 until v0.1.2 is published and remotely verified.

@@ -4,7 +4,7 @@ Glowup UI maintains **one canonical skill**, `skills/glowup-ui/`. Installation c
 
 **No current-preview agent has verified full activation in an authenticated native session.** A file copy or discovery listing proves neither full instruction loading nor design influence. Use the [activation procedure](ACTIVATION-DEBUG.md) to verify the chosen host; do not treat an installation as current cross-agent certification.
 
-The reviewed source targets **v0.1.2**; public installation commands remain on v0.1.1 until publication/remote verification. v0.1.2 contains the custom Claude-root and source-inspection fixes; do not infer that an older tagged installer includes them. See [release notes and verification boundaries](release/NOTES-v0.1.2.md).
+This branch is the **v0.2.0-dev.1 development candidate**; public installation commands remain on v0.1.1 until an approved publication and remote verification. It retains the v0.1.2 custom Claude-root, source-inspection and verification fixes; do not infer that an older tagged installer includes them. See [candidate evidence and limitations](engineering/v0.2-candidate.md) and the historical [v0.1.2 notes](release/NOTES-v0.1.2.md).
 
 ## Tested installation and documented behavior
 
