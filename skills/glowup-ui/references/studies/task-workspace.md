@@ -8,6 +8,8 @@ The source has six scheduled gatherings, attendance, capacity, dates and a next-
 
 This is appropriate when finding and preparing an event is the main task. A monitoring dashboard whose real job is aggregate performance may deserve a dominant summary instead. Identify the actual job before copying the hierarchy.
 
+**Task-led does not mean context-free.** Keep the minimum facts needed to interpret or act on the collection adjacent to it: available money plus in/out context for a ledger, date/capacity for an event, selected account or project for a work list. On phone, compress these facts into a short labelled strip before the list; move the expanded chart or background explanation later. Do not put every summary behind a long collection just to expose more rows. The rendered example retains its compact totals before the list for this reason.
+
 ## Implementation relationships
 
 ```css
@@ -17,7 +19,7 @@ This is appropriate when finding and preparing an event is the main task. A moni
 .event-meta { font-size: .875rem; line-height: 1.5; }
 @media (max-width: 48rem) {
   .workspace { grid-template-columns: minmax(0, 1fr); }
-  /* The working list stays first. Context follows, without removing it. */
+  /* Keep compact decision context near the list; expanded context can follow. */
   .event-row { grid-template-columns: 2.75rem minmax(0, 1fr); }
   .attendance { grid-column: 2; }
 }

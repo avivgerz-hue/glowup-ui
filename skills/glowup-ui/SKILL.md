@@ -4,7 +4,7 @@ description: Build distinctive new web apps, transform existing frontends, refin
 license: MIT
 compatibility: Agent Skills-compatible coding agents including Claude Code and Codex. Helpers use Node.js 20+ built-ins. Browser review uses an available browser or optional Playwright; never installs silently. No paid service required by the skill.
 metadata:
-  version: "0.2.0-dev.2"
+  version: "0.2.0-dev.3"
   homepage: "https://github.com/avivgerz-hue/glowup-ui"
 ---
 

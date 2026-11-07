@@ -8,15 +8,20 @@ The weak composition mixes service descriptions, time choices and a large promot
 
 Use this when users need to understand choices before committing. For repeat customers who already know their service, an availability-first layout may be faster. The screenshot is a composition study, not proof that any reservation service or backend exists.
 
+**Scale to the actual choice count.** This three-option example is not an eight-option specification. For many short comparable options, a two-column desktop choice grid can expose names, duration, price and the next step together; use a single column when labels or descriptions need it. Phone choices need readable labels, not compressed desktop columns. Remove redundant introductory space before shrinking controls. Keep current selections and step navigation near the decision, with completed steps visually distinct from the active one. Preserve existing selection/validation behavior.
+
 ## Implementation relationships
 
 ```css
 .reservation { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(16rem, 1fr); gap: 2.5rem; }
 .choice { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1rem; }
+/* For numerous short choices on desktop, adapt the PARENT, not field labels. */
+.many-choices { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; }
 .slots { display: grid; grid-template-columns: repeat(auto-fit, minmax(5rem, 1fr)); gap: .5rem; }
 .summary { align-self: start; }
 @media (max-width: 48rem) {
   .reservation { grid-template-columns: minmax(0, 1fr); }
+  .many-choices { grid-template-columns: minmax(0, 1fr); }
   /* Summary follows choices and precedes commitment. No covering bottom bar. */
 }
 ```
