@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#f6f7f4"><title>Gather — A little more together</title><link rel="stylesheet" href="/styles.css"></head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+<svg class="icon-defs" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><defs>
+<symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
+<symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M7 3v4m10-4v4M3 11h18m-13 4h2m4 0h2m-8 3h2"/></symbol>
+<symbol id="i-people" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 21v-3a6 6 0 0 1 12 0v3m1-16a3 3 0 0 1 0 6m3 10v-3a6 6 0 0 0-2-4"/></symbol>
+<symbol id="i-settings" viewBox="0 0 24 24"><path d="m9 3-.5 3-2 1L4 6l-2 4 2.5 2v2L2 16l2 4 2.5-1 2 1L9 23h5l.5-3 2-1 2.5 1 2-4-2.5-2v-2L21 10l-2-4-2.5 1-2-1L14 3Z" transform="translate(0 -1) scale(1 .96)"/><circle cx="11.5" cy="11.5" r="3"/></symbol>
+<symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h16m-6-6 6 6-6 6"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></symbol>
+<symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 11-8 11S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+<symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+<symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 2 2.7 7.3L22 12l-7.3 2.7L12 22l-2.7-7.3L2 12l7.3-2.7Z"/></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 6 9 7 9-7"/></symbol>
+</defs></svg>
+<div class="app-shell">
+<aside class="sidebar">
+  <a class="brand" href="#overview" aria-label="Gather home"><span class="brand-mark">✳</span> gather<span class="brand-period">.</span></a>
+  <div class="workspace"><span class="workspace-avatar">g</span><div><strong id="workspace-label">Gather community</strong><span>Your workspace</span></div><span class="workspace-chevron">⌄</span></div>
+  <p class="nav-label">WORKSPACE</p>
+  <nav aria-label="Main navigation"><a href="#overview" data-route="overview"><svg><use href="#i-grid"/></svg>Overview</a><a href="#events" data-route="events"><svg><use href="#i-calendar"/></svg>Events<span class="nav-count">6</span></a><a href="#guests" data-route="guests"><svg><use href="#i-people"/></svg>Guests</a><a href="#settings" data-route="settings"><svg><use href="#i-settings"/></svg>Settings</a></nav>
+  <div class="sidebar-bottom"><div class="tiny-flower">✳</div><p>Good things happen<br>when we get together.</p><span>Make room for a little connection.</span></div>
+  <a href="#settings" class="account"><span class="avatar account-avatar">AM</span><div><strong id="account-name">Alex Morgan</strong><span>Workspace admin</span></div><svg><use href="#i-settings"/></svg></a>
+</aside>
+<div class="content-wrap"><header class="topbar"><span class="topbar-context">Your space to bring people together</span><div class="topbar-right"><span class="today-dot"></span><time datetime="2026-11-06">Friday, November 6</time><span class="avatar small-avatar" aria-hidden="true">AM</span></div></header><main id="main" tabindex="-1"></main><footer class="page-footer"><span>Made for moments that matter.</span><span>Gather community · 2026</span></footer></div>
+</div>
+<dialog id="event-dialog" aria-labelledby="dialog-title"><div id="dialog-content"></div></dialog>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script type="module" src="/app.js"></script>
+</body></html>

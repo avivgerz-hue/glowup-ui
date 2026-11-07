@@ -1,0 +1,208 @@
+{
+  "schema": 1,
+  "kind": "agent-built baseline followed by manual full-instruction Glowup TRANSFORM; additional editing pass, not a controlled skill advantage",
+  "skillVersion": "0.2.0-dev.1",
+  "skillCommit": "1aaacc6a4a6bcd85fb861c78462715f17990a25e",
+  "sources": {
+    "before": {
+      "path": "demo/gather/before",
+      "hash": "506d0912bcd311ef647018d62719802b75182fb3ccfdc040991028315cd4870c",
+      "domainTests": 6,
+      "build": true
+    },
+    "after": {
+      "path": "demo/gather/after",
+      "hash": "a96cb89b6836b00f016b02ae10e89cae06d4f7c2a5e60d2140ca364f379a0134",
+      "domainTests": 6,
+      "build": true
+    }
+  },
+  "captures": [
+    {
+      "route": "#overview",
+      "width": 1440,
+      "height": 900,
+      "file": "before/overview-desktop.png",
+      "sha256": "a4b25d891c530990957b8439edcf575ce8351fddb82f0249df8eaeff35517855",
+      "label": "before"
+    },
+    {
+      "route": "#events",
+      "width": 1440,
+      "height": 900,
+      "file": "before/events-desktop.png",
+      "sha256": "e86129b29fd1b2f05509768b990166d8b6e41228d6a191ebad9c958aa2c9c319",
+      "label": "before"
+    },
+    {
+      "route": "#guests",
+      "width": 1440,
+      "height": 900,
+      "file": "before/guests-desktop.png",
+      "sha256": "9ce38aaaa186ae43ed066744a5684df8686d3e695ae3ddd2d37c23f370255ed3",
+      "label": "before"
+    },
+    {
+      "route": "#settings",
+      "width": 1440,
+      "height": 900,
+      "file": "before/settings-desktop.png",
+      "sha256": "6648f72527472013bd00d474107fb19530695b6a703bef839ce33f95846bd029",
+      "label": "before"
+    },
+    {
+      "route": "#overview",
+      "width": 390,
+      "height": 844,
+      "file": "before/overview-mobile.png",
+      "sha256": "97b04a1be8e215e9cfc845611e9a903cb5cfb2d64564ca42ee3565e1ba99407f",
+      "label": "before"
+    },
+    {
+      "route": "#events",
+      "width": 390,
+      "height": 844,
+      "file": "before/events-mobile.png",
+      "sha256": "68d9ea2f78e0293144143e1c4c54cfe30954e25d6933fe539fcd7a2f3f9b2afc",
+      "label": "before"
+    },
+    {
+      "route": "#guests",
+      "width": 390,
+      "height": 844,
+      "file": "before/guests-mobile.png",
+      "sha256": "3fce005fc73fdf4af0581a8ab9ddc80b206a97a944050f9a163fa1a9cbcfb9e5",
+      "label": "before"
+    },
+    {
+      "route": "#settings",
+      "width": 390,
+      "height": 844,
+      "file": "before/settings-mobile.png",
+      "sha256": "887a4fa445964658fc35cd67db45131c3226e7557ff51612188fff6d270a8b61",
+      "label": "before"
+    },
+    {
+      "route": "#overview",
+      "width": 1440,
+      "height": 900,
+      "file": "after/overview-desktop.png",
+      "sha256": "ce19be5c3a082e00d4ec8e82c95993451aa813d5be863be00b53a358a0d07b70",
+      "label": "after"
+    },
+    {
+      "route": "#events",
+      "width": 1440,
+      "height": 900,
+      "file": "after/events-desktop.png",
+      "sha256": "e831cadc988852c829d6989d54d5984fef6c74afd086539aeeed4b2183863d34",
+      "label": "after"
+    },
+    {
+      "route": "#guests",
+      "width": 1440,
+      "height": 900,
+      "file": "after/guests-desktop.png",
+      "sha256": "efeaaf5449de7526889acfe5ab761e7f6d84ea28d329e1a3f2e82750fe1fce56",
+      "label": "after"
+    },
+    {
+      "route": "#settings",
+      "width": 1440,
+      "height": 900,
+      "file": "after/settings-desktop.png",
+      "sha256": "d2f7f4a3667153f26b02adc4e1d37e18288ecf84d9eb53965dce88596cd071f2",
+      "label": "after"
+    },
+    {
+      "route": "#overview",
+      "width": 390,
+      "height": 844,
+      "file": "after/overview-mobile.png",
+      "sha256": "6766e81ea4e052dd58a95dbc7a8ddc62de70760b90ef7be82aaae4aa6b5cf64c",
+      "label": "after"
+    },
+    {
+      "route": "#events",
+      "width": 390,
+      "height": 844,
+      "file": "after/events-mobile.png",
+      "sha256": "b2712be4a17d76112ef26ee68ebd4bc7916209d54fc4a3bb044aec135d1916cb",
+      "label": "after"
+    },
+    {
+      "route": "#guests",
+      "width": 390,
+      "height": 844,
+      "file": "after/guests-mobile.png",
+      "sha256": "63a8291667c8d904b1bb4914d116e2894f88af4a3d61479b3a18d75631c07e6f",
+      "label": "after"
+    },
+    {
+      "route": "#settings",
+      "width": 390,
+      "height": 844,
+      "file": "after/settings-mobile.png",
+      "sha256": "41411c092ed2cb8c207700cdeb17af44bcdde23d832fa8155c46601abb5e6a5a",
+      "label": "after"
+    }
+  ],
+  "checks": [
+    {
+      "label": "before",
+      "checks": [
+        {
+          "device": "desktop",
+          "rsvpValidation": true,
+          "rsvpPersistence": true,
+          "guestSearch": true,
+          "eventEmptyState": true,
+          "preferencesPersistence": true
+        },
+        {
+          "device": "mobile",
+          "rsvpValidation": true,
+          "rsvpPersistence": true,
+          "guestSearch": true,
+          "eventEmptyState": true,
+          "preferencesPersistence": true
+        }
+      ],
+      "pageErrors": []
+    },
+    {
+      "label": "after",
+      "checks": [
+        {
+          "device": "desktop",
+          "rsvpValidation": true,
+          "rsvpPersistence": true,
+          "guestSearch": true,
+          "eventEmptyState": true,
+          "preferencesPersistence": true
+        },
+        {
+          "device": "mobile",
+          "rsvpValidation": true,
+          "rsvpPersistence": true,
+          "guestSearch": true,
+          "eventEmptyState": true,
+          "preferencesPersistence": true
+        }
+      ],
+      "pageErrors": []
+    }
+  ],
+  "pass": true,
+  "seedHash": "b4d42b282e8915577135d359d220254afea04a46f17abc17199ee982f344a7aa",
+  "browser": {
+    "version": "154.0.8037.57",
+    "engine": "chromium",
+    "launch": "Playwright defaults with optional existing executable",
+    "chromiumSandbox": false,
+    "locale": "en-US",
+    "timezone": "UTC"
+  },
+  "dialogOutcomesTested": true,
+  "gallerySha256": "6a0904090e3225807ed9a9f99952635b95cd1961e7dbc10d116283a7c6305711"
+}

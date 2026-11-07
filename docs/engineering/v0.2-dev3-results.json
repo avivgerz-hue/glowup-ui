@@ -1,0 +1,3751 @@
+{
+  "version": "0.2.0-dev.3",
+  "status": "executed-exploratory-in-session-comparisons",
+  "candidateCommit": "82b82581020b612e7f65505bc40b762a44667542",
+  "baselineCommit": "52be5a00610b355ff44533d1c26e1859fb960360",
+  "runner": {
+    "type": "fresh-context in-session agents",
+    "model": "inherited same parent settings; exact provider identifier not exposed",
+    "native": false,
+    "hardBudgetEnforced": false,
+    "requestedMinutes": 18,
+    "maximumAestheticRounds": 2,
+    "sharedFilesystem": "instruction isolation, not security isolation"
+  },
+  "activation": {
+    "canonicalPayloadHashesVerified": true,
+    "fullReads": "Builder reports identify complete skill/reference reads before edits; source bytes independently verified. This is explicit file-directed loading, not native discovery/activation certification.",
+    "nativeCodex": "No model turn; provider proxy denies chatgpt.com with HTTP CONNECT403. Saved environment draft is not applied.",
+    "claudeNative": "not executed in this follow-up",
+    "humanReview": "pending; empty forms kept separate"
+  },
+  "totals": {
+    "implementations": 18,
+    "originalTestExecutions": 126,
+    "bookingBuilds": 9,
+    "finalMatchedScreenshots": 252,
+    "blindedModelReviews": 12,
+    "independentHumanReviews": 0,
+    "addedApplicationDependencies": 0
+  },
+  "summary": [
+    {
+      "product": "finance",
+      "comparator": "control",
+      "candidatePreferred": 3,
+      "comparatorPreferred": 0,
+      "ties": 0
+    },
+    {
+      "product": "finance",
+      "comparator": "baseline",
+      "candidatePreferred": 1,
+      "comparatorPreferred": 1,
+      "ties": 1
+    },
+    {
+      "product": "booking",
+      "comparator": "control",
+      "candidatePreferred": 2,
+      "comparatorPreferred": 0,
+      "ties": 1
+    },
+    {
+      "product": "booking",
+      "comparator": "baseline",
+      "candidatePreferred": 3,
+      "comparatorPreferred": 0,
+      "ties": 0
+    }
+  ],
+  "comparisons": [
+    {
+      "trial": 1,
+      "product": "finance",
+      "comparator": "control",
+      "preference": "candidate",
+      "strength": "moderate",
+      "selectedViews": 8,
+      "assessment": "blinded same-family model, not human",
+      "visibleReasons": [
+        "The desktop and mobile overview compositions make the balance, money flows and recent activity readily scannable together.",
+        "Across screens the stronger body/label typography and restrained supporting text hierarchy help separate tasks and data from secondary context.",
+        "The activity page\u2019s mobile title/action arrangement and transaction hierarchy are particularly clear."
+      ],
+      "perView": [
+        {
+          "id": "view-1",
+          "preference": "candidate",
+          "reasons": [
+            "The compact balance band groups balance, monthly movement, money in and money out in one readily scanned area.",
+            "The adjacent recent-activity and monthly-context sections expose more distinct information in this viewport, with stronger text weight on transaction names and amounts."
+          ]
+        },
+        {
+          "id": "view-2",
+          "preference": "tie",
+          "reasons": [
+            "Y has more legible-looking labels and a clearer weight distinction between transaction data and secondary dates/categories.",
+            "X uses less vertical space per row and shows more of the transaction list in the same viewport; its tinted filter section also separates controls clearly.",
+            "Both present the primary action, search, category filter and table in a clear sequence."
+          ]
+        },
+        {
+          "id": "view-3",
+          "preference": "tie",
+          "reasons": [
+            "Y has more prominent field labels and supporting currency text, and a concise page-title hierarchy.",
+            "X gives the card a more complete full-width composition with contextual copy in its left panel; Y leaves a large nearly empty panel and unused space to the card\u2019s right.",
+            "The form controls and save action are easy to locate in both."
+          ]
+        },
+        {
+          "id": "view-4",
+          "preference": "control",
+          "reasons": [
+            "X visibly explains how Income differs from the spending categories immediately before the form, useful context for the task.",
+            "All fields, the save action and close action still fit comfortably within the dialog."
+          ]
+        },
+        {
+          "id": "view-5",
+          "preference": "candidate",
+          "reasons": [
+            "Y groups the headline balance and both money-flow totals in a compact mobile block, then exposes recent transactions in the same viewport.",
+            "Names, amounts and category/date metadata remain visually distinct in the narrow activity layout."
+          ]
+        },
+        {
+          "id": "view-6",
+          "preference": "candidate",
+          "reasons": [
+            "Y places the title and add action together and reaches the filters and list with a more compact composition.",
+            "The transaction names and amounts are visibly easier to distinguish from category and date metadata, and more rows are visible."
+          ]
+        },
+        {
+          "id": "view-7",
+          "preference": "candidate",
+          "reasons": [
+            "Y keeps the contextual panel concise, gives field labels and explanatory text more visual weight, and makes the save action span the form width.",
+            "The card, fields and action share a consistent horizontal alignment."
+          ]
+        },
+        {
+          "id": "view-8",
+          "preference": "control",
+          "reasons": [
+            "The visible category guidance in X explains a consequential choice before the user reaches the fields.",
+            "The longer dialog still fits with all controls and actions visible and sufficient separation between fields."
+          ]
+        }
+      ]
+    },
+    {
+      "trial": 1,
+      "product": "finance",
+      "comparator": "baseline",
+      "preference": "candidate",
+      "strength": "moderate",
+      "selectedViews": 8,
+      "assessment": "blinded same-family model, not human",
+      "visibleReasons": [
+        "Across the overview and mobile pages, X consistently keeps primary actions, financial totals and task content close together, with more transaction or form content visible at once.",
+        "Both maintain coherent navigation, color, type and form patterns across desktop and mobile; the dialogs are effectively tied.",
+        "Y's integrated monthly summary and roomier typography have merits, but the additional vertical space has a visible cost on the mobile overview and activity views."
+      ],
+      "perView": [
+        {
+          "id": "view-1",
+          "preference": "candidate",
+          "reasons": [
+            "The balance, money in and money out form a compact primary summary, with recent transactions immediately below and several rows visible.",
+            "The side panel gives the savings proportion and trend their own supporting space without delaying the activity list.",
+            "Y groups the monthly context coherently and gives the trend more room, but the taller summary leaves much less recent activity visible in this viewport."
+          ]
+        },
+        {
+          "id": "view-2",
+          "preference": "tie",
+          "reasons": [
+            "Both place search and category controls directly above a clearly aligned transaction table and keep the add action near the page heading.",
+            "Y has larger, lighter transaction text and more space within rows, while X shows a denser list and gives names stronger emphasis.",
+            "Neither composition creates a decisive visible advantage for scanning this view."
+          ]
+        },
+        {
+          "id": "view-3",
+          "preference": "tie",
+          "reasons": [
+            "Both show the same clear field sequence, nearby currency explanation and distinct save action.",
+            "X separates the introductory area using a tinted panel and keeps the form relatively compact. Y aligns the card to the wider page grid and uses a quieter divider.",
+            "Y's large wrapped introductory phrase and X's broad empty tinted panel each use substantial space without adding task information."
+          ]
+        },
+        {
+          "id": "view-4",
+          "preference": "tie",
+          "reasons": [
+            "Both dialogs have a clear title and close action, aligned labels, a compact amount/category row and a prominent full-width save action.",
+            "The date focus indicator and dimmed background make the active form easy to locate in both.",
+            "Small differences in width, corner treatment and spacing do not materially change the visible form hierarchy."
+          ]
+        },
+        {
+          "id": "view-5",
+          "preference": "candidate",
+          "reasons": [
+            "X keeps the add action beside the heading and presents balance and cash flow in a compact card, allowing several recent transactions to appear in the same viewport.",
+            "Y provides visible savings context and a trend, but its taller summary and separate action row push the transaction content below the visible area.",
+            "X's transaction names, amounts, category tags and dates remain visibly organized at this width."
+          ]
+        },
+        {
+          "id": "view-6",
+          "preference": "candidate",
+          "reasons": [
+            "The heading and add action share a row in X, keeping the search controls closer to the page introduction and revealing more transaction detail below.",
+            "X gives the category selector the same full width as the search field and uses strong names and compact category tags for scanning.",
+            "Y's lighter transaction typography and avatars provide comfortable separation, but the extra action row and larger transaction rows consume more of the narrow viewport."
+          ]
+        },
+        {
+          "id": "view-7",
+          "preference": "candidate",
+          "reasons": [
+            "X brings the settings form higher in the viewport through its shared heading/action row, and the tinted introduction distinctly separates context from the editable fields.",
+            "Both retain readable labels, full-width fields, explanatory text and a clear save action.",
+            "Y's larger introductory type is readable, but the additional vertical space does not visibly aid this short form."
+          ]
+        },
+        {
+          "id": "view-8",
+          "preference": "tie",
+          "reasons": [
+            "Both dialogs fit the visible viewport with clear margins, a visible close action and all fields and the save action shown together.",
+            "Amount and category remain legible side by side, and the date focus state is conspicuous in both.",
+            "The small differences in spacing and border treatment do not give either a meaningful visible advantage."
+          ]
+        }
+      ]
+    },
+    {
+      "trial": 1,
+      "product": "booking",
+      "comparator": "control",
+      "preference": "candidate",
+      "strength": "moderate",
+      "selectedViews": 10,
+      "assessment": "blinded same-family model, not human",
+      "visibleReasons": [
+        "Across the selected booking states, X consistently gives the current task more immediate space and keeps more of the relevant choices and desktop continuation controls visible.",
+        "This matters most on mobile service selection, where Y's empty summary and layered introduction occupy substantial space before the choices, and on mobile date/time selection, where most times fall below the captured area.",
+        "Y is compelling on the desktop catalog and treatment detail: its grouped filters, explicit card actions, labeled treatment facts and consistent framing support browsing and context.",
+        "Both sustain recognizable typography, restrained color and consistent navigation across the assessed screens. The overall preference reflects task placement and responsive composition rather than ornament or amount of change."
+      ],
+      "perView": [
+        {
+          "id": "view-1",
+          "preference": "tie",
+          "reasons": [
+            "X places a concise booking explanation beside the main message and shows complete popular-treatment cards, including their prices, in this viewport.",
+            "Y gives the signature treatment a distinct, readable feature panel with duration, price and an explicit discovery link; its secondary Explore services action also gives the hero a clear browsing path.",
+            "Both have coherent typography and an obvious primary booking action. Y's taller hero and header push the popular-treatment prices below the captured area, balancing its more differentiated composition."
+          ]
+        },
+        {
+          "id": "view-2",
+          "preference": "control",
+          "reasons": [
+            "Y groups search and category controls in a distinct horizontal panel and uses the desktop width to present three treatment columns with complete first-row price and duration information.",
+            "The repeated Explore treatment labels make the card action explicit, while card headings, descriptions and footers follow a consistent rhythm.",
+            "X offers larger control and body text and a compact introduction, but the two-column composition shows fewer complete treatment choices at this size."
+          ]
+        },
+        {
+          "id": "view-3",
+          "preference": "control",
+          "reasons": [
+            "Y fits the treatment title on a single line and aligns the description, benefits and booking panel into a balanced two-column composition.",
+            "The booking panel explicitly labels duration and treatment price and explains the next step directly below its prominent action.",
+            "X is also clear and makes the price more visually prominent, so the preference rests on Y's labeled summary and compositional alignment rather than decorative treatment."
+          ]
+        },
+        {
+          "id": "view-6",
+          "preference": "candidate",
+          "reasons": [
+            "X presents the complete service choice set, progress indicator, booking status and Next action together in the captured viewport.",
+            "Its choice labels and price/duration lines are comfortably separated without the extra outer panel and repeated introductory text.",
+            "Y adds useful category labels and a distinct form region, but its larger vertical introduction and nested framing leave the last row and continuation action outside the visible area. This is a placement observation, not an inference that those elements are absent."
+          ]
+        },
+        {
+          "id": "view-8",
+          "preference": "candidate",
+          "reasons": [
+            "X keeps the date, full visible time-choice set, selected-treatment summary and Back/Next actions in one clear composition.",
+            "Y provides useful instructional copy and a more detailed treatment summary, but the outer form panel and repeated heading push the continuation controls partly below the screenshot edge.",
+            "Both distinguish the unavailable time visually and preserve recognizable progress and summary styling across the booking screens."
+          ]
+        },
+        {
+          "id": "view-11",
+          "preference": "candidate",
+          "reasons": [
+            "X's shorter headline block leaves room for the primary booking action, the complete booking explanation and the beginning of popular treatments in the initial mobile view.",
+            "Y retains clear actions and attractive readable spacing, including a separate Explore services link, but the oversized two-line headline and feature panel consume most of this viewport.",
+            "The preference is for X's mobile task and content balance; Y's signature-treatment emphasis remains a reasonable competing composition."
+          ]
+        },
+        {
+          "id": "view-12",
+          "preference": "tie",
+          "reasons": [
+            "X uses a compact introduction and side-by-side filters, leaving most of the second treatment card visible as well as the complete first card.",
+            "Y gives search a wider input and places the controls in a clearly bounded group; its explicit Explore treatment label clarifies the visible card action.",
+            "Y's extra introductory copy and stacked controls reduce the visible catalog area, while X's search field is noticeably narrower. Both remain visually organized at this width."
+          ]
+        },
+        {
+          "id": "view-13",
+          "preference": "tie",
+          "reasons": [
+            "Both keep the treatment description, duration, price and a full-width booking action within the captured mobile view.",
+            "Y labels duration and price explicitly and adds a short next-step explanation; X's compact summary makes the price prominent and also exposes the start of What to expect.",
+            "The principal title and action remain clear in both, with a tradeoff between labeled context and vertical compactness."
+          ]
+        },
+        {
+          "id": "view-16",
+          "preference": "candidate",
+          "reasons": [
+            "X reaches the service choices soon after the progress indicator and shows five complete options with readable price and duration information.",
+            "Y places an empty booking summary, a repeated step label and additional introductory text ahead of the choices, leaving only two complete choices visible.",
+            "Y's category labels and container boundary add structure, but the empty-state summary receives substantial space before the current selection task at this mobile size."
+          ]
+        },
+        {
+          "id": "view-18",
+          "preference": "candidate",
+          "reasons": [
+            "X shows the date and all five displayed time choices, including the visibly unavailable option, before the booking summary begins.",
+            "Y usefully surfaces the selected treatment and date above the form, but the summary plus repeated step and instructional copy push most time choices below this viewport.",
+            "Both maintain a legible progress indicator and two-column time-choice pattern. X gives the active selection task more immediate visual space, while Y gives prior-selection context priority."
+          ]
+        }
+      ]
+    },
+    {
+      "trial": 1,
+      "product": "booking",
+      "comparator": "baseline",
+      "preference": "candidate",
+      "strength": "moderate",
+      "selectedViews": 10,
+      "assessment": "blinded same-family model, not human",
+      "perView": [
+        {
+          "id": "view-1",
+          "preference": "candidate",
+          "reasons": [
+            "Y gives the primary booking action, a concise process explanation, and three treatment cards with duration and price within the visible viewport. This creates a useful progression from introduction to choice.",
+            "X gives stronger prominence to its signature treatment, with a legible large hero and clear booking action, but its popular-treatment details start near the viewport bottom.",
+            "The preference is for visible information hierarchy and action context, rather than the serif style or curved panel alone."
+          ]
+        },
+        {
+          "id": "view-2",
+          "preference": "baseline",
+          "reasons": [
+            "X places filters beside the results and uses compact, consistently separated rows, showing more treatment names and descriptions in this viewport.",
+            "Y has clearer card boundaries and an orderly search row, but its tall heading/filter region and taller cards show fewer complete choices.",
+            "For comparing the visible service collection, X makes more of the available width and height useful."
+          ]
+        },
+        {
+          "id": "view-3",
+          "preference": "tie",
+          "reasons": [
+            "Both separate explanation and expectations from a prominent treatment summary with duration, price, and booking action.",
+            "X has a direct single-line title and stronger weight in its booking panel; Y has a calmer summary with a clear divider and price emphasis.",
+            "Y wraps the title despite ample desktop space, while X uses a wider introductory text line. Neither tradeoff meaningfully changes the clarity of this visible task."
+          ]
+        },
+        {
+          "id": "view-6",
+          "preference": "candidate",
+          "reasons": [
+            "Y shows the full set of eight named choices, their duration/price, and a Next action within the captured viewport. Its progress indicator aligns with the full booking area.",
+            "X provides helpful service descriptions and stronger text weight, but its tall single-column choices extend past the viewport and the visible booking summary has no next action.",
+            "Y makes the visible selection-and-continuation structure more immediately apparent; the missing descriptions in these cards remain a real information tradeoff."
+          ]
+        },
+        {
+          "id": "view-8",
+          "preference": "candidate",
+          "reasons": [
+            "Y contains the date field, time choices, summary, and Back/Next actions in a compact, well-aligned composition with breathing room above the footer.",
+            "X is also clear, and its heavier time labels and explicit unavailable label are easy to scan. Its actions sit at the bottom edge of the captured viewport.",
+            "Y keeps continuation next to the booking context, though this placement is farther from the time-choice grid than X\u2019s form actions."
+          ]
+        },
+        {
+          "id": "view-11",
+          "preference": "candidate",
+          "reasons": [
+            "Y keeps the hero compact enough to show the primary booking action, all three process steps, and the start of popular treatments.",
+            "X has a very readable headline and prominent action, but the larger hero and signature panel dominate the viewport.",
+            "Y\u2019s visible sequence provides more context for beginning a booking and browsing treatments without making the introductory body text feel cramped."
+          ]
+        },
+        {
+          "id": "view-12",
+          "preference": "baseline",
+          "reasons": [
+            "X shows two complete service entries including descriptions, duration, price, and directional affordances. Its compact filter block is visibly separated from the results.",
+            "Y\u2019s card boundaries and treatment titles are clear, but its larger cards push the second service\u2019s price to the lower edge.",
+            "X offers a slightly more efficient visible comparison on the narrow screen; both layouts retain labeled search and category controls."
+          ]
+        },
+        {
+          "id": "view-13",
+          "preference": "candidate",
+          "reasons": [
+            "Y places the treatment summary, duration, price, and Book this treatment action directly after the introductory description, all visibly within the viewport.",
+            "X puts the full expectations list before the summary, so the captured viewport reaches only the beginning of the summary and shows no treatment-specific booking button.",
+            "Y preserves the expectations heading and first item below the action, producing a clearer mobile progression from context to booking."
+          ]
+        },
+        {
+          "id": "view-16",
+          "preference": "tie",
+          "reasons": [
+            "Y\u2019s smaller heading/progress region and compact choices reveal more named treatments with duration and price.",
+            "X gives each visible choice a description, bold name and price, which supports understanding differences among unfamiliar treatments.",
+            "Neither captured viewport shows the continuation action or booking summary. Compact comparison and richer local context balance here."
+          ]
+        },
+        {
+          "id": "view-18",
+          "preference": "tie",
+          "reasons": [
+            "Both keep date entry, all five time choices, the unavailable state, and the beginning of the booking summary in view.",
+            "Y uses less space above the form and gives the date/time heading a clearer task description. X uses heavier, readily scannable time labels and stronger unavailable-state text.",
+            "Both have a visible field focus outline and a coherent two-column time grid. Neither captured viewport shows the continuation actions, so action-placement comparison is limited here."
+          ]
+        }
+      ]
+    },
+    {
+      "trial": 2,
+      "product": "finance",
+      "comparator": "control",
+      "preference": "candidate",
+      "strength": "moderate",
+      "selectedViews": 8,
+      "assessment": "blinded same-family model, not human",
+      "visibleReasons": [
+        "Across overview, activity and settings, Y has a consistent, readable typographic hierarchy and generally uses the available space to show useful financial or task context. Its mobile activity and settings compositions are particularly clear within the captured viewport.",
+        "The preference is not uniform: X provides useful transaction-entry guidance in both dialog sizes, and its mobile overview balances trend visibility with bottom navigation. Desktop activity presents a balanced density-versus-legibility tradeoff.",
+        "The preference rests on readable content grouping and task placement rather than decoration or the amount of visible difference."
+      ],
+      "perView": [
+        {
+          "id": "view-1",
+          "preference": "candidate",
+          "reasons": [
+            "The balance occupies a compact, high-contrast summary strip, with recent activity directly beneath it and a separate summary column beside it. This makes the balance, transaction details and monthly context easy to distinguish.",
+            "The larger transaction text and bold sans-serif section headings provide a clear reading hierarchy. X has a coherent, calm composition too, but its tall balance-and-chart area pushes recent activity farther down the visible frame.",
+            "Both place the add action beside the page heading. Y exposes more transaction detail in this screenshot while still showing a balance trend."
+          ]
+        },
+        {
+          "id": "view-2",
+          "preference": "tie",
+          "reasons": [
+            "Both align search, category filtering and transaction count above the table, with the add action beside the page title.",
+            "Y uses larger text and roomier rows that make individual names and amounts easier to read. X presents more complete rows within the same viewport and gives categories distinct compact backgrounds.",
+            "The legibility benefit in Y and the denser visible transaction context in X balance in this still view."
+          ]
+        },
+        {
+          "id": "view-3",
+          "preference": "candidate",
+          "reasons": [
+            "Y gives field labels, values and the save action larger typography and a clearer visual relationship within the form panel. The subdued workspace panel leaves the form as the main task.",
+            "X also groups the task clearly and supplies useful nearby browser-storage context. Its large pale monogram and spacious introductory column consume substantial panel area without adding task information.",
+            "Y retains a consistent heading, control and button treatment with its other desktop views."
+          ]
+        },
+        {
+          "id": "view-4",
+          "preference": "control",
+          "reasons": [
+            "Both dialogs clearly separate the task from the dimmed overview, keep the close action near the title and place save below the date.",
+            "X includes a visible explanation of how income and other categories affect the balance, directly below amount and category. That context helps interpret this financial entry task.",
+            "Y has larger labels and a more emphatic title, but X fits the additional guidance into an orderly form without obvious crowding."
+          ]
+        },
+        {
+          "id": "view-5",
+          "preference": "tie",
+          "reasons": [
+            "Y shows the balance and monthly money-in/money-out summary before the activity list, giving useful financial context within the narrow viewport. Its compact add action sits beside the title.",
+            "X pairs the balance with its trend and shows persistent navigation at the bottom of the captured frame. Its full-width add action is prominent and its recent transaction includes clearly separated metadata.",
+            "Y offers more immediate monthly context; X offers a visible trend and convenient navigation placement. Neither composition clearly outweighs the other from the screenshot alone."
+          ]
+        },
+        {
+          "id": "view-6",
+          "preference": "candidate",
+          "reasons": [
+            "Y uses readable transaction names, amounts and metadata while exposing more transaction rows in the captured frame. The compact heading-row action leaves more vertical space for the list.",
+            "Both stack search and category controls cleanly. Y keeps this filter area aligned with the list and uses a consistent type hierarchy.",
+            "X provides navigation at the bottom of the frame and strong transaction-name emphasis, but its full-width add button and taller upper composition leave fewer rows visible."
+          ]
+        },
+        {
+          "id": "view-7",
+          "preference": "candidate",
+          "reasons": [
+            "Y gives the form a compact introductory block and larger field text, with the save action and browser-storage footer context visible in this frame.",
+            "X clearly groups the same main fields and provides prominent bottom navigation. Its taller introduction and full-width add action use more space above the preference fields.",
+            "Y keeps the form readable and visibly complete with less competition from introductory decoration."
+          ]
+        },
+        {
+          "id": "view-8",
+          "preference": "control",
+          "reasons": [
+            "Both fit the dialog, close control, fields and save action within the narrow screenshot, with amount and category arranged side by side.",
+            "X retains useful nearby guidance explaining the balance effect of category selection. Its title and field spacing remain readable at this width.",
+            "Y offers larger text and a clear visual title hierarchy, but the additional task context visible in X gives it a slight preference."
+          ]
+        }
+      ]
+    },
+    {
+      "trial": 2,
+      "product": "finance",
+      "comparator": "baseline",
+      "preference": "baseline",
+      "strength": "slight",
+      "selectedViews": 8,
+      "assessment": "blinded same-family model, not human",
+      "visibleReasons": [
+        "Y's compact page headers and stronger transaction hierarchy make activity scanning clearer across desktop and mobile.",
+        "The mobile settings form reaches its main fields and save action sooner, and the mobile bottom navigation gives the active destination a consistent visible home.",
+        "The preference is limited by X's tighter desktop settings composition and the balanced tradeoffs on overview and dialog views."
+      ],
+      "perView": [
+        {
+          "id": "view-1",
+          "preference": "tie",
+          "reasons": [
+            "X gives recent activity more immediate space while keeping the balance and monthly summary easy to scan.",
+            "Y groups balance, trend and monthly summary into one coherent block, with larger trend labels and a compact header.",
+            "Y's tall balance block pushes the activity list lower; the gain in financial overview and the loss in immediately visible transactions balance out."
+          ]
+        },
+        {
+          "id": "view-2",
+          "preference": "baseline",
+          "reasons": [
+            "The shorter header and tighter table rows expose more transactions within the same viewport while preserving clear amount and date alignment.",
+            "Category backgrounds distinguish secondary metadata, and the search and category controls remain directly above the list.",
+            "X has generous spacing, but its large upper area delays the transaction content."
+          ]
+        },
+        {
+          "id": "view-3",
+          "preference": "candidate",
+          "reasons": [
+            "X's narrower settings card keeps the introductory panel and form closer together, making the form feel like a contained task.",
+            "Y spreads a short form across a broad panel and gives the introductory phrase a forced line break despite substantial surrounding empty space.",
+            "Both clearly associate labels, the currency explanation and the save action with their fields."
+          ]
+        },
+        {
+          "id": "view-4",
+          "preference": "tie",
+          "reasons": [
+            "Both center a readable form over a strongly subdued background and keep the close action near the title and the save action below the fields.",
+            "Y uses a larger amount entry and slightly wider controls; X uses more uniform field text and a little more breathing room under the heading.",
+            "Neither arrangement presents a decisive visible task-placement advantage."
+          ]
+        },
+        {
+          "id": "view-5",
+          "preference": "tie",
+          "reasons": [
+            "X makes money in, money out and the retained percentage visible alongside the balance before the activity list.",
+            "Y places the trend within the balance card and brings more of the activity list into the viewport, with stronger transaction-name hierarchy.",
+            "Y's bottom navigation and shorter top header change the reading space usefully, but X's visible monthly context is also useful; the screenshots support a tradeoff rather than a decisive preference."
+          ]
+        },
+        {
+          "id": "view-6",
+          "preference": "baseline",
+          "reasons": [
+            "Y uses less height above the filters and places the category control and transaction count on the same row.",
+            "Bold transaction names and restrained category tags separate names from metadata without crowding the amount and date.",
+            "X's full-width category control is more spacious, while Y's compact layout gives the list earlier prominence. The bottom navigation occupies some of the lower viewport."
+          ]
+        },
+        {
+          "id": "view-7",
+          "preference": "baseline",
+          "reasons": [
+            "Y reduces the height of the page header and removes the separate tinted introduction block, bringing the editable name and save action higher.",
+            "The title, explanation, fields and save action maintain a clear reading sequence within one panel.",
+            "Both have spacious controls; Y also keeps the active settings destination visible at the bottom of this screenshot."
+          ]
+        },
+        {
+          "id": "view-8",
+          "preference": "tie",
+          "reasons": [
+            "Both dialogs fit within the visible phone viewport, with readable labels, a two-column amount/category row, a full-width date field and a prominent save action.",
+            "Y shortens the dialog slightly and increases amount emphasis; X's more uniform input typography is also clear.",
+            "Close, date and save placement remain comparably easy to locate visually."
+          ]
+        }
+      ]
+    },
+    {
+      "trial": 2,
+      "product": "booking",
+      "comparator": "control",
+      "preference": "tie",
+      "strength": "balanced tradeoffs",
+      "selectedViews": 10,
+      "assessment": "blinded same-family model, not human",
+      "visibleReasons": [
+        "Y has consistent grouping across desktop booking screens, clearer placement of metadata, and a useful mobile booking summary. Its typography, pale panels and step treatment carry consistently between the selected routes.",
+        "X gives treatment exploration and treatment-specific booking actions more immediate visibility on the selected mobile captures, with larger service and control text. Its simpler spacing and repeated card structure are also consistent across screens.",
+        "The desktop booking advantages in Y are counterbalanced by mobile task and action placement advantages in X. The visible evidence does not support an overall directional preference."
+      ],
+      "perView": [
+        {
+          "id": "view-1",
+          "preference": "candidate",
+          "reasons": [
+            "The introduction and primary booking action lead directly into complete popular-treatment cards, including visible duration and price.",
+            "The adjacent booking-process panel explains the task without competing with the main headline. Y has a coherent featured-treatment composition and a useful secondary services link, but its larger feature moves the popular-treatment metadata outside this capture."
+          ]
+        },
+        {
+          "id": "view-2",
+          "preference": "tie",
+          "reasons": [
+            "Y groups search and category controls in a distinct panel and gives prices stronger emphasis within the cards.",
+            "X has slightly larger service descriptions and a denser treatment overview. Both have clear titles, orderly columns and consistent card metadata; the grouping and readability tradeoffs balance."
+          ]
+        },
+        {
+          "id": "view-3",
+          "preference": "control",
+          "reasons": [
+            "Y clearly separates the treatment explanation, expected benefits and booking summary while keeping price and duration aligned and emphasized.",
+            "The booking button is accompanied by a concise next-step explanation. X offers the same essential information in a more compact summary, while Y provides a more deliberate relationship between the explanation and action."
+          ]
+        },
+        {
+          "id": "view-6",
+          "preference": "control",
+          "reasons": [
+            "The step indicator sits over the working form, and the bordered form groups the selection heading, service choices and Next action.",
+            "Prices have a consistent right-hand position, service category and duration are visually subordinate, and every choice plus the Next button is fully visible. The summary also spells out the outstanding date/time context. X has larger labels but its Next button is cut by the capture boundary."
+          ]
+        },
+        {
+          "id": "view-8",
+          "preference": "control",
+          "reasons": [
+            "The active step, date instruction, date field, time choices and navigation are collected into a clear working area. The summary maintains selected-service context beside it.",
+            "Back and Next are placed together with a visible description of the following step. X has more generous time-label sizing and spacing, so the preference is limited."
+          ]
+        },
+        {
+          "id": "view-11",
+          "preference": "candidate",
+          "reasons": [
+            "The mobile introduction reaches the popular-treatment section and a treatment card with description, duration and price in the captured area.",
+            "Y keeps both booking and exploration actions together and makes a featured ritual visible, but its small feature-panel labels and additional vertical content reduce the immediate breadth of treatment information. X is easier to scan for a first treatment choice in this view."
+          ]
+        },
+        {
+          "id": "view-12",
+          "preference": "tie",
+          "reasons": [
+            "X offers larger field text and service copy with a compact transition from filters to the first card.",
+            "Y provides an introductory sentence, stronger filter grouping and emphasized price, while using smaller text within those regions. Both adapt into a readable single-column service list, and neither has a decisive visible advantage."
+          ]
+        },
+        {
+          "id": "view-13",
+          "preference": "candidate",
+          "reasons": [
+            "The treatment summary, duration, price and prominent Book this treatment action are all visible immediately after the description.",
+            "Y presents the benefits before the summary and uses a tall decorative summary header; its treatment-specific price and booking action are not visible in this capture. The preference concerns visible information and action placement, not whether those elements exist farther down the page."
+          ]
+        },
+        {
+          "id": "view-16",
+          "preference": "candidate",
+          "reasons": [
+            "The mobile step indicator flows directly into the selection task with larger service labels and duration/price text.",
+            "Y adds useful booking-state context above the choices and separates prices clearly, but the summary and introductory form copy push the choices lower and the nested card layout uses smaller labels. With no service selected, X gives more immediate attention to making that selection."
+          ]
+        },
+        {
+          "id": "view-18",
+          "preference": "tie",
+          "reasons": [
+            "Y places the selected treatment, duration, price and date above the time-selection form, preserving context while the user chooses.",
+            "X reaches the date and time controls earlier and uses larger time text, including a more spacious unavailable state. Y provides clearer context and grouping while X offers a more immediate and larger set of controls; the visible tradeoffs balance."
+          ]
+        }
+      ]
+    },
+    {
+      "trial": 2,
+      "product": "booking",
+      "comparator": "baseline",
+      "preference": "candidate",
+      "strength": "moderate",
+      "selectedViews": 10,
+      "assessment": "blinded same-family model, not human",
+      "visibleReasons": [
+        "Y uses desktop width more effectively for service browsing and selection and contains the desktop time-step actions more comfortably.",
+        "Its compact mobile hierarchy generally brings more treatment or booking information into the captured viewport.",
+        "The header, serif headings, thin dividers, outlined cards, and reservation panels form a consistent visual system across the reviewed routes and widths.",
+        "Several detail and mobile selection views remain balanced: X's stronger numeric and service-name emphasis offsets Y's labeling and compactness. Ornament and difference alone were not treated as advantages."
+      ],
+      "perView": [
+        {
+          "id": "view-1",
+          "preference": "candidate",
+          "reasons": [
+            "The visible how-it-works panel provides booking context beside the primary action, while maintaining clear separation from treatment browsing.",
+            "All three featured cards show duration and price within the capture; consistent card boundaries and aligned baselines make comparison easier.",
+            "X has a more emphatic headline and button color, but its featured-card metadata sits at the lower capture edge."
+          ]
+        },
+        {
+          "id": "view-2",
+          "preference": "candidate",
+          "reasons": [
+            "The three-column composition exposes more named treatments and their comparable duration/price rows in this viewport.",
+            "Filters form a compact horizontal band above the card grid with clear separation.",
+            "X offers larger price text and wider cards; Y retains readable card titles and descriptions while making more effective use of the available width."
+          ]
+        },
+        {
+          "id": "view-3",
+          "preference": "tie",
+          "reasons": [
+            "Both compositions place description and expectations on the left and a clearly bounded booking action on the right.",
+            "X gives duration and price stronger immediate prominence; Y supplies explicit duration and price labels and repeats the treatment name in the action panel.",
+            "Y is more compact and X gives the expectation rows greater separation. Neither tradeoff establishes a clear preference for this captured state."
+          ]
+        },
+        {
+          "id": "view-6",
+          "preference": "candidate",
+          "reasons": [
+            "The two-column service-choice layout shows all eight choices and the Next action within the captured area.",
+            "The step strip, service choices, and reservation panel have distinct and aligned regions.",
+            "X provides useful category labels and bolder service names, but its single-column list places fewer choices in view and no continuation action is visible in this capture."
+          ]
+        },
+        {
+          "id": "view-8",
+          "preference": "candidate",
+          "reasons": [
+            "Date, time choices, summary, and both navigation actions are comfortably contained in the viewport.",
+            "The compact step strip and three-column time layout reduce vertical crowding while preserving visible unavailable-state text.",
+            "X supplies a more explicit date-and-time section instruction and a fuller treatment description, but the navigation buttons meet the lower capture edge."
+          ]
+        },
+        {
+          "id": "view-11",
+          "preference": "candidate",
+          "reasons": [
+            "The more compact hero brings the first treatment's duration and price into the captured viewport while preserving a prominent booking button.",
+            "The section title, service link, and card follow a clear vertical order; bordered cards continue the desktop treatment.",
+            "X has a larger, more emphatic hero and strongly colored action, but the first card's supporting metadata is outside this captured area."
+          ]
+        },
+        {
+          "id": "view-12",
+          "preference": "candidate",
+          "reasons": [
+            "The compact filter band includes the visible treatment count and gives the first card and next service title more room.",
+            "Card metadata is aligned consistently, and search and category labels remain clear.",
+            "X has a larger price and a full-width category control; Y's narrower category control still has room for the displayed value and count in this state."
+          ]
+        },
+        {
+          "id": "view-13",
+          "preference": "tie",
+          "reasons": [
+            "Both views place treatment context directly above a broad, clearly separated booking panel with a full-width action.",
+            "X makes the duration and price more visually prominent; Y explicitly labels both values and keeps the treatment name in the panel.",
+            "Y's repeated treatment name consumes space that X uses for emphatic numeric hierarchy; both preserve a coherent mobile reading order."
+          ]
+        },
+        {
+          "id": "view-16",
+          "preference": "tie",
+          "reasons": [
+            "Both show a readable single-column service list with radio controls and duration/price metadata.",
+            "Y's compact numbered step markers and slightly shorter cards bring more of the next choice into view.",
+            "X's bolder service titles make the primary choice text easier to distinguish from metadata, balancing Y's modest density advantage."
+          ]
+        },
+        {
+          "id": "view-18",
+          "preference": "candidate",
+          "reasons": [
+            "The compact step strip brings the date field and all five time choices higher in the capture, with the reservation region beginning below them.",
+            "Available and unavailable choices remain visibly differentiated and the focused date field remains clearly framed.",
+            "X has the helpful explicit section instruction and somewhat stronger text hierarchy within the step strip; Y gains a little space without crowding the captured controls."
+          ]
+        }
+      ]
+    },
+    {
+      "trial": 3,
+      "product": "finance",
+      "comparator": "control",
+      "preference": "candidate",
+      "strength": "slight",
+      "selectedViews": 8,
+      "assessment": "blinded same-family model, not human",
+      "visibleReasons": [
+        "Across the overview and activity views, X's stronger text, compact heading region, and efficient summary placement expose more useful financial detail with less visual searching.",
+        "X carries its clear form and transaction hierarchy consistently from desktop to mobile, with particularly readable transaction metadata at the narrow width.",
+        "Y has a coherent cross-screen visual language, useful integrated balance trend, differentiated category chips, and helpful transaction-dialog guidance. These benefits make the overall preference limited rather than decisive."
+      ],
+      "perView": [
+        {
+          "id": "view-1",
+          "preference": "candidate",
+          "reasons": [
+            "X places the balance, monthly summary, trend, and several recent transactions within the visible composition, making the overview easier to scan across financial context and detail.",
+            "X uses stronger transaction text and clearer secondary labels. Its primary action is close to the page heading.",
+            "Y integrates the trend into the balance panel coherently and distinguishes the add action with color, but its taller heading and summary composition leave substantially less activity visible in this viewport."
+          ]
+        },
+        {
+          "id": "view-2",
+          "preference": "candidate",
+          "reasons": [
+            "X gives transaction names, category labels, dates, and column headings more readable visual weight and brings the search controls and table closer to the page heading.",
+            "The visible table includes the final transaction while preserving generous row spacing, supporting an efficient list scan.",
+            "Y has useful category color differentiation and a clear search icon, but the smaller, lighter table annotations and larger space above the list make the task area less immediately legible."
+          ]
+        },
+        {
+          "id": "view-3",
+          "preference": "tie",
+          "reasons": [
+            "Both show a clear field sequence, visible currency explanation, and a save action placed with the form.",
+            "Y separates workspace context and editable preferences with a clear panel boundary and gives the form a balanced horizontal composition.",
+            "X has larger, bolder form labels and a more compact task region; Y's additional context occupies more space without adding much task information. These tradeoffs balance visually."
+          ]
+        },
+        {
+          "id": "view-4",
+          "preference": "control",
+          "reasons": [
+            "Y includes a directly relevant explanation of how income and other categories affect the balance, positioned before the save action.",
+            "Its divider makes the title region distinct from the fields, while the close action and full-width save action remain easy to locate.",
+            "X is more compact and has stronger label typography. Both dialogs keep every field and the save action visible; Y's additional task context gives it a narrow preference."
+          ]
+        },
+        {
+          "id": "view-5",
+          "preference": "candidate",
+          "reasons": [
+            "X presents the balance and monthly figures compactly enough to also show the recent-activity heading, its link, and a complete transaction in the captured viewport.",
+            "Its monthly figures, labels, and progress annotation have more readable visual weight.",
+            "Y provides useful trend context directly below the balance and places navigation at the bottom, but its taller summary leaves the activity heading outside the visible area and several annotations are very small."
+          ]
+        },
+        {
+          "id": "view-6",
+          "preference": "candidate",
+          "reasons": [
+            "X uses larger category and date text and stronger transaction names, making the repeated row structure easier to read at this narrow width.",
+            "The search, category selector, count, and transactions form a clear vertical sequence with comfortable field sizes.",
+            "Y's bottom navigation keeps the route choices close to the lower edge and its search icon provides a helpful cue, but the category and date annotations are notably small and the fourth row is interrupted by the navigation boundary in this capture."
+          ]
+        },
+        {
+          "id": "view-7",
+          "preference": "candidate",
+          "reasons": [
+            "X keeps the workspace heading, fields, explanation, save action, and footer context visible within a compact composition.",
+            "Its labels and help text are larger and the task sequence is easy to scan.",
+            "Y has a prominent full-width save button and distinct context and form sections, but its expanded workspace introduction and separators take more vertical space and the form card continues behind the bottom navigation in the capture."
+          ]
+        },
+        {
+          "id": "view-8",
+          "preference": "control",
+          "reasons": [
+            "Y retains all fields, the close action, and the save action within the mobile dialog while adding useful category-to-balance guidance immediately before saving.",
+            "The title divider and spacing separate context from data entry without crowding the side-by-side amount and category fields.",
+            "X is shorter and its labels have stronger visual weight. Y's helper text is small, so the preference rests on the visible task clarification rather than decoration."
+          ]
+        }
+      ]
+    },
+    {
+      "trial": 3,
+      "product": "finance",
+      "comparator": "baseline",
+      "preference": "tie",
+      "strength": "balanced tradeoff",
+      "selectedViews": 8,
+      "assessment": "blinded same-family model, not human",
+      "visibleReasons": [
+        "X gives the overview a more useful visual balance between summary and transaction detail at both sizes, with less vertical space committed to the balance presentation.",
+        "Y has modest advantages in settings and dialog composition through direct headers, clearer form emphasis, and a mobile save action that follows the width of the fields.",
+        "Activity layouts trade stronger compact scanning in X for more open typography and a compact mobile filter arrangement in Y. Both maintain a consistent palette, title hierarchy, and visible primary actions across screens.",
+        "The overview information-density advantage and the form-composition advantages are meaningful in different tasks; neither establishes a decisive overall visual preference."
+      ],
+      "perView": [
+        {
+          "id": "view-1",
+          "preference": "candidate",
+          "reasons": [
+            "The balance and monthly summary share a compact horizontal band, leaving recent transactions prominent and several rows visible.",
+            "The sidebar, page title, and add action form a clear persistent frame. The narrow secondary chart has less emphasis than the money and transactions.",
+            "Y connects the balance with its trend more directly and gives the chart more room, but the tall summary places recent activity much lower in the visible screen."
+          ]
+        },
+        {
+          "id": "view-2",
+          "preference": "tie",
+          "reasons": [
+            "Both place search, category, transaction count, and the table in a clear task sequence, with the add action beside the title.",
+            "X exposes more transactions in the captured height and uses stronger transaction-name weight for scanning.",
+            "Y provides larger, more open rows and a wider central table, while its taller page framing leaves fewer complete rows visible. Neither arrangement produces a decisive visual preference."
+          ]
+        },
+        {
+          "id": "view-3",
+          "preference": "baseline",
+          "reasons": [
+            "The full-width top rule and larger introductory heading give the preferences area a clear relationship with the page width.",
+            "The form controls and save action are comfortably spaced, and workspace context sits near the settings content.",
+            "X is also clear and compact; its narrower panel has a considerable empty left area beneath the introductory label, making the composition feel less balanced."
+          ]
+        },
+        {
+          "id": "view-4",
+          "preference": "baseline",
+          "reasons": [
+            "The title and close control share a simple header separated from the form by a rule, producing a cleaner entry point.",
+            "The larger amount field text gives the financial input appropriate visual emphasis while the full-width save action remains obvious.",
+            "Both dialogs keep all fields visible and have clear labels; X is slightly more compact but its extra eyebrow adds little context to the transaction task."
+          ]
+        },
+        {
+          "id": "view-5",
+          "preference": "candidate",
+          "reasons": [
+            "The compact balance and monthly summary allow a complete recent-transaction row to appear in the captured mobile viewport.",
+            "The title, primary action, balance, and monthly numbers remain distinct without an oversized block between the page heading and activity.",
+            "Y preserves a visible balance trend and account context, but its chart and taller summary push recent transaction details below the captured viewport. The small chart labels also carry limited visual weight at this size."
+          ]
+        },
+        {
+          "id": "view-6",
+          "preference": "tie",
+          "reasons": [
+            "X uses a full-width category selector and bold transaction names, making the filter and record labels easy to distinguish.",
+            "Y keeps the count beside a narrower category selector and shows the start of another transaction within the same captured height.",
+            "Both retain readable paired transaction names and amounts with category and date details beneath. X's stronger labels and Y's more compact filter arrangement balance each other."
+          ]
+        },
+        {
+          "id": "view-7",
+          "preference": "baseline",
+          "reasons": [
+            "The larger introductory heading and full-width save button create a clear progression from workspace context to fields to action.",
+            "The top rule and form spacing remain visually consistent with the desktop settings composition, and the account context remains visible in the mobile header.",
+            "X also fits the form and footer comfortably; its smaller save button is clear but has less visual connection to the full-width controls."
+          ]
+        },
+        {
+          "id": "view-8",
+          "preference": "baseline",
+          "reasons": [
+            "The direct title and divider separate the dialog header from the form clearly, with the close control aligned beside the title.",
+            "The larger amount text and generously sized fields provide a legible financial entry composition, and the save action remains fully visible.",
+            "X is comparably clear and fits in the viewport, but the introductory eyebrow takes space without adding much visible task context."
+          ]
+        }
+      ]
+    },
+    {
+      "trial": 3,
+      "product": "booking",
+      "comparator": "control",
+      "preference": "candidate",
+      "strength": "moderate",
+      "selectedViews": 10,
+      "assessment": "blinded same-family model, not human",
+      "visibleReasons": [
+        "Across these selected booking-related screens, X more consistently prioritizes readable practical details and brings treatment choices or booking controls earlier into the mobile viewport.",
+        "Y offers consistent green-and-cream styling, coherent form boundaries, and useful price alignment in service selection. Those visible merits support a Y preference for desktop service selection and ties in desktop catalog and time selection.",
+        "The preference rests primarily on hierarchy, mobile space allocation and readable task information, rather than the presence or absence of decorative elements."
+      ],
+      "perView": [
+        {
+          "id": "view-1",
+          "preference": "candidate",
+          "reasons": [
+            "The headline, booking action, treatment duration and starting price form a compact, useful introduction.",
+            "Complete popular-treatment cards, including duration and price, are visible together with the start of the process explanation.",
+            "Y has a more distinctive typographic composition and a clearly separated story panel, but the enlarged hero pushes treatment prices below this captured viewport."
+          ]
+        },
+        {
+          "id": "view-2",
+          "preference": "tie",
+          "reasons": [
+            "Y groups search, category and result count into a clear filter region, and its wider search field uses the row coherently.",
+            "X offers larger supporting copy and more prominent duration and price labels with less introductory space.",
+            "Both keep the catalog grid aligned and preserve a clear heading-to-filters-to-results sequence; the grouping gain in Y balances the readability and compactness in X."
+          ]
+        },
+        {
+          "id": "view-3",
+          "preference": "candidate",
+          "reasons": [
+            "Duration and price have comparable emphasis, and the booking action sits close beneath them in a concise panel.",
+            "The large description and divided benefit rows are easy to scan.",
+            "Y has a well-defined booking panel and a compact benefit list, but repeats the service title and devotes substantial panel space above the practical details and action."
+          ]
+        },
+        {
+          "id": "view-6",
+          "preference": "control",
+          "reasons": [
+            "The form boundary and aligned progress segments create a clear visual relationship between the active step and service choices.",
+            "Right-aligned prices create a useful comparison column inside each option, while the booking summary has distinct context and help regions.",
+            "X gives service names more size and starts the choices higher; Y's extra introductory space makes its Next action sit closer to the bottom edge."
+          ]
+        },
+        {
+          "id": "view-8",
+          "preference": "tie",
+          "reasons": [
+            "Y clearly contains the date, available times and navigation within one form panel, and separates the treatment total in the summary.",
+            "X places the date and times higher and uses larger, bolder time labels with less nested framing.",
+            "Both visibly distinguish the current step, focused date field, unavailable time and primary navigation; Y's composition and X's immediate readability balance."
+          ]
+        },
+        {
+          "id": "view-11",
+          "preference": "candidate",
+          "reasons": [
+            "The single-line hero headline leaves room for the booking action, duration and starting-price context, and a complete first treatment card in the same captured screen.",
+            "Y's large two-line headline remains readable and its booking action is clear, but the story panel occupies the lower screen before any treatment listing is visible.",
+            "For choosing a treatment, X presents more immediately relevant context without crowding the visible card."
+          ]
+        },
+        {
+          "id": "view-12",
+          "preference": "candidate",
+          "reasons": [
+            "X uses larger filter labels and input text, a wider category field, and a more compact introductory block.",
+            "Its first card has stronger duration and price emphasis, and slightly more of the second result is visible.",
+            "Y's shaded filter group makes the search controls easier to distinguish as a unit, so the preference is limited rather than decisive."
+          ]
+        },
+        {
+          "id": "view-13",
+          "preference": "candidate",
+          "reasons": [
+            "The service title fits on one line and the description remains comfortably readable.",
+            "Duration and price are equally prominent, and the booking action appears earlier in the screen.",
+            "Y retains clear price and action grouping, but its wrapped title and extra vertical spacing leave less of the benefits section visible."
+          ]
+        },
+        {
+          "id": "view-16",
+          "preference": "candidate",
+          "reasons": [
+            "Service names and categories are larger, and choices begin substantially higher below the progress indicator.",
+            "The captured screen shows an additional complete option compared with Y, which helps scan the visible service list.",
+            "Y provides stronger separate price emphasis and a coherent form container, but its added introductory copy and inner padding consume useful mobile space."
+          ]
+        },
+        {
+          "id": "view-18",
+          "preference": "candidate",
+          "reasons": [
+            "Date and time labels are larger and available time labels are bolder.",
+            "The wider form area gives the focused date input more room, and all time choices appear earlier with the start of booking context visible below them.",
+            "Y's panel makes the form grouping explicit, but its nested padding and introductory copy compress the controls and push them farther down this viewport."
+          ]
+        }
+      ]
+    },
+    {
+      "trial": 3,
+      "product": "booking",
+      "comparator": "baseline",
+      "preference": "candidate",
+      "strength": "moderate",
+      "selectedViews": 10,
+      "assessment": "blinded same-family model, not human",
+      "visibleReasons": [
+        "Across the selected desktop booking views, Y places the choices, booking context and continuation actions together more effectively within the supplied viewport.",
+        "On the mobile treatment-detail view, Y gives duration, price and the treatment-specific booking action early prominence while retaining the beginning of the expectation content.",
+        "Y's serif headings, restrained teal accents, bordered cards and compact introductory areas remain visually consistent across the selected marketing and booking screens. The preference is based on hierarchy and task placement, not the font change alone.",
+        "The desktop service listing and mobile service-selection view have balanced tradeoffs; Y is not preferred in every comparison."
+      ],
+      "perView": [
+        {
+          "id": "view-1",
+          "preference": "candidate",
+          "reasons": [
+            "The shorter hero places the booking action, complete treatment cards with duration and price, and the start of the process explanation within this viewport.",
+            "The right-hand panel provides concrete duration and starting-price context near the booking action. Heading and card typography distinguish the content hierarchy without requiring the much larger two-line hero in X."
+          ]
+        },
+        {
+          "id": "view-2",
+          "preference": "tie",
+          "reasons": [
+            "Both present clear labeled filters and an aligned three-column treatment grid with readable titles, descriptions, duration, and price.",
+            "Y groups the filters with a result count and emphasizes prices more clearly; X places the first row slightly higher and its introductory description explains the treatment range more concretely."
+          ]
+        },
+        {
+          "id": "view-3",
+          "preference": "candidate",
+          "reasons": [
+            "Y groups duration and treatment price at comparable visual prominence immediately above a wide booking action, followed by a concise next-step cue.",
+            "The compact booking panel fits its content, producing a more balanced relationship with the description and expectation list than the tall, mostly empty panel in X."
+          ]
+        },
+        {
+          "id": "view-6",
+          "preference": "candidate",
+          "reasons": [
+            "The task heading and progress indicator occupy less vertical space, bringing the service choice closer to the top.",
+            "The two-column option layout displays all eight treatment options, their duration and price, and the Next action together in this viewport. X shows only part of the option list at this height.",
+            "Service names receive useful weight while category and price information remain grouped within each option."
+          ]
+        },
+        {
+          "id": "view-8",
+          "preference": "candidate",
+          "reasons": [
+            "The compact heading and progress area brings the date and available-time choices substantially higher.",
+            "All displayed time choices, the booking context, and both Back and Next actions are visible together.",
+            "The service name, duration, price and date are distinctly grouped in the summary, with the price aligned for easy scanning."
+          ]
+        },
+        {
+          "id": "view-11",
+          "preference": "candidate",
+          "reasons": [
+            "The shorter headline and introductory block place the primary action higher while preserving readable supporting copy.",
+            "Duration range and starting price appear before the treatment list, and the first treatment card is fully visible with duration and price.",
+            "The See all services link stays on a single line with its arrow rather than splitting the arrow onto another line as in X."
+          ]
+        },
+        {
+          "id": "view-12",
+          "preference": "candidate",
+          "reasons": [
+            "The compact introductory area brings the filters and first treatment card higher.",
+            "The result count sits beside the category field and the filter section is visibly bounded, making the transition into results clear.",
+            "A complete first card and more of the next treatment are visible while labels and body copy remain readable."
+          ]
+        },
+        {
+          "id": "view-13",
+          "preference": "candidate",
+          "reasons": [
+            "The duration, price and treatment-specific booking action appear immediately after the description and are fully visible.",
+            "The headline fits on one line and the compact heading area preserves room for booking context and the start of the expectation list.",
+            "In X the expectations precede the pricing panel, leaving the treatment-specific action outside this captured viewport."
+          ]
+        },
+        {
+          "id": "view-16",
+          "preference": "tie",
+          "reasons": [
+            "Y brings the service-selection heading and first option higher and gives the progress labels more room.",
+            "X's shorter option rows and right-aligned prices make comparison compact; Y uses stronger name emphasis but taller cards and inline duration/price.",
+            "Both show approximately the same portion of the service list, and neither shows the continuation action in this captured viewport."
+          ]
+        },
+        {
+          "id": "view-18",
+          "preference": "candidate",
+          "reasons": [
+            "The date and time-selection task begins higher because of the compact introductory area.",
+            "The time options retain generous space, clearer label weight, and an explicit unavailable annotation.",
+            "The start of the booking summary appears within the viewport, providing a little more context after the choices."
+          ]
+        }
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "id": "t1-finance-control",
+      "trial": 1,
+      "product": "finance",
+      "condition": "control",
+      "startingAppHash": "0ef0092de1d52682e7a10611aa654153122f695e390d0a1a65d51b4b42136b5c",
+      "taskHash": "e612a7727defebfca83ed09107cbd18834fcb9ef58d758290900dd61f2088f02",
+      "skillCommit": null,
+      "skillHash": null,
+      "frozenSourceHash": "998cf184a74becc6fa37cfa467dec9f33ce97dbc92ad6a07b379407f8a680322",
+      "originalTests": 3,
+      "originalTestsPass": true,
+      "buildPass": null,
+      "protectedFiles": [
+        "model.mjs",
+        "model.test.mjs",
+        "server.mjs",
+        "package.json"
+      ],
+      "addedDependencies": 0,
+      "screenshots": [
+        {
+          "route": "#overview",
+          "width": 1440,
+          "height": 900,
+          "sha256": "e1f6d81f07d5af21fcd819f2944fd79dccfbaa2862e3cf7c95e42023ac534d66"
+        },
+        {
+          "route": "#activity",
+          "width": 1440,
+          "height": 900,
+          "sha256": "47aed5b719bc668e8d66f0a9829049a5f6a6037526313159829c74e0cc9295f0"
+        },
+        {
+          "route": "#settings",
+          "width": 1440,
+          "height": 900,
+          "sha256": "d12d7848904c6ab9c1da240bd3d4359057cfa80ea488a3ec4c7663edd399e4e5"
+        },
+        {
+          "route": "#overview/dialog",
+          "width": 1440,
+          "height": 900,
+          "sha256": "4443f3fac19c54b2661e6c4b53b375656655aa0b09ca9656553538bd00034077"
+        },
+        {
+          "route": "#overview",
+          "width": 390,
+          "height": 844,
+          "sha256": "1c1de77519ec8abfbb75c889936a38d81a112c3dba93c0e60641b8ef8ddcb6ee"
+        },
+        {
+          "route": "#activity",
+          "width": 390,
+          "height": 844,
+          "sha256": "586dc9ceb788fb277d2c24ee22a6d118bb40e69cf26247eb2650b41a503b3aa5"
+        },
+        {
+          "route": "#settings",
+          "width": 390,
+          "height": 844,
+          "sha256": "b84f72bb636c6278cb83127f28a04865d57fa670ee845760a372bc6b73116005"
+        },
+        {
+          "route": "#overview/dialog",
+          "width": 390,
+          "height": 844,
+          "sha256": "af1d671c7279621af9e895ef54fbccae700b3492989813031a73acf393ffc0a4"
+        }
+      ],
+      "functionalChecks": [
+        {
+          "device": "desktop",
+          "search": true,
+          "combinedFilter": true,
+          "preferencesPersist": true,
+          "dialogOpenClose": true,
+          "zeroAmountRejected": true,
+          "integerCentTransactionPersisted": true
+        },
+        {
+          "device": "mobile",
+          "search": true,
+          "combinedFilter": true,
+          "preferencesPersist": true,
+          "dialogOpenClose": true,
+          "zeroAmountRejected": true,
+          "integerCentTransactionPersisted": true
+        }
+      ],
+      "mechanicalObservations": {
+        "horizontalOverflowViews": 0,
+        "runtimeErrors": 0,
+        "unnamedControlObservations": 0,
+        "occlusionObservations": [
+          {
+            "route": "#overview",
+            "device": "mobile",
+            "tag": "a",
+            "name": "View all activity",
+            "scrollReview": true,
+            "blockers": [
+              "a",
+              "nav"
+            ]
+          }
+        ],
+        "contrastWarningObservations": 150,
+        "smallTargetWarningObservations": 23
+      },
+      "metrics": {
+        "activeRuntimeSeconds": null,
+        "tokens": null,
+        "toolCalls": null
+      }
+    },
+    {
+      "id": "t1-finance-baseline",
+      "trial": 1,
+      "product": "finance",
+      "condition": "baseline",
+      "startingAppHash": "0ef0092de1d52682e7a10611aa654153122f695e390d0a1a65d51b4b42136b5c",
+      "taskHash": "e612a7727defebfca83ed09107cbd18834fcb9ef58d758290900dd61f2088f02",
+      "skillCommit": "52be5a00610b355ff44533d1c26e1859fb960360",
+      "skillHash": "289500337ec2b4627db2140684ed25758f2d2a181bd2f95937cbcaf8959ef9ee",
+      "frozenSourceHash": "e9edaa19bd3e88658a8878cdb63241802f85b200e17cc245f05a20f28bc06097",
+      "originalTests": 3,
+      "originalTestsPass": true,
+      "buildPass": null,
+      "protectedFiles": [
+        "model.mjs",
+        "model.test.mjs",
+        "server.mjs",
+        "package.json"
+      ],
+      "addedDependencies": 0,
+      "screenshots": [
+        {
+          "route": "#overview",
+          "width": 1440,
+          "height": 900,
+          "sha256": "586550ed25260e6f69ab7ce63e6002256b707ffd2b3f682bd0a964fbec321d12"
+        },
+        {
+          "route": "#activity",
+          "width": 1440,
+          "height": 900,
+          "sha256": "961cacc2d5de265a4133fdb60bb51a32d6b89d979090950af909f69b8883523b"
+        },
+        {
+          "route": "#settings",
+          "width": 1440,
+          "height": 900,
+          "sha256": "a9f0fa4c67746cc5d2942e057839b02120a324855b1332d02a8b3f1203d172d7"
+        },
+        {
+          "route": "#overview/dialog",
+          "width": 1440,
+          "height": 900,
+          "sha256": "de3969c3feb6d2507cdc62fec0fb4d9baf32fd99567f97d2ca94b102e11c2688"
+        },
+        {
+          "route": "#overview",
+          "width": 390,
+          "height": 844,
+          "sha256": "b2355c8258e194772940fcf9698dbc4733bb3d3da8ca061f04bac21d71a43c4b"
+        },
+        {
+          "route": "#activity",
+          "width": 390,
+          "height": 844,
+          "sha256": "40a44d04a2a9aa87eb89c867c26105c148044fab305230f751b89fbf0dd1e502"
+        },
+        {
+          "route": "#settings",
+          "width": 390,
+          "height": 844,
+          "sha256": "3105606d8f7143da776757a0d4f69f9759034606b2ae7eb1a0e34d7564064cdd"
+        },
+        {
+          "route": "#overview/dialog",
+          "width": 390,
+          "height": 844,
+          "sha256": "c298c4b64a6fc8cc8dbdd254938ec48a0e609b2b357eb70b7d58b5f8fb785510"
+        }
+      ],
+      "functionalChecks": [
+        {
+          "device": "desktop",
+          "search": true,
+          "combinedFilter": true,
+          "preferencesPersist": true,
+          "dialogOpenClose": true,
+          "zeroAmountRejected": true,
+          "integerCentTransactionPersisted": true
+        },
+        {
+          "device": "mobile",
+          "search": true,
+          "combinedFilter": true,
+          "preferencesPersist": true,
+          "dialogOpenClose": true,
+          "zeroAmountRejected": true,
+          "integerCentTransactionPersisted": true
+        }
+      ],
+      "mechanicalObservations": {
+        "horizontalOverflowViews": 0,
+        "runtimeErrors": 0,
+        "unnamedControlObservations": 0,
+        "occlusionObservations": [],
+        "contrastWarningObservations": 8,
+        "smallTargetWarningObservations": 8
+      },
+      "metrics": {
+        "activeRuntimeSeconds": null,
+        "tokens": null,
+        "toolCalls": null
+      }
+    },
+    {
+      "id": "t1-finance-candidate",
+      "trial": 1,
+      "product": "finance",
+      "condition": "candidate",
+      "startingAppHash": "0ef0092de1d52682e7a10611aa654153122f695e390d0a1a65d51b4b42136b5c",
+      "taskHash": "e612a7727defebfca83ed09107cbd18834fcb9ef58d758290900dd61f2088f02",
+      "skillCommit": "82b82581020b612e7f65505bc40b762a44667542",
+      "skillHash": "a3d0bd9a2bc1f6df1cb491fb47520a239a69f9abb79c8a285739364fb2878645",
+      "frozenSourceHash": "0230c941ea427414b1a2a4775ccc8eee5dee836ad33702c56b55e134059be258",
+      "originalTests": 3,
+      "originalTestsPass": true,
+      "buildPass": null,
+      "protectedFiles": [
+        "model.mjs",
+        "model.test.mjs",
+        "server.mjs",
+        "package.json"
+      ],
+      "addedDependencies": 0,
+      "screenshots": [
+        {
+          "route": "#overview",
+          "width": 1440,
+          "height": 900,
+          "sha256": "03304f081ef624839d00c35a8dd694996f0ce135e97c2995a17833ec362dc269"
+        },
+        {
+          "route": "#activity",
+          "width": 1440,
+          "height": 900,
+          "sha256": "0fbb0d1178779a9c59573cb228554db53b3ab2a9a79eb4d7112c4f449c53af8f"
+        },
+        {
+          "route": "#settings",
+          "width": 1440,
+          "height": 900,
+          "sha256": "0dd08c5f0c80264de389fbc8e7f15def3b8cffe6db57defc1c9866278b51103c"
+        },
+        {
+          "route": "#overview/dialog",
+          "width": 1440,
+          "height": 900,
+          "sha256": "6a4c5b428329c161c6c278fb7d1ccb97a2a379592020b13817bcbd64c4ded271"
+        },
+        {
+          "route": "#overview",
+          "width": 390,
+          "height": 844,
+          "sha256": "e470c2f489659141104ad1e25f7b13c1d439a303d65aa5758a6cc1d6cba60a5d"
+        },
+        {
+          "route": "#activity",
+          "width": 390,
+          "height": 844,
+          "sha256": "ac4495fb37e800bf5d045e29e13d74accd941e18645ab7ff7fb516e9000ae8be"
+        },
+        {
+          "route": "#settings",
+          "width": 390,
+          "height": 844,
+          "sha256": "788a1def790a3e5d7ffd4c30c7a24d251182ba0ad18902aa39e312a8f3bae58c"
+        },
+        {
+          "route": "#overview/dialog",
+          "width": 390,
+          "height": 844,
+          "sha256": "688f9f5de1fe63dacd81975e783cbaac9ed315e0bdd5476c298dba77cb4e36a8"
+        }
+      ],
+      "functionalChecks": [
+        {
+          "device": "desktop",
+          "search": true,
+          "combinedFilter": true,
+          "preferencesPersist": true,
+          "dialogOpenClose": true,
+          "zeroAmountRejected": true,
+          "integerCentTransactionPersisted": true
+        },
+        {
+          "device": "mobile",
+          "search": true,
+          "combinedFilter": true,
+          "preferencesPersist": true,
+          "dialogOpenClose": true,
+          "zeroAmountRejected": true,
+          "integerCentTransactionPersisted": true
+        }
+      ],
+      "mechanicalObservations": {
+        "horizontalOverflowViews": 0,
+        "runtimeErrors": 0,
+        "unnamedControlObservations": 0,
+        "occlusionObservations": [],
+        "contrastWarningObservations": 30,
+        "smallTargetWarningObservations": 8
+      },
+      "metrics": {
+        "activeRuntimeSeconds": null,
+        "tokens": null,
+        "toolCalls": null
+      }
+    },
+    {
+      "id": "t1-booking-control",
+      "trial": 1,
+      "product": "booking",
+      "condition": "control",
+      "startingAppHash": "9b2411dfef10e0d9ac631670edb1cf60cb2f1f4da9ad21ed47cb2aeb91f72c9c",
+      "taskHash": "54a6e7244f06941a23f522d23cc0962191ff9970f64448ada57984146808854b",
+      "skillCommit": null,
+      "skillHash": null,
+      "frozenSourceHash": "95fd31b0ea5c899c9087a90897c4e2b28dafb572f139b63d51e009e50ab4b2a8",
+      "originalTests": 11,
+      "originalTestsPass": true,
+      "buildPass": true,
+      "protectedFiles": [
+        "src/booking.js",
+        "src/data.js",
+        "src/routes.jsx",
+        "tests/behavior.test.jsx",
+        "tests/setup.js",
+        "package.json",
+        "package-lock.json",
+        "vite.config.js"
+      ],
+      "addedDependencies": 0,
+      "screenshots": [
+        {
+          "route": "/",
+          "width": 1440,
+          "height": 900,
+          "sha256": "f5ceb974a6216bb3cfab61e29b0684e25bd11bfe45b8668d4f75d0a9a13b747d"
+        },
+        {
+          "route": "/services",
+          "width": 1440,
+          "height": 900,
+          "sha256": "56dad2d79dfbf2bc19f37dea3d3fb06609626a624a78bbebcfc6c46ec32acd62"
+        },
+        {
+          "route": "/services/deep-tissue",
+          "width": 1440,
+          "height": 900,
+          "sha256": "f6bffb25e9ccac8831d508e8dab3d315c12c07a732b9a5f446443ccbc8b3f139"
+        },
+        {
+          "route": "/about",
+          "width": 1440,
+          "height": 900,
+          "sha256": "1b7b8c2f91cf601f5334c6c2b95c4f22819616d2e41d4bd590c451bf41d94889"
+        },
+        {
+          "route": "/contact",
+          "width": 1440,
+          "height": 900,
+          "sha256": "35b2543346b314ab9501a74d48e93a93885f3bc8d623efdbb366ac93b8132f33"
+        },
+        {
+          "route": "/book/service",
+          "width": 1440,
+          "height": 900,
+          "sha256": "400c6bc24e167325ec9943191452823594f632932340835ba3df665956730963"
+        },
+        {
+          "route": "/book/validation",
+          "width": 1440,
+          "height": 900,
+          "sha256": "5afc24f7a6870f14824b0e884d3641fb1b2337aab696a05f0ffc490b9b7aa9fd"
+        },
+        {
+          "route": "/book/time",
+          "width": 1440,
+          "height": 900,
+          "sha256": "8f920f040e1297a8f0b9b57e44fcb8370e7b89fdd00aea61aeaf6a44317c801e"
+        },
+        {
+          "route": "/book/details",
+          "width": 1440,
+          "height": 900,
+          "sha256": "d8fccf294d177e4c69918bf33e9642264b7eb67ea3800dd3ed88619f14ba68c6"
+        },
+        {
+          "route": "/confirmation",
+          "width": 1440,
+          "height": 900,
+          "sha256": "b1b3bb2bad8aecd2d0457d564718b33755e39a52d8019588d6b6ef0b1cdd6b78"
+        },
+        {
+          "route": "/",
+          "width": 390,
+          "height": 844,
+          "sha256": "b3b70eafeb939a19acff2d6af10b759949d18464da3da3bcf3a0a7b4e72b0bce"
+        },
+        {
+          "route": "/services",
+          "width": 390,
+          "height": 844,
+          "sha256": "3cacf75e35800da7ce043c5219aa721096de3a485ad004300602b50dc782cf5f"
+        },
+        {
+          "route": "/services/deep-tissue",
+          "width": 390,
+          "height": 844,
+          "sha256": "eb7eb4258740b274eb301af57dbd7d8dfa3ae52867dbd6437b6f8a1bd2e4bf54"
+        },
+        {
+          "route": "/about",
+          "width": 390,
+          "height": 844,
+          "sha256": "17b414605b282546deea64570c2644d44418f0e06877956188eb9b5295978ddb"
+        },
+        {
+          "route": "/contact",
+          "width": 390,
+          "height": 844,
+          "sha256": "cda9aebc5a91de81f68bf88263af699676f4f7b1027a512a98586af55de8a6b1"
+        },
+        {
+          "route": "/book/service",
+          "width": 390,
+          "height": 844,
+          "sha256": "46e6d97cc07e09d318e1de8cfb0df31a229f393427c65b10ef89be3f8ea7fcf1"
+        },
+        {
+          "route": "/book/validation",
+          "width": 390,
+          "height": 844,
+          "sha256": "0aa63f6746d5dcb39f0810133be4830da05a3f0c5bbbd2ccbb3cd2d787d627b6"
+        },
+        {
+          "route": "/book/time",
+          "width": 390,
+          "height": 844,
+          "sha256": "a4a4deb76dae150f15a0b8727432a9ca1b6ba3e0bfa6457caf62caf616626507"
+        },
+        {
+          "route": "/book/details",
+          "width": 390,
+          "height": 844,
+          "sha256": "7ee4dea3e637cd8eb60d597750118e255b941bbb997f1e6f5fcd8731b82beb71"
+        },
+        {
+          "route": "/confirmation",
+          "width": 390,
+          "height": 844,
+          "sha256": "fe2304d0a8b044a94d330317c9c7e4f551e05460d684af7fe4f8182f8dba331f"
+        }
+      ],
+      "functionalChecks": [
+        {
+          "device": "desktop",
+          "serviceValidation": true,
+          "detailsValidation": true,
+          "realReservationConfirmation": true
+        },
+        {
+          "device": "mobile",
+          "serviceValidation": true,
+          "detailsValidation": true,
+          "realReservationConfirmation": true
+        }
+      ],
+      "mechanicalObservations": {
+        "horizontalOverflowViews": 0,
+        "runtimeErrors": 0,
+        "unnamedControlObservations": 0,
+        "occlusionObservations": [],
+        "contrastWarningObservations": 82,
+        "smallTargetWarningObservations": 202
+      },
+      "metrics": {
+        "activeRuntimeSeconds": null,
+        "tokens": null,
+        "toolCalls": null
+      }
+    },
+    {
+      "id": "t1-booking-baseline",
+      "trial": 1,
+      "product": "booking",
+      "condition": "baseline",
+      "startingAppHash": "9b2411dfef10e0d9ac631670edb1cf60cb2f1f4da9ad21ed47cb2aeb91f72c9c",
+      "taskHash": "54a6e7244f06941a23f522d23cc0962191ff9970f64448ada57984146808854b",
+      "skillCommit": "52be5a00610b355ff44533d1c26e1859fb960360",
+      "skillHash": "289500337ec2b4627db2140684ed25758f2d2a181bd2f95937cbcaf8959ef9ee",
+      "frozenSourceHash": "aab6623df3cafd5df2ece6fa24cb3acbb21e8bca500341143ddb1e6dbfacc76e",
+      "originalTests": 11,
+      "originalTestsPass": true,
+      "buildPass": true,
+      "protectedFiles": [
+        "src/booking.js",
+        "src/data.js",
+        "src/routes.jsx",
+        "tests/behavior.test.jsx",
+        "tests/setup.js",
+        "package.json",
+        "package-lock.json",
+        "vite.config.js"
+      ],
+      "addedDependencies": 0,
+      "screenshots": [
+        {
+          "route": "/",
+          "width": 1440,
+          "height": 900,
+          "sha256": "134292c696f08604a16351c1e698458b1f124682c4a50a9e1dc66a0c0bfc004b"
+        },
+        {
+          "route": "/services",
+          "width": 1440,
+          "height": 900,
+          "sha256": "c6f240f6b2e01506fa11ec5c7e8312a068dc8a97440e266a12bbc7e3f0b8f791"
+        },
+        {
+          "route": "/services/deep-tissue",
+          "width": 1440,
+          "height": 900,
+          "sha256": "e54e39560cb6f2f64117ea379446214f622e94df66ca91e7806324051fb68dc8"
+        },
+        {
+          "route": "/about",
+          "width": 1440,
+          "height": 900,
+          "sha256": "0fc3e69cc78075b21e0d515b2cd90d01b31e22e2d48def522816ad849a450869"
+        },
+        {
+          "route": "/contact",
+          "width": 1440,
+          "height": 900,
+          "sha256": "6b93b11f7fe659309bfe61ad244d07f1e0633cbf55a7dcd98a327036838fb3dd"
+        },
+        {
+          "route": "/book/service",
+          "width": 1440,
+          "height": 900,
+          "sha256": "873e9e788f311a1b9d9b9e695806997d13588d83d0a87d9ca7a00ce93d991c19"
+        },
+        {
+          "route": "/book/validation",
+          "width": 1440,
+          "height": 900,
+          "sha256": "376764369f1feb9b935678c4402c14e6238c2bd709cdee19fb50d4332941be29"
+        },
+        {
+          "route": "/book/time",
+          "width": 1440,
+          "height": 900,
+          "sha256": "304125653120b5dd8dc6328777aba52e5d321d0b26ba32a55c5f9bec3a9633b4"
+        },
+        {
+          "route": "/book/details",
+          "width": 1440,
+          "height": 900,
+          "sha256": "1dcd6b1034cd87cff7a65a86ceeecd102d8ab7eafbac0219b966b21ab7cd7c35"
+        },
+        {
+          "route": "/confirmation",
+          "width": 1440,
+          "height": 900,
+          "sha256": "63581ceb52a8650dc0e800df76e5eb3ba9416c2b771d9af2023e74b78c7aa3f4"
+        },
+        {
+          "route": "/",
+          "width": 390,
+          "height": 844,
+          "sha256": "12982d575eef02f57a4ac09d63823ac5e77df43ad8188462328c8975fc63574b"
+        },
+        {
+          "route": "/services",
+          "width": 390,
+          "height": 844,
+          "sha256": "0406faa6b3aee9b946db3dbd0e896774b6be333f08978d25521a1868c8af2148"
+        },
+        {
+          "route": "/services/deep-tissue",
+          "width": 390,
+          "height": 844,
+          "sha256": "5fe556f915f52eab5b56cfd3126df01e108610ee811530c876860fa637f13d92"
+        },
+        {
+          "route": "/about",
+          "width": 390,
+          "height": 844,
+          "sha256": "9fc509f518ba1dd84d58be39b2567175801710ca512a4ebf839cf494fb22ebff"
+        },
+        {
+          "route": "/contact",
+          "width": 390,
+          "height": 844,
+          "sha256": "e8bb0ed70eeb19854a27f842f5b423c8f3fdd4e89bb72695edef0cba85189816"
+        },
+        {
+          "route": "/book/service",
+          "width": 390,
+          "height": 844,
+          "sha256": "0f42dc288ff7ee031b70dc8a2c562f8239879612b76ff56a3724b2dce6dd8b05"
+        },
+        {
+          "route": "/book/validation",
+          "width": 390,
+          "height": 844,
+          "sha256": "3d84cae56fa3b707c051f2fc5d29fc2dd739445bf720207d6eaca9324751871e"
+        },
+        {
+          "route": "/book/time",
+          "width": 390,
+          "height": 844,
+          "sha256": "673bcf2a892674ece5a6295ac80c1e76ff09d5849934acf19bab774d38d7a678"
+        },
+        {
+          "route": "/book/details",
+          "width": 390,
+          "height": 844,
+          "sha256": "8b05c7e89909468831a5b5e0788f25da45facec8299ea62edecdaa443a8961ee"
+        },
+        {
+          "route": "/confirmation",
+          "width": 390,
+          "height": 844,
+          "sha256": "011857b3c7ca3441db3f3a968673c57382dc1151e9c775a216bbd909bd689765"
+        }
+      ],
+      "functionalChecks": [
+        {
+          "device": "desktop",
+          "serviceValidation": true,
+          "detailsValidation": true,
+          "realReservationConfirmation": true
+        },
+        {
+          "device": "mobile",
+          "serviceValidation": true,
+          "detailsValidation": true,
+          "realReservationConfirmation": true
+        }
+      ],
+      "mechanicalObservations": {
+        "horizontalOverflowViews": 0,
+        "runtimeErrors": 0,
+        "unnamedControlObservations": 0,
+        "occlusionObservations": [],
+        "contrastWarningObservations": 2,
+        "smallTargetWarningObservations": 115
+      },
+      "metrics": {
+        "activeRuntimeSeconds": null,
+        "tokens": null,
+        "toolCalls": null
+      }
+    },
+    {
+      "id": "t1-booking-candidate",
+      "trial": 1,
+      "product": "booking",
+      "condition": "candidate",
+      "startingAppHash": "9b2411dfef10e0d9ac631670edb1cf60cb2f1f4da9ad21ed47cb2aeb91f72c9c",
+      "taskHash": "54a6e7244f06941a23f522d23cc0962191ff9970f64448ada57984146808854b",
+      "skillCommit": "82b82581020b612e7f65505bc40b762a44667542",
+      "skillHash": "a3d0bd9a2bc1f6df1cb491fb47520a239a69f9abb79c8a285739364fb2878645",
+      "frozenSourceHash": "bcf9403964af87a23b33060b0e4e4c484e1eed38aa96b41c471469d8c5995e9a",
+      "originalTests": 11,
+      "originalTestsPass": true,
+      "buildPass": true,
+      "protectedFiles": [
+        "src/booking.js",
+        "src/data.js",
+        "src/routes.jsx",
+        "tests/behavior.test.jsx",
+        "tests/setup.js",
+        "package.json",
+        "package-lock.json",
+        "vite.config.js"
+      ],
+      "addedDependencies": 0,
+      "screenshots": [
+        {
+          "route": "/",
+          "width": 1440,
+          "height": 900,
+          "sha256": "b6e7cdcbbf4d02c133ae37b90856b8ac7930a496e2b3efc558c8756b8cb0daae"
+        },
+        {
+          "route": "/services",
+          "width": 1440,
+          "height": 900,
+          "sha256": "f3fc23b51c520de120d423b8ece4d60257c500fae2a4ce15aca8fd9d835d91a5"
+        },
+        {
+          "route": "/services/deep-tissue",
+          "width": 1440,
+          "height": 900,
+          "sha256": "5c3c1a39f525a4c26a37250fe1988b8617e92767b56bc44ec427bcbcd7793e52"
+        },
+        {
+          "route": "/about",
+          "width": 1440,
+          "height": 900,
+          "sha256": "9b998991dabe6a7a56362471d0f8fde6a74b40807ea9eca07b286417d6a376f9"
+        },
+        {
+          "route": "/contact",
+          "width": 1440,
+          "height": 900,
+          "sha256": "4e50ca60eb5cd3fdb4f5390556477b97a4d891a576e24914d4104b87e40ecc42"
+        },
+        {
+          "route": "/book/service",
+          "width": 1440,
+          "height": 900,
+          "sha256": "61418d3865098c02c0ecdfe17c90bdcfd937019ef92bb2cfffb6e180790ff006"
+        },
+        {
+          "route": "/book/validation",
+          "width": 1440,
+          "height": 900,
+          "sha256": "c4b1cf9ed5d220c817d66c6d94c9263de5d88f77a0f85ba32443555fb3590ae6"
+        },
+        {
+          "route": "/book/time",
+          "width": 1440,
+          "height": 900,
+          "sha256": "777c69839630ca9b43e1e36f126c02f82b188b1bd2ea53b982518989a7996266"
+        },
+        {
+          "route": "/book/details",
+          "width": 1440,
+          "height": 900,
+          "sha256": "67be07121c4bf41bb1b28aa7f2cc70180eae853ccc1bd3c2aead353ce5e64028"
+        },
+        {
+          "route": "/confirmation",
+          "width": 1440,
+          "height": 900,
+          "sha256": "42f7534d0050ebace8a7a74373d772eda06a87bfc7fdf0b0ec8049d79eb7675a"
+        },
+        {
+          "route": "/",
+          "width": 390,
+          "height": 844,
+          "sha256": "d9763d59cb511389d383d1c6b8d28249f2984e82c12ad6c6d61998f604c68d90"
+        },
+        {
+          "route": "/services",
+          "width": 390,
+          "height": 844,
+          "sha256": "1a4d5ffa456a57513a55a4dbca65ad81156c6000e3fb801ac1651b2cf6518292"
+        },
+        {
+          "route": "/services/deep-tissue",
+          "width": 390,
+          "height": 844,
+          "sha256": "b0617b95be4e73f839af19a714df5feee6ac5f788e1a704458bb3c9cb27f8d25"
+        },
+        {
+          "route": "/about",
+          "width": 390,
+          "height": 844,
+          "sha256": "35934037ab52d22e81faa2a56b06ccd8431c8097a704cd56239d9651ef51378a"
+        },
+        {
+          "route": "/contact",
+          "width": 390,
+          "height": 844,
+          "sha256": "75b7bf14627bc93ee57650c70085c16140f3f61d357e61fb3fe61fe5dff62272"
+        },
+        {
+          "route": "/book/service",
+          "width": 390,
+          "height": 844,
+          "sha256": "76b1da30e5bcda3cc643af411420eee2a6b5deed0c29966bd8a6e89c1dbd5c50"
+        },
+        {
+          "route": "/book/validation",
+          "width": 390,
+          "height": 844,
+          "sha256": "a95254685ef521bfb32e2a52808c674417719ddb1b653be287b689597908bb64"
+        },
+        {
+          "route": "/book/time",
+          "width": 390,
+          "height": 844,
+          "sha256": "839910ee55ba62af5d5dc6f18d2659aea33977aff373a9ef6934508c62ac752a"
+        },
+        {
+          "route": "/book/details",
+          "width": 390,
+          "height": 844,
+          "sha256": "0ad12418505d3cb938fa629e3748b344113e3a94add446200087e0374964e173"
+        },
+        {
+          "route": "/confirmation",
+          "width": 390,
+          "height": 844,
+          "sha256": "89b51658bef5eede2246ec672db55b915678ffbb75b3c50e1a7e154d8bd90a9b"
+        }
+      ],
+      "functionalChecks": [
+        {
+          "device": "desktop",
+          "serviceValidation": true,
+          "detailsValidation": true,
+          "realReservationConfirmation": true
+        },
+        {
+          "device": "mobile",
+          "serviceValidation": true,
+          "detailsValidation": true,
+          "realReservationConfirmation": true
+        }
+      ],
+      "mechanicalObservations": {
+        "horizontalOverflowViews": 0,
+        "runtimeErrors": 0,
+        "unnamedControlObservations": 0,
+        "occlusionObservations": [],
+        "contrastWarningObservations": 4,
+        "smallTargetWarningObservations": 98
+      },
+      "metrics": {
+        "activeRuntimeSeconds": null,
+        "tokens": null,
+        "toolCalls": null
+      }
+    },
+    {
+      "id": "t2-finance-control",
+      "trial": 2,
+      "product": "finance",
+      "condition": "control",
+      "startingAppHash": "0ef0092de1d52682e7a10611aa654153122f695e390d0a1a65d51b4b42136b5c",
+      "taskHash": "e612a7727defebfca83ed09107cbd18834fcb9ef58d758290900dd61f2088f02",
+      "skillCommit": null,
+      "skillHash": null,
+      "frozenSourceHash": "adece7af7840f7900299551bdc26e4bd3bda84c10ee5384f366f771e67775283",
+      "originalTests": 3,
+      "originalTestsPass": true,
+      "buildPass": null,
+      "protectedFiles": [
+        "model.mjs",
+        "model.test.mjs",
+        "server.mjs",
+        "package.json"
+      ],
+      "addedDependencies": 0,
+      "screenshots": [
+        {
+          "route": "#overview",
+          "width": 1440,
+          "height": 900,
+          "sha256": "a99f2f8c63fe0b69cd190cbf264c5e5e1b433d4b5b9067dd17025e069d13134b"
+        },
+        {
+          "route": "#activity",
+          "width": 1440,
+          "height": 900,
+          "sha256": "ccda50d316b0acba22abb2b7459f708d937ef04e0f9e5045baf55bbe008b0c8f"
+        },
+        {
+          "route": "#settings",
+          "width": 1440,
+          "height": 900,
+          "sha256": "701a593565d3a1955c4ad4dca675480b56341a99863a7db7096d5ba5b3c4a909"
+        },
+        {
+          "route": "#overview/dialog",
+          "width": 1440,
+          "height": 900,
+          "sha256": "4367cb2e3627112daa73add24465b65c704c24ae236d6a9ca7c6b1f138173381"
+        },
+        {
+          "route": "#overview",
+          "width": 390,
+          "height": 844,
+          "sha256": "42d26da8cc13f687f46363a5cc72838b8c119fbcfe6c0595bf45d31b9c758338"
+        },
+        {
+          "route": "#activity",
+          "width": 390,
+          "height": 844,
+          "sha256": "14fa5e5a1dab9e426ab7deb8b51b936870b94c6d6a173eacbfa202ca7ee008e1"
+        },
+        {
+          "route": "#settings",
+          "width": 390,
+          "height": 844,
+          "sha256": "dce716a59272999ace9c468b2b79a50d275d7150e06af0090924efa11994d7cc"
+        },
+        {
+          "route": "#overview/dialog",
+          "width": 390,
+          "height": 844,
+          "sha256": "d608305690f4b52dc7e3065fe120df3d1dc0cda2715209b2fcbab8d970ce8103"
+        }
+      ],
+      "functionalChecks": [
+        {
+          "device": "desktop",
+          "search": true,
+          "combinedFilter": true,
+          "preferencesPersist": true,
+          "dialogOpenClose": true,
+          "zeroAmountRejected": true,
+          "integerCentTransactionPersisted": true
+        },
+        {
+          "device": "mobile",
+          "search": true,
+          "combinedFilter": true,
+          "preferencesPersist": true,
+          "dialogOpenClose": true,
+          "zeroAmountRejected": true,
+          "integerCentTransactionPersisted": true
+        }
+      ],
+      "mechanicalObservations": {
+        "horizontalOverflowViews": 0,
+        "runtimeErrors": 0,
+        "unnamedControlObservations": 0,
+        "occlusionObservations": [],
+        "contrastWarningObservations": 18,
+        "smallTargetWarningObservations": 8
+      },
+      "metrics": {
+        "activeRuntimeSeconds": null,
+        "tokens": null,
+        "toolCalls": null
+      }
+    },
+    {
+      "id": "t2-finance-baseline",
+      "trial": 2,
+      "product": "finance",
+      "condition": "baseline",
+      "startingAppHash": "0ef0092de1d52682e7a10611aa654153122f695e390d0a1a65d51b4b42136b5c",
+      "taskHash": "e612a7727defebfca83ed09107cbd18834fcb9ef58d758290900dd61f2088f02",
+      "skillCommit": "52be5a00610b355ff44533d1c26e1859fb960360",
+      "skillHash": "289500337ec2b4627db2140684ed25758f2d2a181bd2f95937cbcaf8959ef9ee",
+      "frozenSourceHash": "22455883de6f14996aebb8f52b9804c5ff15d77a3a67384dca1aa9fc146bbc0d",
+      "originalTests": 3,
+      "originalTestsPass": true,
+      "buildPass": null,
+      "protectedFiles": [
+        "model.mjs",
+        "model.test.mjs",
+        "server.mjs",
+        "package.json"
+      ],
+      "addedDependencies": 0,
+      "screenshots": [
+        {
+          "route": "#overview",
+          "width": 1440,
+          "height": 900,
+          "sha256": "5690510124a02b2115ae71c422597356b95fe392a0cf0367118fab04411085c5"
+        },
+        {
+          "route": "#activity",
+          "width": 1440,
+          "height": 900,
+          "sha256": "711cb40dc26001eb760d89797245779d4dfc954e2a44e25b04716e89929019d6"
+        },
+        {
+          "route": "#settings",
+          "width": 1440,
+          "height": 900,
+          "sha256": "a50a7704356baa281402f12287e18b3efef48ce4d158069c745cc3d363c72b22"
+        },
+        {
+          "route": "#overview/dialog",
+          "width": 1440,
+          "height": 900,
+          "sha256": "56ad6f99a6eb3f38f2d2cfe9fd75ff31575c3942bfebb68cb62f17ff029be597"
+        },
+        {
+          "route": "#overview",
+          "width": 390,
+          "height": 844,
+          "sha256": "40e91aa29a22fdc5778d5fd1fac11ce0b101678639dfe1b38659caeac10c8632"
+        },
+        {
+          "route": "#activity",
+          "width": 390,
+          "height": 844,
+          "sha256": "52bc5e255bbb429d09773bbff27817d6c0161fcafb65d601e7cb9b97ab19c82c"
+        },
+        {
+          "route": "#settings",
+          "width": 390,
+          "height": 844,
+          "sha256": "108f665a3985732d8914bab34af3b664429935399b331acc0c8080e4477cb71f"
+        },
+        {
+          "route": "#overview/dialog",
+          "width": 390,
+          "height": 844,
+          "sha256": "e26d45dfd1fff7f5e9531a25279c0f06ad817224a0d3a4e6ff457170f6a6b629"
+        }
+      ],
+      "functionalChecks": [
+        {
+          "device": "desktop",
+          "search": true,
+          "combinedFilter": true,
+          "preferencesPersist": true,
+          "dialogOpenClose": true,
+          "zeroAmountRejected": true,
+          "integerCentTransactionPersisted": true
+        },
+        {
+          "device": "mobile",
+          "search": true,
+          "combinedFilter": true,
+          "preferencesPersist": true,
+          "dialogOpenClose": true,
+          "zeroAmountRejected": true,
+          "integerCentTransactionPersisted": true
+        }
+      ],
+      "mechanicalObservations": {
+        "horizontalOverflowViews": 0,
+        "runtimeErrors": 0,
+        "unnamedControlObservations": 0,
+        "occlusionObservations": [],
+        "contrastWarningObservations": 8,
+        "smallTargetWarningObservations": 8
+      },
+      "metrics": {
+        "activeRuntimeSeconds": null,
+        "tokens": null,
+        "toolCalls": null
+      }
+    },
+    {
+      "id": "t2-finance-candidate",
+      "trial": 2,
+      "product": "finance",
+      "condition": "candidate",
+      "startingAppHash": "0ef0092de1d52682e7a10611aa654153122f695e390d0a1a65d51b4b42136b5c",
+      "taskHash": "e612a7727defebfca83ed09107cbd18834fcb9ef58d758290900dd61f2088f02",
+      "skillCommit": "82b82581020b612e7f65505bc40b762a44667542",
+      "skillHash": "a3d0bd9a2bc1f6df1cb491fb47520a239a69f9abb79c8a285739364fb2878645",
+      "frozenSourceHash": "8ffa64158965680e6467888b3e304885d29e9f32ef0f7a50426417989374ca40",
+      "originalTests": 3,
+      "originalTestsPass": true,
+      "buildPass": null,
+      "protectedFiles": [
+        "model.mjs",
+        "model.test.mjs",
+        "server.mjs",
+        "package.json"
+      ],
+      "addedDependencies": 0,
+      "screenshots": [
+        {
+          "route": "#overview",
+          "width": 1440,
+          "height": 900,
+          "sha256": "43c12b7f0e49b4f7bbd5bfdd3bc4169c340d292057a8f58e58f9b27e9ed8e0d8"
+        },
+        {
+          "route": "#activity",
+          "width": 1440,
+          "height": 900,
+          "sha256": "f1a3297a669855e556306b81c8fdf105e741d1eafbafe5e905687632505d599f"
+        },
+        {
+          "route": "#settings",
+          "width": 1440,
+          "height": 900,
+          "sha256": "c6b7208c76c71fb854047afd8c8db933c7398f33ec96c912cd356d1d00558c36"
+        },
+        {
+          "route": "#overview/dialog",
+          "width": 1440,
+          "height": 900,
+          "sha256": "126994be4c0449e0192db2c226d8727aeed391c6620d3b1442e0f744210f14bc"
+        },
+        {
+          "route": "#overview",
+          "width": 390,
+          "height": 844,
+          "sha256": "1c0ed735b56efa4e85fccd8d4b3b2f5ec9ff7462276372704884b76de5721507"
+        },
+        {
+          "route": "#activity",
+          "width": 390,
+          "height": 844,
+          "sha256": "89b630b5a1b224934bba55f8373131491999facb987247236398ebf6f86a6281"
+        },
+        {
+          "route": "#settings",
+          "width": 390,
+          "height": 844,
+          "sha256": "954451c66fa40505dd95143541cf221f19deb0636f49a04862603b7311491838"
+        },
+        {
+          "route": "#overview/dialog",
+          "width": 390,
+          "height": 844,
+          "sha256": "b82bc601c4737bd5b67b478f05461becc5b08fbf945b2aff9e7f132d6877ff9c"
+        }
+      ],
+      "functionalChecks": [
+        {
+          "device": "desktop",
+          "search": true,
+          "combinedFilter": true,
+          "preferencesPersist": true,
+          "dialogOpenClose": true,
+          "zeroAmountRejected": true,
+          "integerCentTransactionPersisted": true
+        },
+        {
+          "device": "mobile",
+          "search": true,
+          "combinedFilter": true,
+          "preferencesPersist": true,
+          "dialogOpenClose": true,
+          "zeroAmountRejected": true,
+          "integerCentTransactionPersisted": true
+        }
+      ],
+      "mechanicalObservations": {
+        "horizontalOverflowViews": 0,
+        "runtimeErrors": 0,
+        "unnamedControlObservations": 0,
+        "occlusionObservations": [],
+        "contrastWarningObservations": 8,
+        "smallTargetWarningObservations": 8
+      },
+      "metrics": {
+        "activeRuntimeSeconds": null,
+        "tokens": null,
+        "toolCalls": null
+      }
+    },
+    {
+      "id": "t2-booking-control",
+      "trial": 2,
+      "product": "booking",
+      "condition": "control",
+      "startingAppHash": "9b2411dfef10e0d9ac631670edb1cf60cb2f1f4da9ad21ed47cb2aeb91f72c9c",
+      "taskHash": "54a6e7244f06941a23f522d23cc0962191ff9970f64448ada57984146808854b",
+      "skillCommit": null,
+      "skillHash": null,
+      "frozenSourceHash": "15a104b265a9232a3b1542ab7e7bb1d1673294a1917d35b9790f4869e4f7453e",
+      "originalTests": 11,
+      "originalTestsPass": true,
+      "buildPass": true,
+      "protectedFiles": [
+        "src/booking.js",
+        "src/data.js",
+        "src/routes.jsx",
+        "tests/behavior.test.jsx",
+        "tests/setup.js",
+        "package.json",
+        "package-lock.json",
+        "vite.config.js"
+      ],
+      "addedDependencies": 0,
+      "screenshots": [
+        {
+          "route": "/",
+          "width": 1440,
+          "height": 900,
+          "sha256": "ecd58794de4de024970e82f86018f4f22afebfce96e874323331db1097e3c2f9"
+        },
+        {
+          "route": "/services",
+          "width": 1440,
+          "height": 900,
+          "sha256": "b2186204dab3b51e93b0ddc79a507b9cb0fe38f9a452d3631d8a26bae960d698"
+        },
+        {
+          "route": "/services/deep-tissue",
+          "width": 1440,
+          "height": 900,
+          "sha256": "fbb451b3c11dbee657f91d6d3a6fdb8499294b955b554fd97bc00ef251fa066f"
+        },
+        {
+          "route": "/about",
+          "width": 1440,
+          "height": 900,
+          "sha256": "d392f18252edb645c65538ee9a8c092f286599fea3c8137b61054616d5daa053"
+        },
+        {
+          "route": "/contact",
+          "width": 1440,
+          "height": 900,
+          "sha256": "9efdf61bb829c7dd08239385dd29623bcfc421c7957489f74cc0e0148b9976ed"
+        },
+        {
+          "route": "/book/service",
+          "width": 1440,
+          "height": 900,
+          "sha256": "619d5b928626b8fa8065c41669d94e7f00a0c5a24cef8d370c3f5bf44886205d"
+        },
+        {
+          "route": "/book/validation",
+          "width": 1440,
+          "height": 900,
+          "sha256": "1183e1fcae1cc726992bf27a73d75c371def2292b54cd44b042054eaae863e9c"
+        },
+        {
+          "route": "/book/time",
+          "width": 1440,
+          "height": 900,
+          "sha256": "3f6f10d1e2a5cf9acb3eb451d8a47befbc47458ad351260e96594a0aa68b9488"
+        },
+        {
+          "route": "/book/details",
+          "width": 1440,
+          "height": 900,
+          "sha256": "0742122066e519c073aa185ecbabfa92bd779c689cea93e6e5f4ce335d8aaf47"
+        },
+        {
+          "route": "/confirmation",
+          "width": 1440,
+          "height": 900,
+          "sha256": "7d5a1cc7ec5c197f6c17115369e7758dd681f4512e7508eacb160046069038a1"
+        },
+        {
+          "route": "/",
+          "width": 390,
+          "height": 844,
+          "sha256": "33b7147a42fec6860481c2df64441c80a49ba06f804af8de7237f1588723d498"
+        },
+        {
+          "route": "/services",
+          "width": 390,
+          "height": 844,
+          "sha256": "c39383667b96986505d0eb2df0159abca3c1d4fa2661822b5cc8849e61e70200"
+        },
+        {
+          "route": "/services/deep-tissue",
+          "width": 390,
+          "height": 844,
+          "sha256": "a5f3817250ca50aab416aed01910b34db0e24ed9496409c7723e8d951b1d8971"
+        },
+        {
+          "route": "/about",
+          "width": 390,
+          "height": 844,
+          "sha256": "53fa8a8b7af7f93ce4163f32bd13492452220a69ccd4afe67469e6bc82611e80"
+        },
+        {
+          "route": "/contact",
+          "width": 390,
+          "height": 844,
+          "sha256": "7abaade954a46c35e039ddf2ca070403d6a9b5d96f7d8d328835f18ea8279920"
+        },
+        {
+          "route": "/book/service",
+          "width": 390,
+          "height": 844,
+          "sha256": "14aeb31b4aac5dcea71529641fdbb3ac6f169f388f44af305a9743a99a18d9b2"
+        },
+        {
+          "route": "/book/validation",
+          "width": 390,
+          "height": 844,
+          "sha256": "6e95783e76667777b40bddb0e2d16a5e5f6d8c7dc25de1bca5310cef9f323094"
+        },
+        {
+          "route": "/book/time",
+          "width": 390,
+          "height": 844,
+          "sha256": "4254adfa55a0a5eb24c4068ff96ed699beb4cc4b235fad5acb615423358dfd44"
+        },
+        {
+          "route": "/book/details",
+          "width": 390,
+          "height": 844,
+          "sha256": "d3912d23b3946e05df4c7a8b148d30324134a4d80a4cd81d8f85f9e9f28d2548"
+        },
+        {
+          "route": "/confirmation",
+          "width": 390,
+          "height": 844,
+          "sha256": "9e8b73319cb832057599a1d0fa0522809eb53732376f81999ea0dcc69349aa97"
+        }
+      ],
+      "functionalChecks": [
+        {
+          "device": "desktop",
+          "serviceValidation": true,
+          "detailsValidation": true,
+          "realReservationConfirmation": true
+        },
+        {
+          "device": "mobile",
+          "serviceValidation": true,
+          "detailsValidation": true,
+          "realReservationConfirmation": true
+        }
+      ],
+      "mechanicalObservations": {
+        "horizontalOverflowViews": 0,
+        "runtimeErrors": 0,
+        "unnamedControlObservations": 0,
+        "occlusionObservations": [],
+        "contrastWarningObservations": 251,
+        "smallTargetWarningObservations": 174
+      },
+      "metrics": {
+        "activeRuntimeSeconds": null,
+        "tokens": null,
+        "toolCalls": null
+      }
+    },
+    {
+      "id": "t2-booking-baseline",
+      "trial": 2,
+      "product": "booking",
+      "condition": "baseline",
+      "startingAppHash": "9b2411dfef10e0d9ac631670edb1cf60cb2f1f4da9ad21ed47cb2aeb91f72c9c",
+      "taskHash": "54a6e7244f06941a23f522d23cc0962191ff9970f64448ada57984146808854b",
+      "skillCommit": "52be5a00610b355ff44533d1c26e1859fb960360",
+      "skillHash": "289500337ec2b4627db2140684ed25758f2d2a181bd2f95937cbcaf8959ef9ee",
+      "frozenSourceHash": "f72f6f061d2e7a60d30aee7c93fda518eb36d8d5340910da989990f270b5e65b",
+      "originalTests": 11,
+      "originalTestsPass": true,
+      "buildPass": true,
+      "protectedFiles": [
+        "src/booking.js",
+        "src/data.js",
+        "src/routes.jsx",
+        "tests/behavior.test.jsx",
+        "tests/setup.js",
+        "package.json",
+        "package-lock.json",
+        "vite.config.js"
+      ],
+      "addedDependencies": 0,
+      "screenshots": [
+        {
+          "route": "/",
+          "width": 1440,
+          "height": 900,
+          "sha256": "d4c2e8b77c6003450f51ead457f5d56b1e5d923010840353ebb6de6874d87d1e"
+        },
+        {
+          "route": "/services",
+          "width": 1440,
+          "height": 900,
+          "sha256": "0802f4a64bf55bc62a669f6e8c3299f1fb45f32831115156c4a9266e276628c1"
+        },
+        {
+          "route": "/services/deep-tissue",
+          "width": 1440,
+          "height": 900,
+          "sha256": "f4d8119518e3c177ef4bdf5c37783fbcf5b2bb390327953deecbcdfbc87f8dfa"
+        },
+        {
+          "route": "/about",
+          "width": 1440,
+          "height": 900,
+          "sha256": "35b348a3ab44b094f29761730bc7550633109718e842fe438163ba9ab16fd652"
+        },
+        {
+          "route": "/contact",
+          "width": 1440,
+          "height": 900,
+          "sha256": "2edf593df60a594c4aa699a0876ed1a6fb5c646a5612435c056df68dea008483"
+        },
+        {
+          "route": "/book/service",
+          "width": 1440,
+          "height": 900,
+          "sha256": "9d0f1cdab81211d8e0cdf309dea693a0a058c1db9aeca3a10a4de2eaaa1e712b"
+        },
+        {
+          "route": "/book/validation",
+          "width": 1440,
+          "height": 900,
+          "sha256": "d1e459c439fd373e5a67b93d0feec1fc505308ba415c4c9711537638cafd2629"
+        },
+        {
+          "route": "/book/time",
+          "width": 1440,
+          "height": 900,
+          "sha256": "14af6a6736d2d8d8bfa8902b3b6d4632169f5016a4d088ac2a041fd986ffc23a"
+        },
+        {
+          "route": "/book/details",
+          "width": 1440,
+          "height": 900,
+          "sha256": "a19a103585787993c2876e6df869de185cd0fea040b48686d0511d29c8c4d0f2"
+        },
+        {
+          "route": "/confirmation",
+          "width": 1440,
+          "height": 900,
+          "sha256": "d4a3eb5f2c1a92125d79346ee5b9d2ba07f86ece6cdfe0524dd591702fe9753a"
+        },
+        {
+          "route": "/",
+          "width": 390,
+          "height": 844,
+          "sha256": "c6a613eb50d95d0406867ef74a2b47430f2aee63cf4f1b33c2525654af78d190"
+        },
+        {
+          "route": "/services",
+          "width": 390,
+          "height": 844,
+          "sha256": "70b30f8307fd63fb12d0c76d254c1486eff7f6f4a167c9dfb657531a66ed4bff"
+        },
+        {
+          "route": "/services/deep-tissue",
+          "width": 390,
+          "height": 844,
+          "sha256": "b2f97dbed2749830400724d2e949d899bc99d2e831ecc2af1fc71fa5dd565e37"
+        },
+        {
+          "route": "/about",
+          "width": 390,
+          "height": 844,
+          "sha256": "711059a75036ab70648d79245eaab8032b652fc952aef12b54fb75dada6531a8"
+        },
+        {
+          "route": "/contact",
+          "width": 390,
+          "height": 844,
+          "sha256": "2b1e85ede8c7fddb565edee9c2b03ab130d7c46f1bf69129018daa5b25e95577"
+        },
+        {
+          "route": "/book/service",
+          "width": 390,
+          "height": 844,
+          "sha256": "13daa82c0344a7080ee95bb02cac6e2b21cf6e440497a0ac8002ce6149d7e30c"
+        },
+        {
+          "route": "/book/validation",
+          "width": 390,
+          "height": 844,
+          "sha256": "7d0ab6bf00134427739d58c52e83b4fae63e88de60e632d6530beff32b98e1d4"
+        },
+        {
+          "route": "/book/time",
+          "width": 390,
+          "height": 844,
+          "sha256": "791ad9a68d6d254e0889b91463224e95735566599b432955602b16b07d8fee39"
+        },
+        {
+          "route": "/book/details",
+          "width": 390,
+          "height": 844,
+          "sha256": "7c784eddf776936734ab8cb3534320f08fbdde39501c5edab1c5c797ef1088b4"
+        },
+        {
+          "route": "/confirmation",
+          "width": 390,
+          "height": 844,
+          "sha256": "edc42dfab41b5294aa91188f5fefbf17ce3ecd4a5d64d35583b2a19dab664e19"
+        }
+      ],
+      "functionalChecks": [
+        {
+          "device": "desktop",
+          "serviceValidation": true,
+          "detailsValidation": true,
+          "realReservationConfirmation": true
+        },
+        {
+          "device": "mobile",
+          "serviceValidation": true,
+          "detailsValidation": true,
+          "realReservationConfirmation": true
+        }
+      ],
+      "mechanicalObservations": {
+        "horizontalOverflowViews": 0,
+        "runtimeErrors": 0,
+        "unnamedControlObservations": 0,
+        "occlusionObservations": [],
+        "contrastWarningObservations": 4,
+        "smallTargetWarningObservations": 127
+      },
+      "metrics": {
+        "activeRuntimeSeconds": null,
+        "tokens": null,
+        "toolCalls": null
+      }
+    },
+    {
+      "id": "t2-booking-candidate",
+      "trial": 2,
+      "product": "booking",
+      "condition": "candidate",
+      "startingAppHash": "9b2411dfef10e0d9ac631670edb1cf60cb2f1f4da9ad21ed47cb2aeb91f72c9c",
+      "taskHash": "54a6e7244f06941a23f522d23cc0962191ff9970f64448ada57984146808854b",
+      "skillCommit": "82b82581020b612e7f65505bc40b762a44667542",
+      "skillHash": "a3d0bd9a2bc1f6df1cb491fb47520a239a69f9abb79c8a285739364fb2878645",
+      "frozenSourceHash": "c746a90445017a4003fabdb902e0d7d5c93642ddc99ac18d3ae67165d1ceff42",
+      "originalTests": 11,
+      "originalTestsPass": true,
+      "buildPass": true,
+      "protectedFiles": [
+        "src/booking.js",
+        "src/data.js",
+        "src/routes.jsx",
+        "tests/behavior.test.jsx",
+        "tests/setup.js",
+        "package.json",
+        "package-lock.json",
+        "vite.config.js"
+      ],
+      "addedDependencies": 0,
+      "screenshots": [
+        {
+          "route": "/",
+          "width": 1440,
+          "height": 900,
+          "sha256": "745540d957f86c6d6fa79cd3d334107e6647772ceec5daf4c6247acaf8522879"
+        },
+        {
+          "route": "/services",
+          "width": 1440,
+          "height": 900,
+          "sha256": "ddc2b2eb120f5bffa090813db86501ba2106d00d8ab1db52a4ab6a040a415d42"
+        },
+        {
+          "route": "/services/deep-tissue",
+          "width": 1440,
+          "height": 900,
+          "sha256": "e447febc701c69af5077951763cd16eae9403db3b3b6338ad10778174469f060"
+        },
+        {
+          "route": "/about",
+          "width": 1440,
+          "height": 900,
+          "sha256": "91d6c59b0318919dcd1ba74e292b4ec8ff36ad8f5a765004db73ec3fe0c239dc"
+        },
+        {
+          "route": "/contact",
+          "width": 1440,
+          "height": 900,
+          "sha256": "c382bc440d9beb2e9b52669a3a42ff925f6435d1a7a2e6f8033b2d412b08243a"
+        },
+        {
+          "route": "/book/service",
+          "width": 1440,
+          "height": 900,
+          "sha256": "6731554bf00cced989ea6e43926617a1a9fd71fd52f313a7d29156f49adacc9b"
+        },
+        {
+          "route": "/book/validation",
+          "width": 1440,
+          "height": 900,
+          "sha256": "50e48ee2bcc65ef73fd1fef2803ac2753b9e120ea43f7e02fbcf434110c80405"
+        },
+        {
+          "route": "/book/time",
+          "width": 1440,
+          "height": 900,
+          "sha256": "e3ef3a4188fdb60eb4eeef729cec88c168c650ed0b1296d5a4c2d5b4efdc9cca"
+        },
+        {
+          "route": "/book/details",
+          "width": 1440,
+          "height": 900,
+          "sha256": "2b2f60f34a54323be8da0a1758994ee46999782641a9df60943f713841d72193"
+        },
+        {
+          "route": "/confirmation",
+          "width": 1440,
+          "height": 900,
+          "sha256": "0398d9805a0e4e7c17894a965ac97fdf0fec5cadf42cf1d28880fdfdff55d07f"
+        },
+        {
+          "route": "/",
+          "width": 390,
+          "height": 844,
+          "sha256": "a0351e83d1d3ba697542f9a6b9dbaab52fe53c94eaf3dda5a984068b01e85b0b"
+        },
+        {
+          "route": "/services",
+          "width": 390,
+          "height": 844,
+          "sha256": "fe69507e6df6d823a753388bf632bf7d8af8a01645f8b0d55e41f36bfd959dc2"
+        },
+        {
+          "route": "/services/deep-tissue",
+          "width": 390,
+          "height": 844,
+          "sha256": "7ac2e6cdb41c572c2c0534b0ab3c51c8f210c73cbe3d63fc1d57591720d3d63e"
+        },
+        {
+          "route": "/about",
+          "width": 390,
+          "height": 844,
+          "sha256": "6c53df494970716e9098c2b87e107736c13c5f0fa8aa982e1f1c8112d5ad4bc7"
+        },
+        {
+          "route": "/contact",
+          "width": 390,
+          "height": 844,
+          "sha256": "d67f588e00338e5e95b105a7f91c477332ca3151949a120d9be67aea0731cb9b"
+        },
+        {
+          "route": "/book/service",
+          "width": 390,
+          "height": 844,
+          "sha256": "d2a9f5246f14c2b625d0b6e4c731b0fd0280916019ba695bd1d85b57d19aea8e"
+        },
+        {
+          "route": "/book/validation",
+          "width": 390,
+          "height": 844,
+          "sha256": "a536abb11891bb18f08c42c21ccf3e62dfb12db38e73508e7d851c7a920a595f"
+        },
+        {
+          "route": "/book/time",
+          "width": 390,
+          "height": 844,
+          "sha256": "222d02211d4faf7dfed0b7f40c8ea96326297a4ecdbb09b3590b57a147508e21"
+        },
+        {
+          "route": "/book/details",
+          "width": 390,
+          "height": 844,
+          "sha256": "8066e89ead8b2341c77b5993190c13308d3c330b7d151b35bb7b64a09deb72d4"
+        },
+        {
+          "route": "/confirmation",
+          "width": 390,
+          "height": 844,
+          "sha256": "3d783a9b5595e5bb4ca7141b408924f200b40e0cbea6e4a829f4191ab9101820"
+        }
+      ],
+      "functionalChecks": [
+        {
+          "device": "desktop",
+          "serviceValidation": true,
+          "detailsValidation": true,
+          "realReservationConfirmation": true
+        },
+        {
+          "device": "mobile",
+          "serviceValidation": true,
+          "detailsValidation": true,
+          "realReservationConfirmation": true
+        }
+      ],
+      "mechanicalObservations": {
+        "horizontalOverflowViews": 0,
+        "runtimeErrors": 0,
+        "unnamedControlObservations": 0,
+        "occlusionObservations": [],
+        "contrastWarningObservations": 4,
+        "smallTargetWarningObservations": 113
+      },
+      "metrics": {
+        "activeRuntimeSeconds": null,
+        "tokens": null,
+        "toolCalls": null
+      }
+    },
+    {
+      "id": "t3-finance-control",
+      "trial": 3,
+      "product": "finance",
+      "condition": "control",
+      "startingAppHash": "0ef0092de1d52682e7a10611aa654153122f695e390d0a1a65d51b4b42136b5c",
+      "taskHash": "e612a7727defebfca83ed09107cbd18834fcb9ef58d758290900dd61f2088f02",
+      "skillCommit": null,
+      "skillHash": null,
+      "frozenSourceHash": "e2901ee0c5e7e85842d641c4988ba72f0c1e93b6e7424356739786308d35d63d",
+      "originalTests": 3,
+      "originalTestsPass": true,
+      "buildPass": null,
+      "protectedFiles": [
+        "model.mjs",
+        "model.test.mjs",
+        "server.mjs",
+        "package.json"
+      ],
+      "addedDependencies": 0,
+      "screenshots": [
+        {
+          "route": "#overview",
+          "width": 1440,
+          "height": 900,
+          "sha256": "2c4c159759b3439e97b46d031ea5c9a19b958183dd3caa96e002efb21ab3f925"
+        },
+        {
+          "route": "#activity",
+          "width": 1440,
+          "height": 900,
+          "sha256": "e5d5094ca2641b8d775ec7e571000877ae0f354d4f262b6d4e8f2504f10e1c4f"
+        },
+        {
+          "route": "#settings",
+          "width": 1440,
+          "height": 900,
+          "sha256": "bf346b0643247e68927d2632ec0a8d14732ab5d5f68c738696bd1ca53d858bc5"
+        },
+        {
+          "route": "#overview/dialog",
+          "width": 1440,
+          "height": 900,
+          "sha256": "fda75cc0cabf2c8acdf04d0dfe4f98f153956bdc78ffb0188176ec65ea5fdc4c"
+        },
+        {
+          "route": "#overview",
+          "width": 390,
+          "height": 844,
+          "sha256": "46070382d379c1803224e895eb3cacf026002f80c8785b6f6cc6b1149c410769"
+        },
+        {
+          "route": "#activity",
+          "width": 390,
+          "height": 844,
+          "sha256": "8a18612855012f954b98ceb754cb94466e083a6c6f54e294ff5c0e20fc3dd0a9"
+        },
+        {
+          "route": "#settings",
+          "width": 390,
+          "height": 844,
+          "sha256": "620516304ed2c9dde6aa2ffac0c3b88dcfc9bf3d931399659917db371d3ac900"
+        },
+        {
+          "route": "#overview/dialog",
+          "width": 390,
+          "height": 844,
+          "sha256": "9c4819aa5cb1b99fa4393db00a6ff37ad01acfc30a4c558d4c6aa52f81d73fe5"
+        }
+      ],
+      "functionalChecks": [
+        {
+          "device": "desktop",
+          "search": true,
+          "combinedFilter": true,
+          "preferencesPersist": true,
+          "dialogOpenClose": true,
+          "zeroAmountRejected": true,
+          "integerCentTransactionPersisted": true
+        },
+        {
+          "device": "mobile",
+          "search": true,
+          "combinedFilter": true,
+          "preferencesPersist": true,
+          "dialogOpenClose": true,
+          "zeroAmountRejected": true,
+          "integerCentTransactionPersisted": true
+        }
+      ],
+      "mechanicalObservations": {
+        "horizontalOverflowViews": 0,
+        "runtimeErrors": 0,
+        "unnamedControlObservations": 0,
+        "occlusionObservations": [
+          {
+            "route": "#overview",
+            "device": "mobile",
+            "tag": "a",
+            "name": "View all activity",
+            "scrollReview": true,
+            "blockers": [
+              "svg",
+              "a"
+            ]
+          }
+        ],
+        "contrastWarningObservations": 36,
+        "smallTargetWarningObservations": 23
+      },
+      "metrics": {
+        "activeRuntimeSeconds": null,
+        "tokens": null,
+        "toolCalls": null
+      }
+    },
+    {
+      "id": "t3-finance-baseline",
+      "trial": 3,
+      "product": "finance",
+      "condition": "baseline",
+      "startingAppHash": "0ef0092de1d52682e7a10611aa654153122f695e390d0a1a65d51b4b42136b5c",
+      "taskHash": "e612a7727defebfca83ed09107cbd18834fcb9ef58d758290900dd61f2088f02",
+      "skillCommit": "52be5a00610b355ff44533d1c26e1859fb960360",
+      "skillHash": "289500337ec2b4627db2140684ed25758f2d2a181bd2f95937cbcaf8959ef9ee",
+      "frozenSourceHash": "d84c3614c1936ed76f077c158f7189cd9833049d7dcb497078d802f48a6675f6",
+      "originalTests": 3,
+      "originalTestsPass": true,
+      "buildPass": null,
+      "protectedFiles": [
+        "model.mjs",
+        "model.test.mjs",
+        "server.mjs",
+        "package.json"
+      ],
+      "addedDependencies": 0,
+      "screenshots": [
+        {
+          "route": "#overview",
+          "width": 1440,
+          "height": 900,
+          "sha256": "7401549603e5fa84bee79d8d2417ec7bbad5806790cf9427d0e4484cd6b04f95"
+        },
+        {
+          "route": "#activity",
+          "width": 1440,
+          "height": 900,
+          "sha256": "25ae8131a4bb488a6fc520182817f8e02ca1872e640de3e007bd96b809e02bda"
+        },
+        {
+          "route": "#settings",
+          "width": 1440,
+          "height": 900,
+          "sha256": "3b673033479155f3625df8d783f3c83a0c1b20c3688815febfec21b211f3d04f"
+        },
+        {
+          "route": "#overview/dialog",
+          "width": 1440,
+          "height": 900,
+          "sha256": "f9f494cc693961d17c3e5e2be456b735b4325d49042ddf2ba1cb0dd209cd5265"
+        },
+        {
+          "route": "#overview",
+          "width": 390,
+          "height": 844,
+          "sha256": "3345b7ae7dd0516edb1aaeb41c69c17f1718084706b0e0e05fd5700c88425d45"
+        },
+        {
+          "route": "#activity",
+          "width": 390,
+          "height": 844,
+          "sha256": "9ec2b12d06857bfeb3b034f10528858a4f00c05136e17cecf9b93cf4d95b635a"
+        },
+        {
+          "route": "#settings",
+          "width": 390,
+          "height": 844,
+          "sha256": "11e44ada78212bbaa744c0e9917ff11937fe6c2246ac9b8c6c82db7253adceea"
+        },
+        {
+          "route": "#overview/dialog",
+          "width": 390,
+          "height": 844,
+          "sha256": "52b96c2d2b68f473ceb65f95e75a126c6662ec7a473326fca3fcd5047949e8e2"
+        }
+      ],
+      "functionalChecks": [
+        {
+          "device": "desktop",
+          "search": true,
+          "combinedFilter": true,
+          "preferencesPersist": true,
+          "dialogOpenClose": true,
+          "zeroAmountRejected": true,
+          "integerCentTransactionPersisted": true
+        },
+        {
+          "device": "mobile",
+          "search": true,
+          "combinedFilter": true,
+          "preferencesPersist": true,
+          "dialogOpenClose": true,
+          "zeroAmountRejected": true,
+          "integerCentTransactionPersisted": true
+        }
+      ],
+      "mechanicalObservations": {
+        "horizontalOverflowViews": 0,
+        "runtimeErrors": 0,
+        "unnamedControlObservations": 0,
+        "occlusionObservations": [],
+        "contrastWarningObservations": 8,
+        "smallTargetWarningObservations": 8
+      },
+      "metrics": {
+        "activeRuntimeSeconds": null,
+        "tokens": null,
+        "toolCalls": null
+      }
+    },
+    {
+      "id": "t3-finance-candidate",
+      "trial": 3,
+      "product": "finance",
+      "condition": "candidate",
+      "startingAppHash": "0ef0092de1d52682e7a10611aa654153122f695e390d0a1a65d51b4b42136b5c",
+      "taskHash": "e612a7727defebfca83ed09107cbd18834fcb9ef58d758290900dd61f2088f02",
+      "skillCommit": "82b82581020b612e7f65505bc40b762a44667542",
+      "skillHash": "a3d0bd9a2bc1f6df1cb491fb47520a239a69f9abb79c8a285739364fb2878645",
+      "frozenSourceHash": "5ee571766c38d915773010d53ee05d6b2f803bf195c0fc36a341cb56f2463a45",
+      "originalTests": 3,
+      "originalTestsPass": true,
+      "buildPass": null,
+      "protectedFiles": [
+        "model.mjs",
+        "model.test.mjs",
+        "server.mjs",
+        "package.json"
+      ],
+      "addedDependencies": 0,
+      "screenshots": [
+        {
+          "route": "#overview",
+          "width": 1440,
+          "height": 900,
+          "sha256": "6328653a3b3bdab8725a2085543fc5f91983f4c11c393edcdb724faf9fabf882"
+        },
+        {
+          "route": "#activity",
+          "width": 1440,
+          "height": 900,
+          "sha256": "18089f8b8638b5fef2d3ec5ae46edc3a1f8bdb086473d108dc2968d3af02132f"
+        },
+        {
+          "route": "#settings",
+          "width": 1440,
+          "height": 900,
+          "sha256": "fffd184d16d234737c52cbecdbb3a278409b9511753130799de1e5e81724ec83"
+        },
+        {
+          "route": "#overview/dialog",
+          "width": 1440,
+          "height": 900,
+          "sha256": "9b9705abf9f67fa468aa0051e2da7379aa4bcc015d45d75f40707bab0b11f00d"
+        },
+        {
+          "route": "#overview",
+          "width": 390,
+          "height": 844,
+          "sha256": "a378b5bebd272a3b7ddbcca9b313c46040b87e36ac68878c728cd0ba013768d1"
+        },
+        {
+          "route": "#activity",
+          "width": 390,
+          "height": 844,
+          "sha256": "f4b9535c484e80f26d8778cea0ff7962139e16fdd1ea9e9848231a50e5f08ffc"
+        },
+        {
+          "route": "#settings",
+          "width": 390,
+          "height": 844,
+          "sha256": "8a414b4b0b7d2b4ec2c43c00257af3f7664c2da899f2976d1f5519259cc1d6b2"
+        },
+        {
+          "route": "#overview/dialog",
+          "width": 390,
+          "height": 844,
+          "sha256": "8fbfc8588e3788fbdb9e4be6232afad693f052e86e74141305a606cacb724945"
+        }
+      ],
+      "functionalChecks": [
+        {
+          "device": "desktop",
+          "search": true,
+          "combinedFilter": true,
+          "preferencesPersist": true,
+          "dialogOpenClose": true,
+          "zeroAmountRejected": true,
+          "integerCentTransactionPersisted": true
+        },
+        {
+          "device": "mobile",
+          "search": true,
+          "combinedFilter": true,
+          "preferencesPersist": true,
+          "dialogOpenClose": true,
+          "zeroAmountRejected": true,
+          "integerCentTransactionPersisted": true
+        }
+      ],
+      "mechanicalObservations": {
+        "horizontalOverflowViews": 0,
+        "runtimeErrors": 0,
+        "unnamedControlObservations": 0,
+        "occlusionObservations": [],
+        "contrastWarningObservations": 8,
+        "smallTargetWarningObservations": 8
+      },
+      "metrics": {
+        "activeRuntimeSeconds": null,
+        "tokens": null,
+        "toolCalls": null
+      }
+    },
+    {
+      "id": "t3-booking-control",
+      "trial": 3,
+      "product": "booking",
+      "condition": "control",
+      "startingAppHash": "9b2411dfef10e0d9ac631670edb1cf60cb2f1f4da9ad21ed47cb2aeb91f72c9c",
+      "taskHash": "54a6e7244f06941a23f522d23cc0962191ff9970f64448ada57984146808854b",
+      "skillCommit": null,
+      "skillHash": null,
+      "frozenSourceHash": "d4d87841ed5be81e74b71947235672a7d89fb2409fb9537f23254a9bc1b72696",
+      "originalTests": 11,
+      "originalTestsPass": true,
+      "buildPass": true,
+      "protectedFiles": [
+        "src/booking.js",
+        "src/data.js",
+        "src/routes.jsx",
+        "tests/behavior.test.jsx",
+        "tests/setup.js",
+        "package.json",
+        "package-lock.json",
+        "vite.config.js"
+      ],
+      "addedDependencies": 0,
+      "screenshots": [
+        {
+          "route": "/",
+          "width": 1440,
+          "height": 900,
+          "sha256": "296cbb5ddd62b98ce6e55e17325411ca6c6e81c808e1e9570cb11468934bf219"
+        },
+        {
+          "route": "/services",
+          "width": 1440,
+          "height": 900,
+          "sha256": "be2d68a482d9ab8e77b472a2746cde5ce9e49fe912ee5c17bf141df06ec6cc3d"
+        },
+        {
+          "route": "/services/deep-tissue",
+          "width": 1440,
+          "height": 900,
+          "sha256": "ef38241fa95c7cd8a9c2293e70cc89581771bcdd2b357c4f371fbb1d4a9d71bb"
+        },
+        {
+          "route": "/about",
+          "width": 1440,
+          "height": 900,
+          "sha256": "f097682dd34ee81065607347a538f8ebc4d2853ebec6ce5a472d617693599df9"
+        },
+        {
+          "route": "/contact",
+          "width": 1440,
+          "height": 900,
+          "sha256": "d2c95b6b69c93bddd10021d225b123b023a43e85effb83301c424d0d9e724fb3"
+        },
+        {
+          "route": "/book/service",
+          "width": 1440,
+          "height": 900,
+          "sha256": "25acdb212359e12259eec5921b2813355495bdb0d4db4c8729406e9e52a05bee"
+        },
+        {
+          "route": "/book/validation",
+          "width": 1440,
+          "height": 900,
+          "sha256": "abef420951914692cf285803ebce14e77e19a2a0f7005a7a8ddb70a6aa7c97fe"
+        },
+        {
+          "route": "/book/time",
+          "width": 1440,
+          "height": 900,
+          "sha256": "32eb5be5f74968bb21eb9aea8d60162dc1082ff150a8cbf9c3d25a9f7540105e"
+        },
+        {
+          "route": "/book/details",
+          "width": 1440,
+          "height": 900,
+          "sha256": "f7f8682639bbbb4b10d6545fc392b818636052ffea12e19a91ab6031601e21be"
+        },
+        {
+          "route": "/confirmation",
+          "width": 1440,
+          "height": 900,
+          "sha256": "4f75a783406ae1695fb3050a88e5f39f9d1bb45840131fb5d8b0542bb10180f9"
+        },
+        {
+          "route": "/",
+          "width": 390,
+          "height": 844,
+          "sha256": "731200e874867df180d82464623a3d5dc8144e8dfb13983e95e125fedf259cfa"
+        },
+        {
+          "route": "/services",
+          "width": 390,
+          "height": 844,
+          "sha256": "7d9de3935a2d2679c7cfb97bee9ab131e4eb6355a2374e4e1ec9a7530fcedf60"
+        },
+        {
+          "route": "/services/deep-tissue",
+          "width": 390,
+          "height": 844,
+          "sha256": "8a62c72387b1ff6f8a8dfdbc17dc30626cc869e6325ccf44a85206afe3fe01cd"
+        },
+        {
+          "route": "/about",
+          "width": 390,
+          "height": 844,
+          "sha256": "048872cd3ba71f8a57adbe675423cc9f0189b7959ac2115567bce694fe384b02"
+        },
+        {
+          "route": "/contact",
+          "width": 390,
+          "height": 844,
+          "sha256": "114ee355293f18ed3f1426aed0141628828da79a2e7b56836c786eb74c747a84"
+        },
+        {
+          "route": "/book/service",
+          "width": 390,
+          "height": 844,
+          "sha256": "a130933fadd2920c4f20041521b00e7754af92fbc07819a6e28d2adac9219dd5"
+        },
+        {
+          "route": "/book/validation",
+          "width": 390,
+          "height": 844,
+          "sha256": "f0defea21bbae0815dbc5c7e996bf8d63bc45d9df8507352073bf96df8319a80"
+        },
+        {
+          "route": "/book/time",
+          "width": 390,
+          "height": 844,
+          "sha256": "821eb67f8df685bb06b6c924dc868f6041855f95a348f1b824c6a6be42b3d9b6"
+        },
+        {
+          "route": "/book/details",
+          "width": 390,
+          "height": 844,
+          "sha256": "5ff8b44ba6d3fa2835c85219edfc37f1b8a97e04d1d40f0d537539d06e6aee24"
+        },
+        {
+          "route": "/confirmation",
+          "width": 390,
+          "height": 844,
+          "sha256": "039b8c7fffe0b87f0cf3b1ae02afa5ab0f8a503acd8a0bfe38b2bbc82e274cab"
+        }
+      ],
+      "functionalChecks": [
+        {
+          "device": "desktop",
+          "serviceValidation": true,
+          "detailsValidation": true,
+          "realReservationConfirmation": true
+        },
+        {
+          "device": "mobile",
+          "serviceValidation": true,
+          "detailsValidation": true,
+          "realReservationConfirmation": true
+        }
+      ],
+      "mechanicalObservations": {
+        "horizontalOverflowViews": 0,
+        "runtimeErrors": 0,
+        "unnamedControlObservations": 0,
+        "occlusionObservations": [],
+        "contrastWarningObservations": 110,
+        "smallTargetWarningObservations": 166
+      },
+      "metrics": {
+        "activeRuntimeSeconds": null,
+        "tokens": null,
+        "toolCalls": null
+      }
+    },
+    {
+      "id": "t3-booking-baseline",
+      "trial": 3,
+      "product": "booking",
+      "condition": "baseline",
+      "startingAppHash": "9b2411dfef10e0d9ac631670edb1cf60cb2f1f4da9ad21ed47cb2aeb91f72c9c",
+      "taskHash": "54a6e7244f06941a23f522d23cc0962191ff9970f64448ada57984146808854b",
+      "skillCommit": "52be5a00610b355ff44533d1c26e1859fb960360",
+      "skillHash": "289500337ec2b4627db2140684ed25758f2d2a181bd2f95937cbcaf8959ef9ee",
+      "frozenSourceHash": "4a8d260083aeda095b74020c211363c9a0df8e3db7929059f06830cccbac170e",
+      "originalTests": 11,
+      "originalTestsPass": true,
+      "buildPass": true,
+      "protectedFiles": [
+        "src/booking.js",
+        "src/data.js",
+        "src/routes.jsx",
+        "tests/behavior.test.jsx",
+        "tests/setup.js",
+        "package.json",
+        "package-lock.json",
+        "vite.config.js"
+      ],
+      "addedDependencies": 0,
+      "screenshots": [
+        {
+          "route": "/",
+          "width": 1440,
+          "height": 900,
+          "sha256": "f068e5baf6175295189ea9b5b4bab9ecc76be5d81bf38ae8bf43796a9fcca61f"
+        },
+        {
+          "route": "/services",
+          "width": 1440,
+          "height": 900,
+          "sha256": "fce42ece458e08db3e846d731879f1ce2c2db1de5a2a145f24e9511a40ef9c86"
+        },
+        {
+          "route": "/services/deep-tissue",
+          "width": 1440,
+          "height": 900,
+          "sha256": "40b48b362ee373c03e18288853045fc586239d4c317c0ce6d0c92c1ab9b2c5b1"
+        },
+        {
+          "route": "/about",
+          "width": 1440,
+          "height": 900,
+          "sha256": "3fcd49f011831c9e971abbe8d295ce2313b8f41ac16af6fe152d8c4b3acd76bc"
+        },
+        {
+          "route": "/contact",
+          "width": 1440,
+          "height": 900,
+          "sha256": "ff8cbe41bb6da2273f8ac53d04d13f6f236658781ab87b511d24d55f08888873"
+        },
+        {
+          "route": "/book/service",
+          "width": 1440,
+          "height": 900,
+          "sha256": "e9ae059e65038122fee0ed813bf7f7ba460864baa1b758d9760dce0a460a0a90"
+        },
+        {
+          "route": "/book/validation",
+          "width": 1440,
+          "height": 900,
+          "sha256": "c7566e6ace84c4c82479c38ffa51ab538c787069e6d8f461574693cf0a66905f"
+        },
+        {
+          "route": "/book/time",
+          "width": 1440,
+          "height": 900,
+          "sha256": "b2dc25a9f1e473f92a9705392f26dbf66f684b0b52eccf399e28a64a24fa8234"
+        },
+        {
+          "route": "/book/details",
+          "width": 1440,
+          "height": 900,
+          "sha256": "776a9970019af3e3c9a64ffb94bf3594867aa662ab50df3f8cf44a956b4b5635"
+        },
+        {
+          "route": "/confirmation",
+          "width": 1440,
+          "height": 900,
+          "sha256": "cb36bfc689c31d1988b7f92456fb3f064de3a695b36451e011f1e5cf37df11de"
+        },
+        {
+          "route": "/",
+          "width": 390,
+          "height": 844,
+          "sha256": "6d0dfcf3e500f8d3a7c88aa3f9045ee354c3fa5ea5686e7bc5c615142ef9d8b8"
+        },
+        {
+          "route": "/services",
+          "width": 390,
+          "height": 844,
+          "sha256": "5a10415a4b50881d5ed610b586382d38af6acd38d9ef098f145d84b7101681a6"
+        },
+        {
+          "route": "/services/deep-tissue",
+          "width": 390,
+          "height": 844,
+          "sha256": "0d2e24907a1d6894162879a45d779343752bb9e5434a4f416831734f32447df1"
+        },
+        {
+          "route": "/about",
+          "width": 390,
+          "height": 844,
+          "sha256": "44eb462a1367fb9e7ec3e8abed690ffb6febf2d083ee3ed69790505b9a7a4fbd"
+        },
+        {
+          "route": "/contact",
+          "width": 390,
+          "height": 844,
+          "sha256": "0c5aa83f88ed57a202901369262fbb78bf15c51d3844a870d2b344c90eb2cb9c"
+        },
+        {
+          "route": "/book/service",
+          "width": 390,
+          "height": 844,
+          "sha256": "7e2acc73c3dfbef3e860a464feea1f80f7fecab5b59897789964321aa2da4bab"
+        },
+        {
+          "route": "/book/validation",
+          "width": 390,
+          "height": 844,
+          "sha256": "9cf46fb7eee0ca6efff7a673d9f2962e35aff6c1511c50977ca0fd936a969aff"
+        },
+        {
+          "route": "/book/time",
+          "width": 390,
+          "height": 844,
+          "sha256": "4fafa7352d530d18ecfef5b2787631bd40510899e89e333f6ff437bebf9c7c92"
+        },
+        {
+          "route": "/book/details",
+          "width": 390,
+          "height": 844,
+          "sha256": "bd234c8d405b99ca2e0b6f434652e0a87ff27eb64111bf4030a0bdfc5f84b054"
+        },
+        {
+          "route": "/confirmation",
+          "width": 390,
+          "height": 844,
+          "sha256": "03b4e7de9563ea47105c9d72fce195647f3100adb9473fd6de22782aeae95db2"
+        }
+      ],
+      "functionalChecks": [
+        {
+          "device": "desktop",
+          "serviceValidation": true,
+          "detailsValidation": true,
+          "realReservationConfirmation": true
+        },
+        {
+          "device": "mobile",
+          "serviceValidation": true,
+          "detailsValidation": true,
+          "realReservationConfirmation": true
+        }
+      ],
+      "mechanicalObservations": {
+        "horizontalOverflowViews": 0,
+        "runtimeErrors": 0,
+        "unnamedControlObservations": 0,
+        "occlusionObservations": [],
+        "contrastWarningObservations": 4,
+        "smallTargetWarningObservations": 84
+      },
+      "metrics": {
+        "activeRuntimeSeconds": null,
+        "tokens": null,
+        "toolCalls": null
+      }
+    },
+    {
+      "id": "t3-booking-candidate",
+      "trial": 3,
+      "product": "booking",
+      "condition": "candidate",
+      "startingAppHash": "9b2411dfef10e0d9ac631670edb1cf60cb2f1f4da9ad21ed47cb2aeb91f72c9c",
+      "taskHash": "54a6e7244f06941a23f522d23cc0962191ff9970f64448ada57984146808854b",
+      "skillCommit": "82b82581020b612e7f65505bc40b762a44667542",
+      "skillHash": "a3d0bd9a2bc1f6df1cb491fb47520a239a69f9abb79c8a285739364fb2878645",
+      "frozenSourceHash": "df1d03e78c0d7583069b8fb981781bd6da57028714879a8810c1828766916c39",
+      "originalTests": 11,
+      "originalTestsPass": true,
+      "buildPass": true,
+      "protectedFiles": [
+        "src/booking.js",
+        "src/data.js",
+        "src/routes.jsx",
+        "tests/behavior.test.jsx",
+        "tests/setup.js",
+        "package.json",
+        "package-lock.json",
+        "vite.config.js"
+      ],
+      "addedDependencies": 0,
+      "screenshots": [
+        {
+          "route": "/",
+          "width": 1440,
+          "height": 900,
+          "sha256": "88c54f0b0583676ac169bf2345bf053fdf05794e776b4036b7656d4372f04b1c"
+        },
+        {
+          "route": "/services",
+          "width": 1440,
+          "height": 900,
+          "sha256": "73c7c73bfbd9b7e52a94286c6c21ae1ea3a691cf85b410ed2b94ad159b6edbfb"
+        },
+        {
+          "route": "/services/deep-tissue",
+          "width": 1440,
+          "height": 900,
+          "sha256": "2787f837acbb95eea0c04b823f0bd6163c988cc52f5d008ba89c323c9f59ee6d"
+        },
+        {
+          "route": "/about",
+          "width": 1440,
+          "height": 900,
+          "sha256": "7c5032109a6a02e59621fafaa330da7a0226ca88f9a17239e64c19bc02f286b0"
+        },
+        {
+          "route": "/contact",
+          "width": 1440,
+          "height": 900,
+          "sha256": "792edbb9e1d4471c11c507d65af9564890f75a2fea5f821444e5c9d94e37c0f8"
+        },
+        {
+          "route": "/book/service",
+          "width": 1440,
+          "height": 900,
+          "sha256": "b34c2280940f680878454481e2b29adbceee54de5a24d49f2b4924de2c1579b6"
+        },
+        {
+          "route": "/book/validation",
+          "width": 1440,
+          "height": 900,
+          "sha256": "34ba57d608656d77f4782f6ab2374d462eac198ed6aefd6a690065a2fec6cbf1"
+        },
+        {
+          "route": "/book/time",
+          "width": 1440,
+          "height": 900,
+          "sha256": "c6ea28e3f04951b90024d18fdc94e6372b42c622553e97becd4a3d02011df9ec"
+        },
+        {
+          "route": "/book/details",
+          "width": 1440,
+          "height": 900,
+          "sha256": "4cd2f193de8796e203d89be05a6ac64d331e12836afa2bf8f49f555c74c1c4f5"
+        },
+        {
+          "route": "/confirmation",
+          "width": 1440,
+          "height": 900,
+          "sha256": "67755257313f8bfd7fb1727f117a26351a091965871d716fb46b5b5768f9581a"
+        },
+        {
+          "route": "/",
+          "width": 390,
+          "height": 844,
+          "sha256": "3741ccce8faae28dda5ebc746ad729f2a358f03b985c826bf5079cc8f48920a2"
+        },
+        {
+          "route": "/services",
+          "width": 390,
+          "height": 844,
+          "sha256": "179a7d0ec8fe0e9a393833d12eea811bfa06f3ab5eb5fde35004dec4307c789b"
+        },
+        {
+          "route": "/services/deep-tissue",
+          "width": 390,
+          "height": 844,
+          "sha256": "59688d762520a021abbd94489742e58b7f09a592cc83eec01590c052e4285880"
+        },
+        {
+          "route": "/about",
+          "width": 390,
+          "height": 844,
+          "sha256": "247552d5f80a83e9e0385415d287c6adcb0dd9d2a3e3fe52daf576fb0e7fc49a"
+        },
+        {
+          "route": "/contact",
+          "width": 390,
+          "height": 844,
+          "sha256": "b558fd0ef81750fdc81b9108bc8abb519d4c1855989c821754299674e2989cdb"
+        },
+        {
+          "route": "/book/service",
+          "width": 390,
+          "height": 844,
+          "sha256": "a4c83c4dee656ae766bdfe63d9f05517486b2b8c2fb6433102a0b79e8880e173"
+        },
+        {
+          "route": "/book/validation",
+          "width": 390,
+          "height": 844,
+          "sha256": "a2fba4ffe2a703dcf847d73d35d5df70217d77f8c612a7df40ba07206f82cda3"
+        },
+        {
+          "route": "/book/time",
+          "width": 390,
+          "height": 844,
+          "sha256": "8a23c9799e7d47299b708581efed7a3851cb1cbc142c8df5e2e7c5d76fde44a7"
+        },
+        {
+          "route": "/book/details",
+          "width": 390,
+          "height": 844,
+          "sha256": "fea099ebdab38ba029ade9e8c22ae960b2ad8eed3eecc364489fb6cee5612bbd"
+        },
+        {
+          "route": "/confirmation",
+          "width": 390,
+          "height": 844,
+          "sha256": "4075a6273827b58b20e2f9bf1152d0bae2d0e0f807b4b2aa2bbf54a84284801b"
+        }
+      ],
+      "functionalChecks": [
+        {
+          "device": "desktop",
+          "serviceValidation": true,
+          "detailsValidation": true,
+          "realReservationConfirmation": true
+        },
+        {
+          "device": "mobile",
+          "serviceValidation": true,
+          "detailsValidation": true,
+          "realReservationConfirmation": true
+        }
+      ],
+      "mechanicalObservations": {
+        "horizontalOverflowViews": 0,
+        "runtimeErrors": 0,
+        "unnamedControlObservations": 0,
+        "occlusionObservations": [],
+        "contrastWarningObservations": 4,
+        "smallTargetWarningObservations": 72
+      },
+      "metrics": {
+        "activeRuntimeSeconds": null,
+        "tokens": null,
+        "toolCalls": null
+      }
+    }
+  ],
+  "limitations": [
+    "Provider usage limits interrupted early cohorts for hours; intervals are not active runtime and cannot establish speed/cost advantage.",
+    "Filesystem execution permissions changed globally during interruptions. Same requested conditions do not establish identical provider/runtime conditions across all runs.",
+    "Requested18-minute budgets and two aesthetic rounds are instructions, not hard provider limits.",
+    "Exact model version, tokens, tool-call counts and calibrated active runtime are unavailable.",
+    "Booking model assessments cover five critical states at both widths; complete20-view galleries remain available for human review.",
+    "Solid-background contrast, targets and occlusion measurements are approximate observations, not a complete accessibility audit.",
+    "Finance trial1 candidate has22 more repeated contrast-warning observations than current, including secondary copy at4.38\u20134.40:1; no manual app edits were made to hide it.",
+    "Control finance trials1and3 have one mobile scroll-content occlusion observation each; scrollReview is not proof the action is unreachable.",
+    "Builder baseline contact originals were overwritten by contact sheets in one trial; independent captures of the unchanged starting fixture provide matching original views.",
+    "One coordinator capture overlapped a rebuild and failed with HTTP navigation error; preserved and rerun after completed build.",
+    "Browser suite had one transient500ms CLI fixture failure; isolated retry passed, test now uses supported3000ms default with the same strict error assertions.",
+    "Initial optional showcase/chat invocation omitted configured browser executable and failed before browser work; configured runs are recorded separately."
+  ],
+  "directionalCriterionMet": false,
+  "releaseRecommendation": "HOLD for native activation, controlled model/environment budgets and independent human assessment; no design superiority claim"
+}

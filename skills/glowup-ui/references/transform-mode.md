@@ -2,7 +2,7 @@
 
 ## Match the request
 **REFINE / polish:** fix the requested local weaknesses; keep fonts, palette, composition and shell. `composition.mjs --mode refine` gives the same preservation-focused scope as `--mode polish`.
-**Full redesign:** “redesign the app”, “improve the full design”, or “modernize the entire UI” authorizes meaningful composition, typography hierarchy, spacing, surfaces and shared-component changes. Preserve the logo, brand cues, content and behavior. Retain an established font family/palette unless the user requests a new identity; hierarchy, weight, width and layout can still change substantially. A different brand needs explicit intent. When scope is unclear, infer from the requested breadth and state your scope briefly; ask only if blocked.
+**Full redesign:** “redesign the app”, “improve the full design”, or “modernize the entire UI” authorizes meaningful composition, typography hierarchy, spacing, surfaces and shared-component changes. Preserve the logo, explicit brand commitments, content and behavior. Distinguish an established brand from incidental starter fonts/colors: a full redesign can replace the latter. Explicit “keep our palette/fonts” constraints still win; rebranding an established product requires intent. When scope is unclear, infer from the requested breadth and state your scope briefly; ask only if a real conflict blocks implementation.
 
 ## Baseline once
 From the actual app root:

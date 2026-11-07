@@ -3,6 +3,7 @@
 import { parseArgs } from 'node:util';
 import { fileURLToPath } from 'node:url';
 import { composition } from './composition.mjs';
+import { selectStudy } from './studies.mjs';
 
 const alternatives = {
  finance: [
@@ -17,7 +18,7 @@ const alternatives = {
  ]
 };
 
-export function designBrief(product, { profile, mode = 'transform', depth = mode === 'refine' ? 'polish' : 'recompose' } = {}) {
+export function designBrief(product, { profile, problem, mode = 'transform', depth = mode === 'refine' ? 'polish' : 'recompose' } = {}) {
  if (!String(product).trim()) throw new Error('Specify the actual product and user task');
  if (!['create','transform','refine'].includes(mode) || !['polish','recompose','reframe'].includes(depth)) throw new Error('Use create|transform|refine and polish|recompose|reframe');
  if (mode === 'refine' && depth !== 'polish') throw new Error('REFINE requires polish depth');
@@ -28,15 +29,16 @@ export function designBrief(product, { profile, mode = 'transform', depth = mode
   ['sequence','Decision-led sequence',`Group the existing content by the decisions needed to ${recipe.goal.toLowerCase()} Give each decision its own region rather than repeating one card grid.`,recipe.type,'Phone: preserve decision order and current selections; keep summaries adjacent to the decision they explain.','Prefer when a genuine sequence exists; do not invent steps, routes or data to fit it.']
  ]).map(([id,name,layout,type,phone,tradeoff])=>({id,name,layout,type,phone,tradeoff}));
  return { product, profile:recipe.profile, selection:recipe.selection, mode, depth, options,
-  constraints:'Preserve brand, routes, content, data, APIs, handlers, auth and working flows. Reframe changes presentation/IA, not product capabilities. User constraints win.',
+  constraints:'Preserve explicit brand commitments, routes, content, data, APIs, handlers, auth and working flows. Separate these from replaceable presentation: incidental starter fonts/colors are not automatically a protected brand. Reframe changes presentation/IA, not product capabilities. User constraints win.',
+  study:problem ? selectStudy(problem,{mode,depth}) : null,
   choose:options.length?'Compare two or three real options against actual content/constraints; choose one or adapt/reject all with a reason. Record the dominant region, shell, type roles and phone order. Do not build multiple prototypes or combine every option.':'Use the current identity/composition; skip alternative exploration and fix the requested local weakness.',
   coverage:'For major work, map each requested screen/state to its job, lead region, supporting context and shared primitives. Implement and inspect every requested state, including tabs/dialogs at one URL; preserve observed strengths with reasons.',
   acceptance:recipe.acceptance };
 }
 export function formatBrief(b) {
- return [`${b.mode.toUpperCase()} / ${b.depth}: ${b.product}`,`Profile: ${b.profile} (${b.selection})`,b.constraints,...b.options.map(o=>`${o.id} — ${o.name}\nLayout: ${o.layout}\nType: ${o.type}\n${o.phone}\nTradeoff: ${o.tradeoff}`),b.choose,b.coverage].join('\n');
+ return [`${b.mode.toUpperCase()} / ${b.depth}: ${b.product}`,`Profile: ${b.profile} (${b.selection})`,b.constraints,...b.options.map(o=>`${o.id} — ${o.name}\nLayout: ${o.layout}\nType: ${o.type}\n${o.phone}\nTradeoff: ${o.tradeoff}`),b.choose,b.coverage,...(b.study?[`Optional worked example: ${b.study.reference}\nUse: ${b.study.use}\nChange: ${b.study.intervention}\nReject: ${b.study.reject}\n${b.study.instruction}`]:[])].join('\n');
 }
 if(process.argv[1]===fileURLToPath(import.meta.url)) {
- try {const {values}=parseArgs({options:{product:{type:'string'},profile:{type:'string'},mode:{type:'string',default:'transform'},depth:{type:'string'},json:{type:'boolean'}}});const b=designBrief(values.product||'',values);console.log(values.json?JSON.stringify(b,null,2):formatBrief(b));}
+ try {const {values}=parseArgs({options:{product:{type:'string'},profile:{type:'string'},problem:{type:'string'},mode:{type:'string',default:'transform'},depth:{type:'string'},json:{type:'boolean'}}});const b=designBrief(values.product||'',values);console.log(values.json?JSON.stringify(b,null,2):formatBrief(b));}
  catch(e){console.error(e.message);process.exitCode=64;}
 }

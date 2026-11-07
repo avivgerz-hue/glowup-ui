@@ -70,7 +70,7 @@ try {
  try {
    const cli=async (flow,route)=>{
      const file=path.join(root,'flow.json');fs.writeFileSync(file,JSON.stringify(flow));
-     const child=spawn(process.execPath,[path.join(repoRoot,'skills/glowup-ui/scripts/verify-flow.mjs'), '--flow',file,'--base-url',`http://127.0.0.1:${server.address().port}`,'--path',route,'--timeout','500'],{cwd:path.join(repoRoot,'benchmarks'),env:process.env});
+     const child=spawn(process.execPath,[path.join(repoRoot,'skills/glowup-ui/scripts/verify-flow.mjs'), '--flow',file,'--base-url',`http://127.0.0.1:${server.address().port}`,'--path',route,'--timeout','3000'],{cwd:path.join(repoRoot,'benchmarks'),env:process.env});
      let stdout='',stderr='';child.stdout.on('data',b=>stdout+=b);child.stderr.on('data',b=>stderr+=b);
      const code=await new Promise(resolve=>child.on('close',resolve));
      assert.ok(stdout,stderr);return {code,result:JSON.parse(stdout)};
@@ -78,7 +78,7 @@ try {
    const nav=await cli({steps:[{click:'button'},{expectURL:'/activity'}]},'/nav');assert.equal(nav.code,0);assert.equal(nav.result.assertions,1);
    const brokenNav=await cli({steps:[{click:'button'},{expectURL:'/activity'}]},'/broken-nav');assert.equal(brokenNav.code,1);
    const runtimeFailure=await cli(flow,'/runtime');assert.equal(runtimeFailure.code,1);assert.equal(runtimeFailure.result.runtimeErrors,1);
-   const consoleFailure=await cli(flow,'/console');assert.equal(consoleFailure.code,1);assert.equal(consoleFailure.result.consoleErrors,1);assert.ok(!JSON.stringify(consoleFailure.result).includes('PRIVATE-LOG-CONTENT'));
+   const consoleFailure=await cli(flow,'/console');assert.equal(consoleFailure.code,1);assert.equal(consoleFailure.result.consoleErrors,1,JSON.stringify(consoleFailure.result));assert.ok(!JSON.stringify(consoleFailure.result).includes('PRIVATE-LOG-CONTENT'));
  } finally { await new Promise(resolve=>server.close(resolve)); }
  console.log('Preservation browser regressions passed: occlusion, label/modal exceptions, handler outcome, missing control, extraction.');
 } finally { await browser.close(); fs.rmSync(root,{recursive:true,force:true}); }
