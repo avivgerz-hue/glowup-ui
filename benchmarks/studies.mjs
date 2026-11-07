@@ -13,11 +13,12 @@ const root=fileURLToPath(new URL('../skills/glowup-ui/assets/studies/',import.me
 const {values}=parseArgs({options:{write:{type:'boolean'},out:{type:'string'}}});
 if(values.write&&values.out)throw new Error('Choose --write for canonical assets OR --out for private captures');
 const out=values.write?root:values.out?path.resolve(values.out):fs.mkdtempSync(path.join(os.tmpdir(),'glowup-studies-'));
+if(values.out&&fs.existsSync(out))throw new Error('Choose a new output directory; existing evidence is never overwritten');
 fs.mkdirSync(out,{recursive:true});
 const sha=bytes=>crypto.createHash('sha256').update(bytes).digest('hex');
 const files=['study.css','task-workspace.html','selection-summary.html'];
 const sources=files.map(file=>({file,sha256:sha(fs.readFileSync(path.join(root,file)))}));
-const pw=await loadPlaywright();if(!pw)throw new Error('Use the existing benchmark Playwright installation; no browser is installed automatically.');
+const pw=await loadPlaywright(fileURLToPath(new URL('.',import.meta.url)));if(!pw)throw new Error('Use the existing benchmark Playwright installation; no browser is installed automatically.');
 const server=createServer((req,res)=>{
   const file=new URL(req.url,'http://localhost').pathname.slice(1);
   if(!files.includes(file)){res.writeHead(404);res.end();return;}

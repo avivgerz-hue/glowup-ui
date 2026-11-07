@@ -2,10 +2,14 @@
 // Agent-built sequential demonstration, not equal-budget causal evidence.
 import fs from 'node:fs';import path from 'node:path';import os from 'node:os';import crypto from 'node:crypto';import assert from 'node:assert/strict';
 import {spawnSync} from 'node:child_process';import {fileURLToPath} from 'node:url';import {parseArgs} from 'node:util';
+process.on('uncaughtExceptionMonitor',error=>{
+ if(process.env.GITHUB_ACTIONS)console.log('::error::Gather check: '+String(error.message).slice(0,3000).replaceAll('%','%25').replaceAll('\r','%0D').replaceAll('\n','%0A'));
+});
 const root=fileURLToPath(new URL('../',import.meta.url));
 const {values}=parseArgs({options:{write:{type:'boolean'},check:{type:'boolean'},out:{type:'string'}}});
 if(values.write&&(values.check||values.out))throw new Error('Choose --write OR --check/--out');
 const out=values.write?path.join(root,'assets/examples/gather'):values.out?path.resolve(values.out):fs.mkdtempSync(path.join(os.tmpdir(),'glowup-gather-'));
+if(values.out&&fs.existsSync(out))throw new Error('Choose a NEW_DIRECTORY for --out; existing evidence is never overwritten');
 fs.mkdirSync(out,{recursive:true});
 const scratch=fs.mkdtempSync(path.join(os.tmpdir(),'glowup-gather-captures-'));
 const sha=bytes=>crypto.createHash('sha256').update(bytes).digest('hex');
@@ -16,7 +20,7 @@ const baseline=path.join(root,'demo/gather/before'),treatment=path.join(root,'de
 for(const file of ['public/domain.js','test/domain.test.js'])assert.equal(sha(fs.readFileSync(path.join(baseline,file))),sha(fs.readFileSync(path.join(treatment,file))),'Domain logic and original tests must match');
 let seedHash,browser;
 for(const [label,dir,port] of [['before',baseline,4451],['after',treatment,4452]]){
- const tests=run(['--test','test/domain.test.js'],dir);assert.match(tests,/(?:#|ℹ) pass 6/);run(['build.js'],dir);
+ const tests=run(['--test','--test-reporter=tap','test/domain.test.js'],dir);assert.match(tests,/# pass 6/);run(['build.js'],dir);
  const captured=path.join(scratch,label);run([path.join(root,'benchmarks/capture-design-trial.mjs'),'--kind','gather','--project',dir,'--out',captured,'--port',String(port)],root);
  const r=JSON.parse(fs.readFileSync(path.join(captured,'result.json'),'utf8'));assert.equal(r.pass,true);assert.equal(r.screenshots.length,10);
  if(seedHash){assert.equal(r.seedHash,seedHash);assert.deepEqual(r.browser,browser);}else{seedHash=r.seedHash;browser=r.browser;}

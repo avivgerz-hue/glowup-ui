@@ -4,18 +4,19 @@ import fs from 'node:fs';
 import path from 'node:path';
 import assert from 'node:assert/strict';
 import crypto from 'node:crypto';
-import { spawn } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 import { parseArgs } from 'node:util';
 import { loadPlaywright, browserOptions } from '../skills/glowup-ui/scripts/screenshot.mjs';
 import { measurePage } from '../skills/glowup-ui/scripts/measure.mjs';
 import { initialState } from '../demo/create-ledger/model.mjs';
 import { normalizeState, STORAGE_KEY } from '../demo/gather/before/public/domain.js';
+import { ownedPreview } from './lib/owned-preview.mjs';
 const {values:a}=parseArgs({options:{kind:{type:'string'},project:{type:'string'},out:{type:'string'},port:{type:'string'}}});
 if(!['finance','booking','gather'].includes(a.kind)||!a.project||!a.out||!/^\d+$/.test(a.port||''))throw new Error('Use --kind finance|booking|gather --project APP --out NEW_DIRECTORY --port PORT');
 const port=Number(a.port);if(port<1024||port>65535)throw new Error('Choose an unprivileged port 1024..65535');
 const project=path.resolve(a.project),out=path.resolve(a.out);
 if(fs.existsSync(out))throw new Error('Capture output must be new; never overwrite trial evidence');
-const pw=await loadPlaywright();if(!pw)throw new Error('Explicitly install the benchmark browser dependencies first');
+const pw=await loadPlaywright(fileURLToPath(new URL('.',import.meta.url)));if(!pw)throw new Error('Explicitly install the benchmark browser dependencies first');
 fs.mkdirSync(out,{recursive:true,mode:0o700});
 const sha=data=>crypto.createHash('sha256').update(data).digest('hex');
 const seed={clock:'2026-11-06T12:00:00Z',locale:'en-US',timezone:'UTC',colorScheme:'light',finance:initialState(),booking:{service:'deep-tissue',date:'2026-11-19',time:'9:00 AM',name:'Trial Guest',email:'trial@example.invalid'}};
@@ -23,12 +24,10 @@ if(a.kind==='gather')seed.gather={key:STORAGE_KEY,state:normalizeState({})};
 const result={pass:false,kind:a.kind,seedHash:sha(JSON.stringify(seed)),browser:null,screenshots:[],checks:[],pageErrors:[],measurements:[],qualityScore:null,humanPreference:null};
 const save=()=>fs.writeFileSync(path.join(out,'result.json'),JSON.stringify(result,null,2)+'\n');
 const args=a.kind==='finance'?['server.mjs']:a.kind==='gather'?['server.js']:['node_modules/vite/bin/vite.js','preview','--host','127.0.0.1','--port',String(port),'--strictPort'];
-const server=spawn(process.execPath,args,{cwd:project,env:{...process.env,PORT:String(port)},stdio:'ignore'});
-let browser;
+const files=a.kind==='finance'?[{url:'/',file:'index.html'},{url:'/app.mjs',file:'app.mjs'},{url:'/style.css',file:'style.css'}]:a.kind==='gather'?[{url:'/',file:'public/index.html'},{url:'/app.js',file:'public/app.js'},{url:'/styles.css',file:'public/styles.css'}]:[{url:'/',file:'dist/index.html'}];
+let browser,preview;
 try{
- const base=`http://127.0.0.1:${port}`;let ready=false;
- for(let i=0;i<80;i++){try{if((await fetch(base)).ok){ready=true;break;}}catch{}await new Promise(r=>setTimeout(r,100));}
- if(!ready)throw new Error('App preview failed to start');
+ preview=await ownedPreview({project,args,port,files});const base=preview.url;result.servedSourceFilesVerified=preview.verifiedFiles;
  browser=await pw.chromium.launch(browserOptions());
  result.browser={version:browser.version(),engine:'chromium',launch:'Playwright defaults with optional existing executable',chromiumSandbox:false,locale:seed.locale,timezone:seed.timezone};save();
  for(const [device,viewport] of [['desktop',{width:1440,height:900}],['mobile',{width:390,height:844}]]){
@@ -42,7 +41,9 @@ try{
    await page.evaluate(()=>document.fonts.ready);await page.evaluate(()=>scrollTo(0,0));
    const file=`${route.replace(/[^a-z0-9]+/gi,'-').replace(/^-|-$/g,'')||'home'}-${device}.png`;
    await page.screenshot({path:path.join(out,file),animations:'disabled'});
-   const metrics=await page.evaluate(measurePage);result.measurements.push({route,device,metrics});
+   const metrics=await page.evaluate(measurePage);
+   const layout=await page.evaluate(()=>({viewportWidth:innerWidth,documentWidth:document.documentElement.scrollWidth,documentOverflow:document.documentElement.scrollWidth>innerWidth}));
+   result.measurements.push({route,device,...layout,metrics});
    result.screenshots.push({route,...viewport,file,sha256:sha(fs.readFileSync(path.join(out,file)))});save();
   }
   if(a.kind==='finance'){
@@ -53,7 +54,10 @@ try{
    await page.locator('#filter').selectOption('Software');assert.match(await page.locator('tbody').innerText(),/No transactions match/);
    await page.locator('#search').fill('');assert.equal(await page.locator('tbody tr').count(),1);
    await page.goto(base+'/#settings');await page.locator('input[name=name]').fill('Trial User');await page.locator('#settings button[type=submit], #settings button:not([type])').click();await page.reload();assert.equal(await page.locator('input[name=name]').inputValue(),'Trial User');
-   result.checks.push({device,search:true,combinedFilter:true,preferencesPersist:true,dialogOpenClose:true});
+   await page.locator('#add').click();await page.locator('input[name=merchant]').fill('Trial purchase');await page.locator('input[name=amount]').fill('0');await page.locator('select[name=category]').selectOption('Food');await page.locator('input[name=date]').fill('2026-10-25');await page.locator('#transaction-form button[type=submit]').click();assert.equal(await page.locator('dialog[open]').count(),1,'Invalid zero amount must not be saved');
+   await page.locator('input[name=amount]').fill('12.34');await page.locator('#transaction-form button[type=submit]').click();await page.locator('dialog[open]').waitFor({state:'hidden'});
+   const stored=await page.evaluate(()=>JSON.parse(localStorage.getItem('glowup-margin-v1')));assert.equal(stored.transactions.length,seed.finance.transactions.length+1);assert.equal(stored.transactions.find(t=>t.merchant==='Trial purchase').amountCents,-1234);await page.reload();assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('glowup-margin-v1')).transactions.length),seed.finance.transactions.length+1);
+   result.checks.push({device,search:true,combinedFilter:true,preferencesPersist:true,dialogOpenClose:true,zeroAmountRejected:true,integerCentTransactionPersisted:true});
   }else if(a.kind==='booking'){
    for(const route of ['/','/services','/services/deep-tissue','/about','/contact']){await page.goto(base+route);await page.locator('main h1').waitFor();await shot(route);}
    await page.goto(base+'/book');await page.locator('input[name=service]').first().waitFor();await shot('/book/service');
@@ -78,4 +82,4 @@ try{
  }
  assert.equal(result.pageErrors.length,0,'App runtime errors occurred');result.pass=true;save();
  console.log(JSON.stringify({pass:true,kind:a.kind,captures:result.screenshots.length,out}));
-}finally{save();await browser?.close();server.kill();}
+}finally{save();await browser?.close();await preview?.stop();}

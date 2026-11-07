@@ -2,3 +2,4 @@
 skills/glowup-ui/assets/studies/*.html text eol=lf
 skills/glowup-ui/assets/studies/*.css text eol=lf
 demo/gather/** text eol=lf
+assets/examples/gather/*.html text eol=lf
