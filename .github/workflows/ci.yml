@@ -43,6 +43,7 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - run: npm run test:browser
       - run: node studies.mjs
+      - run: node gather-showcase.mjs --check
       - run: node showcase.mjs --install --check
       - name: Report browser contract failures
         if: failure()

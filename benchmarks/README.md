@@ -23,6 +23,10 @@ Use `GLOWUP_BROWSER_EXECUTABLE` for an existing Chromium. Checks cover measureme
 
 ## Agent comparisons
 
+The v0.2 candidate also provides `capture-design-trial.mjs --kind finance|booking|gather --project APP --out NEW_DIRECTORY --port PORT`. It applies one collector to each implementation: fixed clock/locale/storage, real navigation/dialog/booking outcomes, matching desktop/phone PNGs and mechanical measurements. It never produces aesthetic scores. Booking apps require their original build first. Feed successful matching result files to `blind-review.mjs`; retain the key outside reviewer materials. Fresh-context in-session model trials are a separate runner from the native CLI comparisons below and do not establish native compatibility or fully pinned provider settings.
+
+`node benchmarks/gather-showcase.mjs --check` verifies the source-hashed four-screen sequential demonstration. It is not a matched skill advantage; see [its provenance](../demo/gather/README.md).
+
 Use [PAIRED-EVALUATION.md](PAIRED-EVALUATION.md) for matched CREATE/TRANSFORM runs and randomized X/Y review. Authentication, explicit full instruction delivery, equal settings and runtime isolation are prerequisites. Reviewers assess screenshots; generated scores start empty. Keep logs, keys and personal data outside Git.
 
 The single-cell Claude harness also supports identical scenario tasks in `scenarios.mjs`:
