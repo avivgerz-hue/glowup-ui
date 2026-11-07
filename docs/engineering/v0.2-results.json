@@ -1,0 +1,313 @@
+{
+  "schema": 1,
+  "candidateVersion": "0.2.0-dev.2",
+  "candidateSkillCommit": "b50904777a250f59ce5be0bee3f87498af21b24a",
+  "currentSkillCommit": "52be5a00610b355ff44533d1c26e1859fb960360",
+  "runner": "fresh-context in-session agents; manual full-instruction delivery, not native CLI activation",
+  "native": {
+    "status": "blocked-runtime",
+    "version": "Codex CLI 0.163.0",
+    "completedModelTurns": 0,
+    "error": "failed to initialize in-process app-server client: Read-only file system (os error 30)"
+  },
+  "matching": {
+    "taskAndStartingAppHashes": true,
+    "inheritedModelSettings": true,
+    "exactProviderModelIdVerified": false,
+    "hardExecutionBudgetEnforced": false,
+    "sharedFilesystemIsolation": "instruction boundary only",
+    "sessionsSpannedTwoDays": true
+  },
+  "cases": [
+    {
+      "product": "finance",
+      "condition": "without-skill",
+      "skillVersion": null,
+      "skillSha256": null,
+      "payloadSha256": null,
+      "startingAppHash": "0ef0092de1d52682e7a10611aa654153122f695e390d0a1a65d51b4b42136b5c",
+      "taskHash": "e612a7727defebfca83ed09107cbd18834fcb9ef58d758290900dd61f2088f02",
+      "originalTestsPassed": 3,
+      "build": "not provided by original fixture",
+      "protectedFilesUnchanged": true,
+      "addedDependencies": 0,
+      "commonBrowserJourney": "passed",
+      "servedSourceFilesVerified": [
+        "index.html",
+        "app.mjs",
+        "style.css"
+      ],
+      "matchingScreenshots": 8,
+      "objectiveFindings": {
+        "documentOverflowViews": 0,
+        "unnamedControlViews": 0,
+        "blockedControlViews": 0,
+        "multipleMainLandmarkViews": 0
+      },
+      "tokens": null,
+      "toolCalls": null
+    },
+    {
+      "product": "finance",
+      "condition": "current-main",
+      "skillVersion": "0.1.2",
+      "skillSha256": "6df688c9135f7b393463a49a346cdfd203c8153d2721b9b6fe9eb21ddc93c422",
+      "payloadSha256": "289500337ec2b4627db2140684ed25758f2d2a181bd2f95937cbcaf8959ef9ee",
+      "startingAppHash": "0ef0092de1d52682e7a10611aa654153122f695e390d0a1a65d51b4b42136b5c",
+      "taskHash": "e612a7727defebfca83ed09107cbd18834fcb9ef58d758290900dd61f2088f02",
+      "originalTestsPassed": 3,
+      "build": "not provided by original fixture",
+      "protectedFilesUnchanged": true,
+      "addedDependencies": 0,
+      "commonBrowserJourney": "passed",
+      "servedSourceFilesVerified": [
+        "index.html",
+        "app.mjs",
+        "style.css"
+      ],
+      "matchingScreenshots": 8,
+      "objectiveFindings": {
+        "documentOverflowViews": 0,
+        "unnamedControlViews": 0,
+        "blockedControlViews": 0,
+        "multipleMainLandmarkViews": 0
+      },
+      "tokens": null,
+      "toolCalls": null
+    },
+    {
+      "product": "finance",
+      "condition": "candidate-dev1",
+      "skillVersion": "0.2.0-dev.1",
+      "skillSha256": "c440eb73e4d1ff3ea04bfea9ab2349df38ceda71ac6f78e7c0b46e7046e3787d",
+      "payloadSha256": "dae13ce9a33d8f1417aad85ae0b14582988fd450f2334ba79d6c877d4c759a94",
+      "startingAppHash": "0ef0092de1d52682e7a10611aa654153122f695e390d0a1a65d51b4b42136b5c",
+      "taskHash": "e612a7727defebfca83ed09107cbd18834fcb9ef58d758290900dd61f2088f02",
+      "originalTestsPassed": 3,
+      "build": "not provided by original fixture",
+      "protectedFilesUnchanged": true,
+      "addedDependencies": 0,
+      "commonBrowserJourney": "passed",
+      "servedSourceFilesVerified": [
+        "index.html",
+        "app.mjs",
+        "style.css"
+      ],
+      "matchingScreenshots": 8,
+      "objectiveFindings": {
+        "documentOverflowViews": 0,
+        "unnamedControlViews": 0,
+        "blockedControlViews": 0,
+        "multipleMainLandmarkViews": 0
+      },
+      "tokens": null,
+      "toolCalls": null
+    },
+    {
+      "product": "booking",
+      "condition": "without-skill",
+      "skillVersion": null,
+      "skillSha256": null,
+      "payloadSha256": null,
+      "startingAppHash": "9b2411dfef10e0d9ac631670edb1cf60cb2f1f4da9ad21ed47cb2aeb91f72c9c",
+      "taskHash": "54a6e7244f06941a23f522d23cc0962191ff9970f64448ada57984146808854b",
+      "originalTestsPassed": 11,
+      "build": "passed",
+      "protectedFilesUnchanged": true,
+      "addedDependencies": 0,
+      "commonBrowserJourney": "passed",
+      "servedSourceFilesVerified": [
+        "dist/index.html"
+      ],
+      "matchingScreenshots": 20,
+      "objectiveFindings": {
+        "documentOverflowViews": 0,
+        "unnamedControlViews": 0,
+        "blockedControlViews": 0,
+        "multipleMainLandmarkViews": 0
+      },
+      "tokens": null,
+      "toolCalls": null
+    },
+    {
+      "product": "booking",
+      "condition": "current-main",
+      "skillVersion": "0.1.2",
+      "skillSha256": "6df688c9135f7b393463a49a346cdfd203c8153d2721b9b6fe9eb21ddc93c422",
+      "payloadSha256": "289500337ec2b4627db2140684ed25758f2d2a181bd2f95937cbcaf8959ef9ee",
+      "startingAppHash": "9b2411dfef10e0d9ac631670edb1cf60cb2f1f4da9ad21ed47cb2aeb91f72c9c",
+      "taskHash": "54a6e7244f06941a23f522d23cc0962191ff9970f64448ada57984146808854b",
+      "originalTestsPassed": 11,
+      "build": "passed",
+      "protectedFilesUnchanged": true,
+      "addedDependencies": 0,
+      "commonBrowserJourney": "passed",
+      "servedSourceFilesVerified": [
+        "dist/index.html"
+      ],
+      "matchingScreenshots": 20,
+      "objectiveFindings": {
+        "documentOverflowViews": 0,
+        "unnamedControlViews": 0,
+        "blockedControlViews": 0,
+        "multipleMainLandmarkViews": 0
+      },
+      "tokens": null,
+      "toolCalls": null
+    },
+    {
+      "product": "booking",
+      "condition": "candidate-dev1",
+      "skillVersion": "0.2.0-dev.1",
+      "skillSha256": "c440eb73e4d1ff3ea04bfea9ab2349df38ceda71ac6f78e7c0b46e7046e3787d",
+      "payloadSha256": "dae13ce9a33d8f1417aad85ae0b14582988fd450f2334ba79d6c877d4c759a94",
+      "startingAppHash": "9b2411dfef10e0d9ac631670edb1cf60cb2f1f4da9ad21ed47cb2aeb91f72c9c",
+      "taskHash": "54a6e7244f06941a23f522d23cc0962191ff9970f64448ada57984146808854b",
+      "originalTestsPassed": 11,
+      "build": "passed",
+      "protectedFilesUnchanged": true,
+      "addedDependencies": 0,
+      "commonBrowserJourney": "passed",
+      "servedSourceFilesVerified": [
+        "dist/index.html"
+      ],
+      "matchingScreenshots": 20,
+      "objectiveFindings": {
+        "documentOverflowViews": 0,
+        "unnamedControlViews": 0,
+        "blockedControlViews": 0,
+        "multipleMainLandmarkViews": 0
+      },
+      "tokens": null,
+      "toolCalls": null
+    },
+    {
+      "product": "finance",
+      "condition": "candidate-dev2",
+      "skillVersion": "0.2.0-dev.2",
+      "skillSha256": "f5ded552348ab856ac9dbd52d1f58ba7c18580b3235af445c87e9717f1360b85",
+      "payloadSha256": "a59dfde387c9209ff20f155808669160c489984a439293e36b374091f1a14456",
+      "startingAppHash": "0ef0092de1d52682e7a10611aa654153122f695e390d0a1a65d51b4b42136b5c",
+      "taskHash": "e612a7727defebfca83ed09107cbd18834fcb9ef58d758290900dd61f2088f02",
+      "originalTestsPassed": 3,
+      "build": "not provided by original fixture",
+      "protectedFilesUnchanged": true,
+      "addedDependencies": 0,
+      "commonBrowserJourney": "passed",
+      "servedSourceFilesVerified": [
+        "index.html",
+        "app.mjs",
+        "style.css"
+      ],
+      "matchingScreenshots": 8,
+      "objectiveFindings": {
+        "documentOverflowViews": 0,
+        "unnamedControlViews": 0,
+        "blockedControlViews": 0,
+        "multipleMainLandmarkViews": 0
+      },
+      "tokens": null,
+      "toolCalls": null
+    },
+    {
+      "product": "booking",
+      "condition": "candidate-dev2",
+      "skillVersion": "0.2.0-dev.2",
+      "skillSha256": "f5ded552348ab856ac9dbd52d1f58ba7c18580b3235af445c87e9717f1360b85",
+      "payloadSha256": "a59dfde387c9209ff20f155808669160c489984a439293e36b374091f1a14456",
+      "startingAppHash": "9b2411dfef10e0d9ac631670edb1cf60cb2f1f4da9ad21ed47cb2aeb91f72c9c",
+      "taskHash": "54a6e7244f06941a23f522d23cc0962191ff9970f64448ada57984146808854b",
+      "originalTestsPassed": 11,
+      "build": "passed",
+      "protectedFilesUnchanged": true,
+      "addedDependencies": 0,
+      "commonBrowserJourney": "passed",
+      "servedSourceFilesVerified": [
+        "dist/index.html"
+      ],
+      "matchingScreenshots": 20,
+      "objectiveFindings": {
+        "documentOverflowViews": 0,
+        "unnamedControlViews": 0,
+        "blockedControlViews": 0,
+        "multipleMainLandmarkViews": 0
+      },
+      "tokens": null,
+      "toolCalls": null
+    }
+  ],
+  "modelReviews": [
+    {
+      "comparison": "review-finance-xy",
+      "reviewerType": "blinded fresh-context same-family model, not human",
+      "viewsReviewed": 8,
+      "preference": "finance-b",
+      "strength": "marginal",
+      "labels": {
+        "X": "finance-b",
+        "Y": "finance-c"
+      }
+    },
+    {
+      "comparison": "review-finance-control-v2",
+      "reviewerType": "blinded fresh-context same-family model, not human",
+      "viewsReviewed": 8,
+      "preference": "finance-c2",
+      "strength": "marginal",
+      "labels": {
+        "X": "finance-a",
+        "Y": "finance-c2"
+      }
+    },
+    {
+      "comparison": "review-finance-v2",
+      "reviewerType": "blinded fresh-context same-family model, not human",
+      "viewsReviewed": 8,
+      "preference": "finance-b",
+      "strength": "marginal",
+      "labels": {
+        "X": "finance-c2",
+        "Y": "finance-b"
+      }
+    },
+    {
+      "comparison": "review-booking-control-v2",
+      "reviewerType": "blinded fresh-context same-family model, not human",
+      "viewsReviewed": 20,
+      "preference": "tie",
+      "strength": "tie",
+      "labels": {
+        "X": "booking-c2",
+        "Y": "booking-a"
+      }
+    },
+    {
+      "comparison": "review-booking-v2",
+      "reviewerType": "blinded fresh-context same-family model, not human",
+      "viewsReviewed": 20,
+      "preference": "tie",
+      "strength": "tie",
+      "labels": {
+        "X": "booking-b",
+        "Y": "booking-c2"
+      }
+    }
+  ],
+  "humanReviews": {
+    "completed": 0,
+    "status": "awaiting independent assessment"
+  },
+  "designSuperiority": "not established",
+  "releaseRecommendation": "HOLD pending native activation and credible independent outcome evidence",
+  "captureRecertification": {
+    "allEightSourcesVerified": true,
+    "totalViews": 112,
+    "byteIdenticalToEarlierCaptures": 109,
+    "threePhoneRasterDifferencesPixels": [
+      6,
+      13,
+      18
+    ],
+    "originalReviewedImagesRetained": true
+  }
+}

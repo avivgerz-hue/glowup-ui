@@ -49,7 +49,21 @@ For a first trial, choose a disposable copy or a clean branch of your app. Start
 
 ## Inspect the examples
 
-**Real renders. Fictional data. Maintainer examples, not controlled agent benchmarks.**
+**Real renders. Fictional data. Complete source and working interactions.**
+
+### Gather · transform an app that already works
+
+![Gather after TRANSFORM: a shared masthead and readable event collection with retained original artwork](assets/examples/gather/after/events-desktop.png)
+
+Four screens, event and guest search, validated RSVP, saved preferences, and light/dark themes. A fresh-context agent built the baseline without a design skill; another read Glowup **0.2.0-dev.1** and transformed a copy. Original artwork, content and domain tests remain. The phone guest view changes from a wide table to complete, readable cards:
+
+| Before · same guest data | After · all fields retained |
+|---|---|
+| ![Gather phone guest list before transformation](assets/examples/gather/before/guests-mobile.png) | ![Gather phone guest cards after transformation](assets/examples/gather/after/guests-mobile.png) |
+
+Both versions pass the original six domain tests and the shared browser journey. **This is an additional editing pass, not an equal-budget A/B win or native activation proof.** [Run both versions and inspect provenance](demo/gather/README.md) · [Screens, states and reproduction](docs/examples.md#gather--a-working-four-screen-application).
+
+<details><summary>Earlier Plotline and Margin examples · maintainer-directed/scripted</summary>
 
 | Before · functional fixture | TRANSFORM · same data and behavior tests |
 |---|---|
@@ -70,6 +84,8 @@ Fresh captures from the bundled source. Each version passes its original 12 beha
 ![Margin finance workspace: one dominant balance and trend, quieter monthly context and aligned activity](assets/examples/create-desktop.png)
 
 **Margin**, a maintainer-directed CREATE example with search, category filtering, a validated transaction dialog and local preferences. [Phone view](assets/examples/create-mobile.png) · [Run the app and inspect its brief](demo/create-ledger/README.md). It demonstrates a finance-specific composition, not a bank connection or a measured model-quality gain.
+
+</details>
 
 ### Choose the right scope
 
@@ -94,6 +110,8 @@ typography and layout. Fix evidenced spacing, focus and phone usability issues.
 ## How it works
 
 The agent reads one concise workflow, inspects the project, chooses a product-appropriate composition, implements shared primitives, and checks real desktop/phone views. Optional Node helpers provide design recipes, contrast-checked directions, a small starter, starting-state checkpoints and rendered issue reports. Detailed references load only when relevant.
+
+**Development candidate: 0.2.0-dev.3.** This branch adds original, rendered composition studies selected by an observed problem, clearer full-redesign permissions, and version-verified installation with terminal progress. It is not a published release; the commands above still install v0.1.1. [Candidate changes and evaluation boundaries](docs/engineering/v0.2-candidate.md).
 
 An existing app keeps its framework and working logic. The agent is instructed to preserve routes, handlers, data, content and tests. Checkpoints, original tests and browser review help detect regressions; they do not guarantee every change is safe or aesthetically better. Review the diff.
 

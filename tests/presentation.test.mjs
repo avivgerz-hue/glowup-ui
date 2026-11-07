@@ -57,3 +57,18 @@ test('social card and plugin icon use the expected dimensions without private PN
     assert.deepEqual([image.width, image.height], [width, height]);
   }
 });
+
+test('Gather gallery uses real matching captures, preserved domain tests and honest sequential provenance', () => {
+ const base='assets/examples/gather/';
+ const evidence=JSON.parse(read(base+'evidence.json'));
+ assert.equal(evidence.pass,true);assert.match(evidence.kind,/additional editing pass, not a controlled/);
+ assert.equal(evidence.skillVersion,'0.2.0-dev.1');assert.equal(evidence.captures.length,16);assert.equal(evidence.dialogOutcomesTested,true);
+ for(const file of ['public/domain.js','test/domain.test.js'])assert.deepEqual(read('demo/gather/before/'+file),read('demo/gather/after/'+file));
+ for(const capture of evidence.captures){
+  const asset=png(base+capture.file);
+  assert.deepEqual([asset.width,asset.height],[capture.width,capture.height]);
+  assert.equal(crypto.createHash('sha256').update(asset.bytes).digest('hex'),capture.sha256);
+ }
+ const gallery=read(base+'index.html');assert.equal(crypto.createHash('sha256').update(gallery).digest('hex'),evidence.gallerySha256);
+ assert.doesNotMatch(gallery.toString(),/(?:src|href)=["']https?:|analytics|trackingPixel/i);
+});

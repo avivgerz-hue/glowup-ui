@@ -56,6 +56,8 @@ export function codexMetrics(text, canonical='') {
   return {completed,toolCalls:calls.length,tokens:usage??null,iterations:null,skill:{invoked:evidence.length>0,activationEvidence:evidence.map(i=>({id:i.id,kind:'full-body-delivered'})),interpretation:'Conservative full-body delivery only; workflow influence needs review. Missing evidence is unconfirmed.'}};
 }
 export function blocker(text) {
+  if(/you(?:['’]ve| have) hit your usage limit|usage_limit_reached|insufficient_quota/i.test(text)) return 'blocked-quota';
+  if(/failed to initialize in-process app-server client:\s*Read-only file system/i.test(text)) return 'blocked-runtime';
   if(/HTTP CONNECT.*403|proxy.*403|blocked.*policy/i.test(text)) return 'blocked-network';
   if(/access token could not be refreshed|Please sign in again|not logged in|Invalid API key|Please run.*login|authentication_required|401 Unauthorized/i.test(text)) return 'blocked-auth';
   return null;

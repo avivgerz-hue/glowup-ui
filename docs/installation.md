@@ -1,5 +1,9 @@
 # Install and try Glowup UI
 
+**Candidate checkout:** this branch contains 0.2.0-dev.3, not a published tag or npm release. From a reviewed checkout, one project-scoped command is `node /path/to/glowup-ui/bin/glowup-ui.mjs install --scope project --agent codex` (PowerShell accepts a quoted Windows path instead). The installer prints its bundled version and exact destination and verifies installed bytes. Interactive terminals show stage-driven progress with no artificial wait; use `--no-animation` for plain output. CI, pipes, `NO_COLOR` and dumb terminals receive plain output automatically. Existing copies still require explicit replacement and retain recoverable backups. The published commands below intentionally remain pinned to v0.1.1.
+
+The immutable [dev.2 GitHub candidate command and actual install/removal results](engineering/v0.2-candidate.md#engineering-checks-and-corrections) are available for deliberate testing. A candidate is not the published preview; retain the exact source when updating or removing it.
+
 ## One command, from your app
 
 Requires Node 20+ and Git. This runs **our installer from the published GitHub v0.1.1 source**, not an unpublished npm package:
