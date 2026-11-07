@@ -15,7 +15,20 @@ export async function ownedPreview({project,args,port,files,timeoutMs=10000}){
  });
  const child=spawn(process.execPath,args,{cwd:project,env:{...process.env,PORT:String(port)},stdio:'ignore'});
  let exited=false,failed=null;child.once('error',error=>{failed=error;});child.once('exit',()=>{exited=true;});
- const stop=async()=>{if(!exited&&!failed){child.kill();await new Promise(resolve=>{child.once('close',resolve);setTimeout(resolve,1500).unref();});}};
+ const closed=new Promise(resolve=>child.once('close',resolve));
+ const waitClosed=ms=>new Promise(resolve=>{
+  const timer=setTimeout(()=>resolve(false),ms);
+  closed.then(()=>{clearTimeout(timer);resolve(true);});
+ });
+ let stopping;
+ const stop=()=>stopping??=(async()=>{
+  if(exited||failed)return;
+  child.kill('SIGTERM');
+  if(await waitClosed(1500))return;
+  // Signal only the process we spawned, never another listener on this port.
+  if(!exited&&!failed)child.kill('SIGKILL');
+  if(!await waitClosed(1500))throw new Error('Owned preview did not confirm exit after termination');
+ })();
  const url=`http://127.0.0.1:${port}`,deadline=Date.now()+timeoutMs;
  try{
   while(Date.now()<deadline){

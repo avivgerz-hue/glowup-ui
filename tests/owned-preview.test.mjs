@@ -16,6 +16,17 @@ test('requested preview verifies its exact served source and stops its own proce
  assert.deepEqual(preview.verifiedFiles,['index.html']);assert.equal(await (await fetch(preview.url)).text(),'requested');await preview.stop();
  await assert.rejects(fetch(preview.url));
 });
+test('stopping an uncooperative owned preview waits for termination',async t=>{
+ const project=fixture(t),port=await freePort();
+ const server=path.join(project,'server.mjs');
+ // Self-expiry also bounds cleanup if this regression is run against old code.
+ fs.writeFileSync(server,"process.on('SIGTERM',()=>{});setTimeout(()=>process.exit(0),10000);"+fs.readFileSync(server,'utf8'));
+ const preview=await ownedPreview({project,args:['server.mjs'],port,files:[{url:'/',file:'index.html'}]});
+ await preview.stop();await preview.stop();
+ await assert.rejects(fetch(preview.url));
+ const probe=createServer();await new Promise((resolve,reject)=>{probe.once('error',reject);probe.listen(port,'127.0.0.1',resolve);});
+ await new Promise(resolve=>probe.close(resolve));
+});
 test('wrong served bytes and exited preview process fail instead of producing evidence',async t=>{
  const project=fixture(t,'wrong');await assert.rejects(ownedPreview({project,args:['server.mjs'],port:await freePort(),files:[{url:'/',file:'index.html'}]}),/do not match/);
  await assert.rejects(ownedPreview({project,args:['-e','process.exit(1)'],port:await freePort(),files:[{url:'/',file:'index.html'}]}),/process exited/);

@@ -59,14 +59,16 @@ try{
    const stored=await page.evaluate(()=>JSON.parse(localStorage.getItem('glowup-margin-v1')));assert.equal(stored.transactions.length,seed.finance.transactions.length+1);assert.equal(stored.transactions.find(t=>t.merchant==='Trial purchase').amountCents,-1234);await page.reload();assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('glowup-margin-v1')).transactions.length),seed.finance.transactions.length+1);
    result.checks.push({device,search:true,combinedFilter:true,preferencesPersist:true,dialogOpenClose:true,zeroAmountRejected:true,integerCentTransactionPersisted:true});
   }else if(a.kind==='booking'){
-   for(const route of ['/','/services','/services/deep-tissue','/about','/contact']){await page.goto(base+route);await page.locator('main h1').waitFor();await shot(route);}
+   // The unmodified booking fixture has no main landmark. Synchronize on its
+   // visible heading; measurePage still records that accessibility defect.
+   for(const route of ['/','/services','/services/deep-tissue','/about','/contact']){await page.goto(base+route);await page.getByRole('heading',{level:1}).waitFor();await shot(route);}
    await page.goto(base+'/book');await page.locator('input[name=service]').first().waitFor();await shot('/book/service');
    await page.getByRole('button',{name:'Next',exact:true}).click();assert.match(await page.getByRole('alert').innerText(),/choose a service/);await shot('/book/validation');
    await page.locator('input[name=service][value=deep-tissue]').check();await page.getByRole('button',{name:'Next',exact:true}).click();await page.getByLabel('Date',{exact:true}).fill(seed.booking.date);await shot('/book/time');
    await page.locator('input[name=time][value="9:00 AM"]').check();await page.getByRole('button',{name:'Next',exact:true}).click();await shot('/book/details');
    await page.getByRole('button',{name:'Confirm booking',exact:true}).click();assert.match(await page.getByRole('alert').innerText(),/enter your name/);
    await page.getByLabel('Name',{exact:true}).fill(seed.booking.name);await page.getByLabel('Email',{exact:true}).fill(seed.booking.email);await page.getByRole('button',{name:'Confirm booking',exact:true}).click();
-   await page.getByRole('heading',{name:'Booking confirmed',exact:true}).waitFor();assert.match(await page.locator('main').innerText(),/Deep Tissue Massage/);await shot('/confirmation');
+   await page.getByRole('heading',{name:'Booking confirmed',exact:true}).waitFor();await page.getByText('Deep Tissue Massage',{exact:true}).waitFor();await shot('/confirmation');
    result.checks.push({device,serviceValidation:true,detailsValidation:true,realReservationConfirmation:true});
   }else{
    for(const route of ['overview','events','guests','settings']){await page.goto(base+'/#'+route);await page.locator('main h1').waitFor();await shot('#'+route);}
