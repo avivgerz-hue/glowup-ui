@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.2.0-dev.3 — Development candidate (unreleased)
+
+- Address observed phone context displacement: keep compact decision facts near the working collection instead of moving every summary behind it.
+- Scale the selection study to actual option counts; distinguish eight-option desktop comparison from the three-option teaching example, with readable phone controls and reachable step navigation.
+- These changes follow mixed dev.2 comparisons. Repeated control/current/candidate evaluations are in progress; no new quality claim is established by the instruction edits.
+
 ## v0.2.0-dev.2 — Development candidate (unreleased)
 
 - Add two original worked composition studies with matched desktop/phone renders, structural code, rejection cases and cross-screen adaptations. Retrieve at most one by an observed hierarchy or selection problem; polish needs no study lookup.
