@@ -24,6 +24,14 @@ test('reproduced native initialization failure is a runtime blocker, not a desig
  assert.equal(blocker('App displays Read-only file system in a user message'),null);
 });
 
+test('usage limits are provider blockers, while ordinary rate and UI messages are not quota evidence',async()=>{
+ const {eventBlocker}=await import('../benchmarks/lib/pair.mjs');
+ assert.equal(eventBlocker({type:'turn.failed',error:{message:'You’ve hit your usage limit.'}}),'blocked-quota');
+ assert.equal(eventBlocker({type:'error',code:'insufficient_quota'}),'blocked-quota');
+ assert.equal(eventBlocker({type:'item.completed',item:{type:'agent_message',text:"The UI displays You've hit your usage limit"}}),null);
+ assert.equal(blocker('429 retry after 30 seconds'),null);
+});
+
 test('native error classifier ignores login phrases in app content and successful answers',async()=>{
  const {eventBlocker}=await import('../benchmarks/lib/pair.mjs');
  for(const event of [{type:'item.completed',item:{type:'command_execution',aggregated_output:'Not logged in; HTTP CONNECT 403'}},{type:'result',subtype:'success',is_error:false,result:'Display Not logged in on this page'}])assert.equal(eventBlocker(event),null);
@@ -46,8 +54,10 @@ test('runner protocol fixture: split completion events clean up background proce
 test('runner protocol fixture stops a pair on provider failure and leaves treatment not-run',{skip:process.platform==='win32'},()=>{
  const prep=spawnSync(process.execPath,['benchmarks/activation/prepare-comparison.mjs'],{encoding:'utf8'});assert.equal(prep.status,0,prep.stderr);const root=prep.stdout.trim();
  try{
- const bin=root+'/error-fixture.mjs';fs.writeFileSync(bin,`#!${process.execPath}\nif(process.argv.includes('--version')){console.log('synthetic error fixture');process.exit(0);}\nconsole.log(JSON.stringify({type:'turn.failed',error:{message:'401 Unauthorized'}}));process.exitCode=1;\n`,{mode:0o755});
- const r=spawnSync(process.execPath,['benchmarks/run-pair.mjs','--manifest',root+'/manifest.json','--kind','create','--agent','codex','--model','protocol-test-only','--effort','high','--bin',bin,'--out',root+'/error-result','--run','--isolation-note','Synthetic error handling only'],{encoding:'utf8',timeout:10000});
- assert.equal(r.status,2,r.stderr);const report=JSON.parse(fs.readFileSync(root+'/error-result/result.json'));assert.equal(report.cases[0].status,'blocked-auth');assert.equal(report.cases[1].status,'not-run');
+ for(const [code,message] of [['blocked-auth','401 Unauthorized'],['blocked-quota','You’ve hit your usage limit.']]){
+ const bin=root+'/'+code+'-fixture.mjs';fs.writeFileSync(bin,`#!${process.execPath}\nif(process.argv.includes('--version')){console.log('synthetic error fixture');process.exit(0);}\nconsole.log(JSON.stringify({type:'turn.failed',error:{message:${JSON.stringify(message)}}}));process.exitCode=1;\n`,{mode:0o755});
+ const r=spawnSync(process.execPath,['benchmarks/run-pair.mjs','--manifest',root+'/manifest.json','--kind','create','--agent','codex','--model','protocol-test-only','--effort','high','--bin',bin,'--out',root+'/'+code+'-result','--run','--isolation-note','Synthetic error handling only'],{encoding:'utf8',timeout:10000});
+ assert.equal(r.status,2,r.stderr);const report=JSON.parse(fs.readFileSync(root+'/'+code+'-result/result.json'));assert.equal(report.cases[0].status,code);assert.equal(report.cases[1].status,'not-run');
+ }
  }finally{fs.rmSync(root,{recursive:true,force:true});}
 });
