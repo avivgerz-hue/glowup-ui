@@ -1,7 +1,7 @@
 interface:
   display_name: "Glowup UI"
   short_description: "Create, redesign, or animate web app interfaces"
-  brand_color: "#7C3AED"
+  brand_color: "#143C33"
   default_prompt: "Use $glowup-ui for this UI task. Build a new app when requested; for an existing app match polish or full redesign scope, improve composition and shared components, and preserve brand, content and behavior. For motion requests, implement purposeful in-app animation rather than assuming video generation, respect reduced motion, and verify live behavior when available."
 
 policy:

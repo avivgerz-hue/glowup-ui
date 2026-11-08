@@ -18,24 +18,39 @@ const inRange = (h, a, b) => (a <= b ? h >= a && h < b : h >= a || h < b);
 const familyOfHue = (h) => (FAMILY.find(([, a, b]) => inRange(h, a, b)) || FAMILY[0])[0];
 const familyOfWord = (w) => { const r = HUE_WORDS[w]; return familyOfHue(((r[0] + (r[1] < r[0] ? r[1] + 360 : r[1])) / 2) % 360); };
 
-function listFiles(root, dir = root, out = []) {
-  for (const e of fs.existsSync(dir) ? fs.readdirSync(dir, { withFileTypes: true }) : []) {
+function listFiles(root, dir = root, out = [], skipped = []) {
+  let entries;
+  try {
+    entries = fs.readdirSync(dir, { withFileTypes: true });
+  } catch (error) {
+    // An unreadable directory must not abort orientation for the whole app. Record it so
+    // the caller can say the identity fingerprint is partial instead of silently guessing.
+    skipped.push({ dir: path.relative(root, dir) || ".", code: error.code || "EUNKNOWN" });
+    return out;
+  }
+  for (const e of entries) {
     if (SKIP.has(e.name) || e.name.startsWith(".")) continue;
     const p = path.join(dir, e.name);
-    if (e.isDirectory()) listFiles(root, p, out);
-    else if (e.isFile() && SOURCE.test(e.name) && fs.statSync(p).size < 400_000) out.push(p);
+    if (e.isDirectory()) { listFiles(root, p, out, skipped); continue; }
+    if (!e.isFile() || !SOURCE.test(e.name)) continue;
+    try {
+      if (fs.statSync(p).size < 400_000) out.push(p);
+    } catch { /* vanished or unreadable between readdir and stat */ }
   }
   return out;
 }
 
 export function detectLook(root = ".") {
-  const files = listFiles(path.resolve(root));
+  const skipped = [];
+  const files = listFiles(path.resolve(root), undefined, [], skipped);
   const hues = new Map(), fonts = new Map(), hexCount = new Map();
   let themeTokens = 0, webFont = false;
   let dark = 0, light = 0, sidebar = 0, topbar = 0, tabs = 0, hasTheme = false;
   const bump = (m, k, n = 1) => m.set(k, (m.get(k) || 0) + n);
   for (const f of files) {
-    const text = fs.readFileSync(f, "utf8");
+    let text;
+    try { text = fs.readFileSync(f, "utf8"); }
+    catch { skipped.push({ dir: path.relative(path.resolve(root), f) || f, code: "EREAD" }); continue; }
     const isCss = /\.s?css$/.test(f);
     for (const m of text.matchAll(/\b(?:bg|text|border|ring|from|to|via|fill|stroke|accent|outline|decoration)-([a-z]+)-(\d{2,3})\b/g)) {
       const [, color, shade] = m;
@@ -83,7 +98,7 @@ export function detectLook(root = ".") {
   // Err on the side of REFINE: replacing a good identity does more harm than refining a mediocre one.
   // Only an app with no custom tokens, no web fonts, and no recurring custom color counts as default-looking.
   const designed = themeTokens >= 6 || webFont || Boolean(brand) || hasTheme && themeTokens >= 3;
-  return { files: files.length, scheme, accent, shell, font, hasTheme, tabs: tabs > 0, current, brand, designed, designSignals: { themeTokens, webFont, brand }, accentCounts: Object.fromEntries(ranked.slice(0, 4)) };
+  return { files: files.length, scheme, accent, shell, font, hasTheme, tabs: tabs > 0, current, brand, designed, designSignals: { themeTokens, webFont, brand }, accentCounts: Object.fromEntries(ranked.slice(0, 4)), unreadable: skipped.slice(0, 20), partial: skipped.length > 0 };
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
@@ -94,6 +109,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   else {
     console.log(`Current look of ${path.resolve(root)} (${look.files} source files scanned)`);
     console.log(`  scheme: ${look.scheme}   accent: ${look.accent || "none found (neutral or default)"}   shell: ${look.shell || "unknown"}   font: ${look.font || "system default"}`);
+    if (look.partial) console.log(`  Partial fingerprint: ${look.unreadable.length} unreadable path(s) skipped (${look.unreadable.map((u) => `${u.dir}: ${u.code}`).join(", ")}). Inspect those by hand before concluding there is no identity.`);
     if (look.designed) console.log(`  Designed identity detected (${look.brand ? `brand ${look.brand}, ` : ""}${look.designSignals.themeTokens} theme tokens${look.designSignals.webFont ? ", web fonts" : ""}). Preserve brand and fonts; choose redesign or polish from the request, not identity detection.`);
     else console.log(`  No strong identity signals detected. Choose redesign or polish from the request; a new identity requires explicit intent.`);
   }

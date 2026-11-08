@@ -101,7 +101,7 @@ export function snapshot(root) {
 
 export function compareCheckpoint(before, after) {
   if (before.version !== 1 || after.version !== 1 || before.root !== after.root) throw new Error("Checkpoint belongs to another project or unsupported version.");
-  const failures = [], warnings = [];
+  const failures = [], warnings = [], relocated = [];
   const changed = [];
   const count = (records, key) => {
     const counts = new Map();
@@ -112,6 +112,24 @@ export function compareCheckpoint(before, after) {
   for (const key of ["wiring", "copy"]) {
     const prev = count(before.records, key), now = count(after.records, key);
     for (const [token, n] of prev) if ((now.get(token) || 0) < n) failures.push({ kind: key, detail: token, before: n, after: now.get(token) || 0 });
+    // Moving a handler or a sentence to a different file keeps the totals intact, so the
+    // aggregate check above cannot see it. Separate-file relocation is usually extraction or
+    // a component move, so it needs review rather than a silent pass.
+    for (const [token, n] of prev) {
+      const still = now.get(token) || 0;
+      if (still < n) continue; // already reported as a loss above
+      if (still > n) continue;  // duplicated, not relocated
+      const from = [], to = [];
+      for (const [name, record] of Object.entries(before.records)) if ((record[key] || []).includes(token)) from.push(name);
+      for (const [name, record] of Object.entries(after.records)) if ((record[key] || []).includes(token)) to.push(name);
+      const left = from.filter((name) => !to.includes(name));
+      if (!left.length) continue; // still where it was; nothing to report
+      // Extracting a control into a new component is a legitimate restructuring: the markup
+      // still exists in a new file, so nothing can be lost. Say it moved, and leave the verdict alone.
+      const sourceIntact = left.every((name) => name in after.records);
+      const landedInNew = to.some((name) => !(name in before.records));
+      relocated.push({ kind: `relocated-${key}`, detail: token, from: left.join(", "), to: to.join(", "), moved: sourceIntact && landedInNew });
+    }
   }
   const originalCopy = count(before.records, "copy");
   for (const token of count(after.records, "copy").keys()) {
@@ -135,7 +153,7 @@ export function compareCheckpoint(before, after) {
   if (before.look.scheme !== after.look.scheme) warnings.push({ kind: "scheme", detail: `${before.look.scheme} -> ${after.look.scheme}` });
   const headers = (records) => Object.values(records).reduce((n, record) => n + (record.chrome || 0), 0);
   if (headers(after.records) > headers(before.records)) warnings.push({ kind: "added-chrome", detail: "Additional global header markup detected; verify that navigation, avatar, and notifications are not duplicated." });
-  return { ok: !failures.length && !warnings.length, changed, failures, warnings, limitation: "Source heuristics, not a proof of behavior or visual quality. Review false positives; do not weaken checks to pass. Run original tests and compare every affected route in a browser." };
+  return { ok: !failures.length && !warnings.length, changed, failures, warnings, relocated, limitation: "Source heuristics, not a proof of behavior or visual quality. Review false positives; do not weaken checks to pass. Run original tests and compare every affected route in a browser." };
 }
 
 export function check(root, baseline) {
@@ -165,7 +183,9 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
       console.log(`Saved ${Object.keys(baseline.records).length} file fingerprints to ${file}. Keep this original checkpoint until review is complete.`);
     } else if (command === "check") {
       const result = check(root, JSON.parse(fs.readFileSync(file, "utf8")));
-      console.log(values.json ? JSON.stringify(result, null, 2) : `${result.ok ? "PASS" : "REVIEW REQUIRED"}: ${result.changed.length} changed files, ${result.failures.length} preservation failures, ${result.warnings.length} visual warnings\n${[...result.failures, ...result.warnings].map((f) => `- ${f.kind}: ${f.file || ""} ${f.detail}`).join("\n")}\n${result.limitation}`);
+      const movedLines = (result.relocated || []).filter((r) => !r.moved).map((r) => `- moved (review): ${r.kind}: ${r.detail}  [${r.from} -> ${r.to}]`);
+      const extractedLines = (result.relocated || []).filter((r) => r.moved).map((r) => `- extracted (ok): ${r.kind}: ${r.detail}  [${r.from} -> ${r.to}]`);
+      console.log(values.json ? JSON.stringify(result, null, 2) : `${result.ok ? "PASS" : "REVIEW REQUIRED"}: ${result.changed.length} changed files, ${result.failures.length} preservation failures, ${result.warnings.length} visual warnings\n${[...result.failures, ...result.warnings].map((f) => `- ${f.kind}: ${f.file || ""} ${f.detail}`).join("\n")}${movedLines.length || extractedLines.length ? `\n${[...movedLines, ...extractedLines].join("\n")}` : ""}\n${result.limitation}`);
       process.exitCode = result.ok ? 0 : 1;
     } else throw new Error("Usage: checkpoint.mjs save|check [project] [--file path] [--json]");
   } catch (error) { console.error(error.message); process.exitCode = 64; }
