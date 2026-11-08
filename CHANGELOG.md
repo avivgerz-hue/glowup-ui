@@ -1,5 +1,19 @@
 # Changelog
 
+## Unreleased
+
+Engineering hardening and one new capability. No design-quality or activation claim is changed by any of it.
+
+- **Real accessibility audit.** `screenshot.mjs --a11y` runs 13 DOM rules (alt text, control and field names, ARIA roles and required attributes, `aria-hidden` containing focusable content, duplicate ids, heading order, landmarks, `lang`/title, keyboard-reachable scroll regions, button type, 24px target size). Critical/serious violations become blockers in `review.mjs`. Scoped as DOM-only evidence: no screen reader, keyboard trap, focus movement or contrast-over-imagery proof.
+- **Preservation checks see relocations.** Moving a handler or copy between existing files previously kept the aggregate count and passed silently. It is now reported as `moved (review)`; extraction into a new component stays a pass as `extracted (ok)` because nothing can be lost.
+- **Inspection survives unreadable paths.** An EACCES directory in `look.mjs` aborted orientation for the whole app, including `direction`/`inspect`/`checkpoint`. It now skips the path, reports it, and marks the fingerprint partial.
+- **Composition stops degrading on surface words.** `dashboard` lived in productivity's term list, so `personal finance dashboard` tied and fell back to the generic recipe. Surface words now break ties instead of creating them; two genuinely different domains still fall back.
+- **Scaffold usage handling.** `--help`/`-h` print usage instead of a raw `parseArgs` stack; a new project without `--product` is refused (exit 64) instead of silently generating a generic template.
+- **Benchmark settings are configurable and recorded.** `BENCH_MODEL`, `BENCH_EFFORT`, `BENCH_BUDGET_USD` and `BENCH_TIMEOUT_MS` override the pins; invalid values are rejected; `meta.json` records each setting and whether it came from the default or an override.
+- OpenAI manifest `brand_color` corrected from `#7C3AED` (used nowhere else) to the actual brand green `#143C33`.
+
+Suite: 158 → 168 tests, all passing; `validate` still clean; `SKILL.md` remains 32 body lines.
+
 ## v0.1.2 — Public Preview (release preparation)
 
 Prepared patch release; no tag or publication is performed by this PR. Public installation pins stay on v0.1.1 until v0.1.2 is published and remotely verified.
