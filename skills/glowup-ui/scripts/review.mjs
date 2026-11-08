@@ -38,6 +38,15 @@ export function findings(shot) {
   if (m.tinyText.length) add("review", "tiny-text", `${m.tinyText.length} text elements below 12px`, m.tinyText.length);
   if (m.longLines.length) add("review", "line-length", `${m.longLines.length} long paragraphs may be difficult to scan`, m.longLines.length);
   if (m.contrast?.failures.length) add("review", "text-contrast", `${m.contrast.failures.length} text elements fail simple computed contrast checks`, m.contrast.failures.length, m.contrast.failures.slice(0, 3).map((f) => `${f.text}: ${f.ratio}:1 (needs ${f.required}:1)`));
+  // Opt-in DOM accessibility rules (capture with --a11y). Critical/serious are blockers: a
+  // redesign that leaves an unlabelled control or an ARIA misuse is not finished.
+  if (shot.a11y) {
+    const fatal = (shot.a11y.findings || []).filter((f) => f.impact === "critical" || f.impact === "serious");
+    if (fatal.length) add("blocker", "a11y", `${fatal.length} accessibility rule violations (critical/serious)`, fatal.length, fatal.slice(0, 3).map((f) => `${f.rule}: ${f.node}`));
+    const minor = (shot.a11y.findings || []).filter((f) => f.impact === "moderate" || f.impact === "minor");
+    if (minor.length) add("review", "a11y-minor", `${minor.length} lower-impact accessibility findings`, minor.length, minor.slice(0, 3).map((f) => `${f.rule}: ${f.node}`));
+    if (shot.a11y.truncated) add("review", "a11y-truncated", "Accessibility findings were truncated; review the page directly");
+  }
   return out;
 }
 
@@ -80,7 +89,7 @@ export function review(current, before = null) {
     group.captures.push({ route: page.route, viewport: page.viewport });
     group.examples = [...new Set([...group.examples, ...finding.examples])].slice(0, 3);
   }
-  const order = ["capture", "runtime-errors", "page-overflow", "obscured-controls", "obscured-scroll-content", "unnamed-controls", "broken-images", "duplicate-header", "keyboard-scroll", "text-contrast", "main-landmark", "page-title", "touch-targets", "tiny-text", "line-length"];
+  const order = ["capture", "runtime-errors", "page-overflow", "obscured-controls", "obscured-scroll-content", "unnamed-controls", "broken-images", "duplicate-header", "keyboard-scroll", "text-contrast", "a11y", "a11y-minor", "main-landmark", "page-title", "touch-targets", "tiny-text", "line-length"];
   const ok = !coverage.length && !regressions.length && !blockers.length;
   return { ok, status: !ok ? "blocked" : groups.size ? "review" : "clear", compared: Boolean(before), pages, coverage, regressions, improvements, blockers,
     priorities: [...groups.values()].sort((a, b) => (a.severity === "blocker" ? 0 : 1) - (b.severity === "blocker" ? 0 : 1) || order.indexOf(a.kind) - order.indexOf(b.kind)).slice(0, 8),
