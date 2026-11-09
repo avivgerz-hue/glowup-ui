@@ -9,18 +9,18 @@
 
 Use it with Claude Code, Codex, OpenCode or GitHub Copilot through one canonical skill. Installation is tested; native activation and a comparative design-quality advantage remain unverified. [Compatibility and evidence →](docs/compatibility.md)
 
-[![CI](https://github.com/avivgerz-hue/glowup-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/avivgerz-hue/glowup-ui/actions/workflows/ci.yml) · [v0.1.1 · Public Preview](https://github.com/avivgerz-hue/glowup-ui/releases/tag/v0.1.1) · [MIT](LICENSE)
+[![CI](https://github.com/avivgerz-hue/glowup-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/avivgerz-hue/glowup-ui/actions/workflows/ci.yml) · [v0.1.2 · Public Preview](https://github.com/avivgerz-hue/glowup-ui/releases/tag/v0.1.2) · [MIT](LICENSE)
 
-**Skill source:** [published v0.1.1 skill](https://github.com/avivgerz-hue/glowup-ui/blob/v0.1.1/skills/glowup-ui/SKILL.md) · [development instructions](skills/glowup-ui/SKILL.md). These links identify the canonical Agent Skill maintained in this repository; the tagged source matches the pinned installation commands below.
+**Skill source:** [published v0.1.2 skill](https://github.com/avivgerz-hue/glowup-ui/blob/v0.1.2/skills/glowup-ui/SKILL.md) · [development instructions](skills/glowup-ui/SKILL.md). These links identify the canonical Agent Skill maintained in this repository; the tagged source matches the pinned installation commands below.
 
-**v0.1.2 release preparation:** [engineering fixes and verification limits](docs/release/NOTES-v0.1.2.md). The candidate adds an opt-in DOM accessibility audit (`screenshot.mjs --a11y`, 17 rules whose critical/serious findings become REFINE blockers) and corrects several defects it found in the skill itself — including a palette contrast check that never compared a filled action against its own page. The commands below deliberately retain published v0.1.1 until the new tag is published and verified. To test the candidate now, use a reviewed checkout as described in the [installation guide](docs/installation.md#reviewed-checkout-or-downloaded-release).
+**v0.1.2 (published):** [engineering fixes and verification limits](docs/release/NOTES-v0.1.2.md). It adds an opt-in DOM accessibility audit (`screenshot.mjs --a11y`, 17 rules whose critical/serious findings become REFINE blockers) and corrects several defects it found in the skill itself — including a palette contrast check that never compared a filled action against its own page. The commands below use the published v0.1.2 tag, which was installed, hash-compared and removed from a clean directory after publication.
 
 ## Try it in your app
 
 From your project, with Node 20+ and Git:
 
 ```bash
-npx --yes --package=git+https://github.com/avivgerz-hue/glowup-ui.git#v0.1.1 glowup-ui install --agent codex --scope project
+npx --yes --package=git+https://github.com/avivgerz-hue/glowup-ui.git#v0.1.2 glowup-ui install --agent codex --scope project
 ```
 
 This installs `.agents/skills/glowup-ui/SKILL.md` in that project. End the old agent session and start a new trusted Codex conversation in the same app root; then ask:
@@ -38,7 +38,7 @@ Claude Code: replace `codex` with `claude`, then invoke `/glowup-ui`. OpenCode u
 With Node **22.20+** and Git, from your app's root (project scope; telemetry disabled):
 
 ```bash
-DISABLE_TELEMETRY=1 DO_NOT_TRACK=1 npx --yes skills@1.7.4 add 'avivgerz-hue/glowup-ui#v0.1.1' --skill glowup-ui -a codex --copy
+DISABLE_TELEMETRY=1 DO_NOT_TRACK=1 npx --yes skills@1.7.4 add 'avivgerz-hue/glowup-ui#v0.1.2' --skill glowup-ui -a codex --copy
 ```
 
 Both the CLI and skill release are pinned. For Claude Code, use `-a claude-code`. The standard CLI can replace existing copies; review them first and use one installer per destination. Our installer above supports Node 20+ and recoverable backups. Installation is not native activation proof. [Removal, compatibility and skills.sh indexing →](docs/installation.md#optional-standard-installer)
