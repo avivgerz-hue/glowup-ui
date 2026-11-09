@@ -24,9 +24,9 @@ test("marketing: the board renderer is committed and reproducible", () => {
 
 test("marketing: every board the renderer writes exists and is the size it claims", () => {
   const src = fs.readFileSync(GEN, "utf8");
-  const written = [...src.matchAll(/render\((svg\d?), "([^"]+)"\)/g)].map((m) => ({ varName: m[1], file: m[2] }));
+  const written = [...src.matchAll(/render\((?:svg\d?|desktopBoard\([^)]*\)|phoneBoard\([^)]*\)), "([^"]+)"\)/g)].map((m) => m[1]);
   assert.ok(written.length >= 2, "expected at least a desktop and a phone board");
-  for (const { file } of written) {
+  for (const file of written) {
     const p = path.join("assets/marketing", file);
     assert.ok(fs.existsSync(p), `${file} must be committed`);
     const buf = fs.readFileSync(p);
@@ -85,4 +85,19 @@ test("marketing: prose claims elsewhere agree with the engine", () => {
       assert.equal(Number(m[1]), actual, `${f} states ${m[1]} rules but the engine has ${actual}`);
     }
   }
+});
+
+test("marketing: board annotations are measured, not remembered", () => {
+  const gen = fs.readFileSync(GEN, "utf8");
+  // The blank-tail annotation was once typed from memory as 315px; measured it is 396px.
+  // It must be computed from the real capture at render time.
+  assert.match(gen, /measureBlankTail/, "the fold annotation must be measured from the capture");
+  assert.match(gen, /transform-before-desktop\.png/, "and measured from the real before-capture");
+  assert.match(gen, /\$\{blankTail\}px of the fold/, "and interpolated, not hardcoded");
+  // The rendered annotation must interpolate. (The generator's own comment explains the old
+  // hardcoded value, so only the markup line is checked -- not the prose around it.)
+  const annotation = gen.split("\n").filter((l) => l.includes("<text") && l.includes("px of the fold"));
+  assert.equal(annotation.length, 1, "exactly one annotation line expected");
+  assert.match(annotation[0], /\$\{blankTail\}px of the fold/, "the annotation must interpolate the measurement");
+  assert.ok(!/>\s*\d{2,4}px of the fold/.test(annotation[0]), "a hardcoded fold measurement shipped once already");
 });

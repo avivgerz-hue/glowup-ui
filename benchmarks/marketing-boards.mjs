@@ -34,6 +34,22 @@ const a11yRuleCount = [...new Set(
     .matchAll(/push\(\s*"([a-z0-9-]+)"/g)].map((m) => m[1]),
 )].length;
 
+// Measured from the real before-capture rather than remembered. The first draft of this board
+// said "315px of the fold, doing nothing" -- a figure typed from memory. Measured, it is 396.
+// Annotating an image with an invented number is the same defect as an invented test result.
+const measureBlankTail = async () => {
+  const { data, info } = await sharp(path.join(root, "assets/examples/transform-before-desktop.png"))
+    .raw().toBuffer({ resolveWithObject: true });
+  const { width: W, height: H, channels: ch } = info;
+  for (let y = H - 1; y > 0; y--) {
+    for (let x = 0; x < W; x++) {
+      const i = (y * W + x) * ch;
+      if (data[i] < 245 || data[i + 1] < 245 || data[i + 2] < 245) return H - y - 1;
+    }
+  }
+  return H;
+};
+
 const render = async (svg, file) => {
   await sharp(Buffer.from(svg)).png({ compressionLevel: 9 }).toFile(path.join(outDir, file));
   console.log("wrote " + path.relative(root, path.join(outDir, file)));
@@ -41,7 +57,7 @@ const render = async (svg, file) => {
 
 // --------------------------------------------------------------- desktop board: 1600 x 900
 const W = 1600, H = 900;
-const svg = `<svg width="${W}" height="${H}" xmlns="http://www.w3.org/2000/svg">
+const desktopBoard = (blankTail) => `<svg width="${W}" height="${H}" xmlns="http://www.w3.org/2000/svg">
 <defs>
   <pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse">
     <path d="M28 0H0V28" fill="none" stroke="${P.rule}" stroke-width="0.9" opacity="0.55"/>
@@ -102,7 +118,7 @@ const svg = `<svg width="${W}" height="${H}" xmlns="http://www.w3.org/2000/svg">
   <text x="568" y="588" font-family="${SANS}" font-size="9" fill="${P.muted}">41% complete</text>
   <!-- empty void -->
   <rect x="104" y="700" width="440" height="52" fill="none" stroke="#c9c2b0" stroke-width="1" stroke-dasharray="4 4"/>
-  <text x="112" y="722" font-family="${SANS}" font-size="10" fill="#a8a294" font-style="italic">315px of the fold, doing nothing</text>
+  <text x="112" y="722" font-family="${SANS}" font-size="10" fill="#a8a294" font-style="italic">${blankTail}px of the fold, doing nothing</text>
 </g>
 
 <!-- AFTER panel -->
@@ -173,7 +189,8 @@ const svg = `<svg width="${W}" height="${H}" xmlns="http://www.w3.org/2000/svg">
 </g>
 <text x="80" y="886" font-family="${SANS}" font-size="10.5" fill="${P.faint}">Maintainer-directed example from benchmarks/showcase.mjs — a controlled fixture edit, not a model A/B benchmark.</text>
 </svg>`;
-await render(svg, "comparison-desktop.png");
+const blankTail = await measureBlankTail();
+await render(desktopBoard(blankTail), "comparison-desktop.png");
 
 // --------------------------------------------------------------- phone board: 1080 x 1350
 const W2 = 1080, H2 = 1350;
