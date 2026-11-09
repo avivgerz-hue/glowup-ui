@@ -82,7 +82,21 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
       - run: node bin/glowup-ui.mjs validate
-      - run: node scripts/run-tests.mjs
+      - name: Unit tests
+        shell: bash
+        run: |
+          # Print the failing assertions into the check annotation. The raw job log sits behind a
+          # signed URL that is not always reachable, and "exit code 1" with no failing test name
+          # has cost more debugging time than the failures themselves.
+          set -o pipefail
+          node scripts/run-tests.mjs 2>&1 | tee tests.log
+          status=$?
+          if [ $status -ne 0 ]; then
+            detail=$(grep -A8 -E "^not ok" tests.log | head -70 | sed 's/%/%25/g; s/\r/%0D/g; s/\n/%0A/g')
+            echo "::error title=Failing tests::$detail"
+            { echo '### Failing tests'; echo '```'; grep -E "^not ok" tests.log | head -12; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+          fi
+          exit $status
       - run: node benchmarks/refine-safety.mjs
 
   spec:
