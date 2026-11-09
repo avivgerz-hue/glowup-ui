@@ -2,10 +2,10 @@
 
 ## One command, from your app
 
-Requires Node 20+ and Git. This runs **our installer from the published GitHub v0.1.1 source**, not an unpublished npm package:
+Requires Node 20+ and Git. This runs **our installer from the published GitHub v0.1.2 source**, not an unpublished npm package:
 
 ```bash
-npx --yes --package=git+https://github.com/avivgerz-hue/glowup-ui.git#v0.1.1 glowup-ui install --agent codex --scope project
+npx --yes --package=git+https://github.com/avivgerz-hue/glowup-ui.git#v0.1.2 glowup-ui install --agent codex --scope project
 ```
 
 For Claude Code, replace `codex` with `claude`. Omit `--agent` to install both default payloads. For all projects, explicitly choose `--scope user`. Different existing copies are kept unless `--force` is requested; replacements go to recoverable backups. No agent configuration, application dependency or Git ignore file is silently modified.
@@ -32,14 +32,14 @@ Choose one installer and one intended scope. Our CLI defaults to **user** scope 
 For locally missing or stale instructions, inspect the exact published installer payload without changing the app:
 
 ```bash
-npx --yes --package=git+https://github.com/avivgerz-hue/glowup-ui.git#v0.1.1 glowup-ui doctor --project . --json
+npx --yes --package=git+https://github.com/avivgerz-hue/glowup-ui.git#v0.1.2 glowup-ui doctor --project . --json
 ```
 
 Run this from an existing app root. Review `installed`, `missingFiles`, validation `errors`, hashes and invocation restrictions locally. `matchesCanonical` compares with the **invoked installer version**, not “the latest release”; an intentional candidate can differ. `payload-readable` means readable files, not native activation. `where` prints the invoked installer's bundled/cache source, **not** the app's installed location. Doctor output includes local paths: do not post raw JSON publicly.
 
 Doctor inspects default/configured shared and Claude paths plus ancestors, not every plugin cache or host root. If multiple copies appear, identify what the host actually loads before removing any; identical copies can also coexist. Do not guess precedence or delete both. For custom roots, consult the host's documentation and use an explicit `--dest` when appropriate. A file-reading fallback can be useful, but is not native activation certification. See [activation diagnostics](ACTIVATION-DEBUG.md) for opt-in temporary probes; no marker belongs in the production skill.
 
-**v0.1.2 includes** doctor help, stricter project-root validation, detailed text findings and multiple-location warnings. The pinned v0.1.1 command above predates those fixes: use JSON for detailed findings and consult [troubleshooting](#first-use-troubleshooting). Until v0.1.2 is published, test its improvements from a reviewed checkout below; do not assume the v0.1.1 tag contains them.
+**v0.1.2 includes** doctor help, stricter project-root validation, detailed text findings and multiple-location warnings. The pinned v0.1.2 command above includes those fixes: use JSON for detailed findings and consult [troubleshooting](#first-use-troubleshooting). Until v0.1.2 is published, test its improvements from a reviewed checkout below; do not assume the v0.1.1 tag contains them.
 
 ## Reviewed checkout or downloaded release
 
@@ -50,7 +50,7 @@ node bin/glowup-ui.mjs validate
 node bin/glowup-ui.mjs install --agent codex --scope project --project /absolute/path/to/app
 ```
 
-This uses the reviewed checkout, including v0.1.2 when its package/skill metadata says 0.1.2. The one-command path above deliberately pins published v0.1.1 until the new tag exists and remote installation is verified. Never substitute a moving branch for an exact candidate in a controlled comparison. Do not relabel an existing tag to update documentation.
+This uses the reviewed checkout, including v0.1.2 when its package/skill metadata says 0.1.2. The one-command path above pins published v0.1.2, whose remote installation and hash match were verified after tagging. Never substitute a moving branch for an exact candidate in a controlled comparison. Do not relabel an existing tag to update documentation.
 
 Remove using the same installer source and agent/scope/project choices, replacing `install` with `uninstall`. Removal moves the recognized payload to a backup, including local customizations. Review backups before discarding them. `--dry-run` writes nothing. Updates use a reviewed new checkout/release and an explicit `install --force` after inspecting differences; no silent update or npm publication is implied.
 
@@ -59,7 +59,7 @@ Remove using the same installer source and agent/scope/project choices, replacin
 The third-party [skills CLI](https://github.com/vercel-labs/skills) requires **Node 22.20+** and Git. Run from the application's root. This POSIX-shell command pins both CLI **1.7.4** and Glowup **v0.1.1**, disables telemetry/security-audit requests, and uses project scope:
 
 ```bash
-DISABLE_TELEMETRY=1 DO_NOT_TRACK=1 npx --yes skills@1.7.4 add 'avivgerz-hue/glowup-ui#v0.1.1' --skill glowup-ui -a codex --copy
+DISABLE_TELEMETRY=1 DO_NOT_TRACK=1 npx --yes skills@1.7.4 add 'avivgerz-hue/glowup-ui#v0.1.2' --skill glowup-ui -a codex --copy
 ```
 
 PowerShell equivalent (the opt-outs apply to this terminal process):
@@ -67,10 +67,10 @@ PowerShell equivalent (the opt-outs apply to this terminal process):
 ```powershell
 $env:DISABLE_TELEMETRY = '1'
 $env:DO_NOT_TRACK = '1'
-npx.cmd --yes skills@1.7.4 add 'avivgerz-hue/glowup-ui#v0.1.1' --skill glowup-ui -a codex --copy
+npx.cmd --yes skills@1.7.4 add 'avivgerz-hue/glowup-ui#v0.1.2' --skill glowup-ui -a codex --copy
 ```
 
-`#v0.1.1` selects the Git ref; `--skill glowup-ui` selects the canonical skill. The unpinned shorthand `avivgerz-hue/glowup-ui` follows the default branch, so it can install unreleased changes. `--copy` avoids symlink installation. Project scope is the default; omit `-g` to avoid user-wide installation. For Claude Code, the standard CLI's agent name is `claude-code` (our installer's name is `claude`); OpenCode uses `opencode`. See the [upstream command reference](https://github.com/vercel-labs/skills/blob/main/docs/commands.md) and [compatibility limits](compatibility.md).
+`#v0.1.2` selects the Git ref; `--skill glowup-ui` selects the canonical skill. The unpinned shorthand `avivgerz-hue/glowup-ui` follows the default branch, so it can install unreleased changes. `--copy` avoids symlink installation. Project scope is the default; omit `-g` to avoid user-wide installation. For Claude Code, the standard CLI's agent name is `claude-code` (our installer's name is `claude`); OpenCode uses `opencode`. See the [upstream command reference](https://github.com/vercel-labs/skills/blob/main/docs/commands.md) and [compatibility limits](compatibility.md).
 
 Inspect and remove a project installation with the same tool:
 
@@ -94,8 +94,8 @@ For an intended real use of Glowup, an owner may choose to run the same pinned i
 For the project-scoped **Glowup installer** shown above, preview removal first:
 
 ```bash
-npx --yes --package=git+https://github.com/avivgerz-hue/glowup-ui.git#v0.1.1 glowup-ui uninstall --agent codex --scope project --dry-run
-npx --yes --package=git+https://github.com/avivgerz-hue/glowup-ui.git#v0.1.1 glowup-ui uninstall --agent codex --scope project
+npx --yes --package=git+https://github.com/avivgerz-hue/glowup-ui.git#v0.1.2 glowup-ui uninstall --agent codex --scope project --dry-run
+npx --yes --package=git+https://github.com/avivgerz-hue/glowup-ui.git#v0.1.2 glowup-ui uninstall --agent codex --scope project
 ```
 
 Run from the same app root. Match the original agent, scope, custom `--dest` or legacy choice; use `claude` for a Claude-only own-installer copy. Removal moves recognized payloads into `.glowup-ui/backups` outside discovery; it does not remove other skills. Keep backups private/out of Git and review them before discarding. A direct checkout uses its own `node bin/glowup-ui.mjs uninstall ...` instead. The standard CLI's removal command is in its section above and does not provide Glowup's backup semantics. Do not use one method's removal to manage the other's lock state. Plugin installs should use the host's plugin management.
@@ -115,4 +115,4 @@ Run from the same app root. Match the original agent, scope, custom `--dest` or 
 
 ## Current published release
 
-The default commands above pin published **v0.1.1**. A checkout of `main` can include later unreleased documentation changes. The earlier [installation audit](release/INSTALLATION-AUDIT.md) records preparation-time v0.1.0 and local candidate checks; the [current adoption evidence](adoption-evidence.md) separately records successful remote v0.1.1 installations. v0.1.2 is the prepared release target; see its [notes and publication gates](release/NOTES-v0.1.2.md). Candidate package checks are distinct from the earlier remote v0.1.1 checks. Both v0.1.0 and v0.1.1 tags remain unchanged.
+The default commands above pin published **v0.1.2**. A checkout of `main` can include later unreleased documentation changes. The earlier [installation audit](release/INSTALLATION-AUDIT.md) records preparation-time v0.1.0 and local candidate checks; the [current adoption evidence](adoption-evidence.md) separately records successful remote v0.1.1 installations. v0.1.2 is the prepared release target; see its [notes and publication gates](release/NOTES-v0.1.2.md). Candidate package checks are distinct from the earlier remote v0.1.1 checks. Both v0.1.0 and v0.1.1 tags remain unchanged.

@@ -1,6 +1,8 @@
 # Glowup UI v0.1.2 — Public Preview
 
-Prepared release notes for a patch to v0.1.1. This preparation does not create a tag or GitHub release. Keep public-preview status; no npm publication is proposed.
+**Published 2026-11-09** as GitHub pre-release `v0.1.2` on main commit `fcaa1e1bb584f76a69d150e72c4a878105ef02d3`. Public-preview status is unchanged; no npm publication occurred and none is planned.
+
+The notes below were written during preparation. The gate that governed them is now closed, and the record of what was actually verified before and after tagging follows the verification section.
 
 ## Changes since v0.1.1
 
@@ -49,6 +51,16 @@ DISABLE_TELEMETRY=1 DO_NOT_TRACK=1 npx --yes skills@1.7.4 add 'avivgerz-hue/glow
 ```
 
 Use one installer per destination and review existing customizations. Own-installer replacement/removal uses backups; standard-CLI removal deletes its selected installation and manages its own lock. See [installation and activation guidance](../installation.md).
+
+## Publication record
+
+All three gates were closed in order:
+
+1. **Merged after exact-head checks passed.** PR #17 merged to main as `fcaa1e1`; the merged commit's own CI run passed all 10 jobs (Node 20/22 on Linux, macOS and Windows, dependency audits, browser contracts, both demo builds, spec/plugin validation).
+2. **Tagged and published** as pre-release `v0.1.2` targeting that merged commit. `v0.1.0` and `v0.1.1` were not modified. Tag resolved remotely to `fcaa1e1`.
+3. **Remote round trip verified after publication.** `npx --package=git+…git#v0.1.2 glowup-ui install --agent codex --scope project` in a clean directory copied the payload; its `hashDir` matched the tagged canonical source exactly (`24f17e7e…22c4`), the installed `SKILL.md` reported version `0.1.2`, the new `scripts/a11y.mjs` was present, and installed helpers ran. Removal then left no installed skill behind.
+
+The commands in this document are therefore no longer hypothetical: the own-installer path was executed against the live tag. The telemetry-disabled standard-CLI path was not re-executed against the v0.1.2 tag; that row stays as documented local-candidate evidence.
 
 ## Owner approval and publication gates
 

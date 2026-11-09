@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## v0.1.2 — Public Preview (published 2026-11-09)
 
 Engineering hardening and one new capability. No design-quality or activation claim is changed by any of it.
 
