@@ -150,9 +150,17 @@ try {
   if (values.check) console.log(JSON.stringify({ pass: true, checks: result.checks.length, captures: result.captures.length, tests: result.tests }));
   else console.log('Fresh showcase and evidence: ' + out);
 } catch (error) {
-  result.error = error.message; fs.writeFileSync(path.join(out, 'evidence.json'), JSON.stringify(result, null, 2) + '\n');
-  if (values.check) { const summary = path.join(root, 'benchmarks/results/showcase'); fs.mkdirSync(summary, { recursive: true }); fs.writeFileSync(path.join(summary, 'result.json'), JSON.stringify(result, null, 2) + '\n'); }
-  console.error(error.message); process.exitCode = 1;
+  // Never write a failed run into the committed evidence. Doing so replaced a good
+  // evidence.json with `pass: false` and took every capture hash with it, which then fails the
+  // gallery tests and makes a broken run look like a broken repository. A failure is reported on
+  // stderr and to benchmarks/results/ -- the published evidence is only ever replaced by success.
+  result.error = error.message;
+  const summary = path.join(root, 'benchmarks/results/showcase');
+  fs.mkdirSync(summary, { recursive: true });
+  fs.writeFileSync(path.join(summary, 'failure.json'), JSON.stringify(result, null, 2) + '\n');
+  console.error(error.message);
+  console.error('Nothing was written to ' + path.relative(root, out) + '; the committed evidence is unchanged.');
+  process.exitCode = 1;
 } finally {
   await browser?.close();
   for (const server of servers) server.stop();
