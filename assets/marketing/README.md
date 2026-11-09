@@ -1,11 +1,12 @@
 # Marketing boards
 
-Rendered comparison artwork for announcements. Not screenshots — see below.
+Composited from the **real Chromium captures** in [`assets/examples/`](../examples/). Not
+redrawn — what you see is what the app actually rendered.
 
 | file | size | use |
 |---|---|---|
-| `comparison-desktop.png` | 1600×900 | link preview, wide feed, blog header |
-| `comparison-phone.png` | 1080×1350 | portrait feed (4:5) |
+| `hero-desktop.png` | 1828×1060 | README hero, link preview, wide feed |
+| `hero-phone.png` | 1240×1250 | phone comparison (before / after / CREATE) |
 
 Regenerate with:
 
@@ -14,17 +15,23 @@ npm i --no-save sharp
 node benchmarks/marketing-boards.mjs
 ```
 
-## What these are, and are not
+## Where the numbers come from
 
-They are **rendered illustrations** that restate the before/after comparison. The real
-captures are in [`assets/examples/`](../examples/) and come from
-`benchmarks/showcase.mjs --install`, which needs Chromium.
+Nothing on a board is typed from memory. At render time the generator reads:
 
-Every figure, name and line of copy on the boards is taken from the Plotline example in
-`demo/after/src/`, and the colour palette is copied from `demo/after/src/index.css`. The
-number of enforced accessibility rules is counted out of `a11y.mjs` at render time, so a
-board cannot state a rule count the engine does not have.
+- the accessibility rule count from `skills/glowup-ui/scripts/a11y.mjs`
+- the behaviour-test count from `demo/before/tests/behavior.test.jsx`
+- browser name, version and scale factor from `assets/examples/evidence.json`
 
-The boards carry a visible provenance line for that reason. They are documentation of a
-controlled fixture edit, not a model A/B benchmark, and `tests/marketing-boards.test.mjs`
-binds them to those sources.
+Three figures in this project were wrong at some point because they were copied forward by
+hand (17 vs 18 rules, 152 vs 182 tests, 315 vs 396px of blank fold). `tests/marketing-boards.test.mjs`
+now fails the build if a board or its surrounding prose disagrees with its source.
+
+## Scope
+
+The boards show a controlled fixture edit produced by `benchmarks/showcase.mjs`, not a model
+A/B benchmark. The README says so next to the images and must keep doing so — one test asserts
+that label is present.
+
+If you regenerate the captures on a machine with a browser, re-run the generator and both
+boards update automatically.
