@@ -10,9 +10,12 @@ Engineering hardening and one new capability. No design-quality or activation cl
 - **Composition stops degrading on surface words.** `dashboard` lived in productivity's term list, so `personal finance dashboard` tied and fell back to the generic recipe. Surface words now break ties instead of creating them; two genuinely different domains still fall back.
 - **Scaffold usage handling.** `--help`/`-h` print usage instead of a raw `parseArgs` stack; a new project without `--product` is refused (exit 64) instead of silently generating a generic template.
 - **Benchmark settings are configurable and recorded.** `BENCH_MODEL`, `BENCH_EFFORT`, `BENCH_BUDGET_USD` and `BENCH_TIMEOUT_MS` override the pins; invalid values are rejected; `meta.json` records each setting and whether it came from the default or an override.
+- **Palette contrast no longer claims more than it checks.** The primary action was never compared against the surface it sits on, so a white seed produced a 1.00:1 button while the report said every pair passed. That pair is now scored for light schemes, and the `#facc15` seed's 1.43:1 yellow action is reported as a failure instead of hidden by a test that could not detect it.
+- One unlabelled form field is reported once, not twice; an empty `<label>` no longer counts as a name; "headings but no h1" is treated as a missing page heading.
+- Every accessibility rule and the three previously untested lint rules now assert both that they fire on a defect and stay quiet on correct markup.
 - OpenAI manifest `brand_color` corrected from `#7C3AED` (used nowhere else) to the actual brand green `#143C33`.
 
-Suite: 158 → 168 tests, all passing; `validate` still clean; `SKILL.md` remains 32 body lines.
+Suite: 158 → 179 tests, all passing; `validate` still clean; `SKILL.md` remains 32 body lines.
 
 ## v0.1.2 — Public Preview (release preparation)
 
