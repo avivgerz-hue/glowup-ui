@@ -74,8 +74,24 @@ export function lintSource(text, file = "file") {
     if (/`[^`]*\$\{[^}]*\}[^`]*`/.test(attrs) && /(?:bg|text|border|ring|fill|stroke|from|to|via|rounded|p|m|w|h|gap)-\$\{/.test(attrs)) add("error", "dynamic-class", i, "Tailwind classes built with a template string are not generated. Map each variant to a full class name.");
     if (/\b(?:bg|text|border|ring|fill|stroke)-\[#[0-9a-fA-F]{3,8}\]/.test(cls)) add("warn", "raw-hex", i, "Raw hex color in a class. Use the theme's role tokens (bg-surface, text-ink, border-line, bg-primary).");
   }
+  // More than one h1 only matters if they can render at the same time. A component that returns
+  // an error state <h1> in one branch and the real <h1> in another is correct, and flagging it
+  // trained people to ignore the rule. Group by the return branch each heading sits in.
   const h1 = headings.filter((h) => h.level === 1);
-  if (h1.length > 1) add("warn", "multiple-h1", h1[1].i, "More than one h1 in this file. One h1 per page.");
+  if (h1.length > 1) {
+    const branchOf = (index) => {
+      // Each `return (` opens a new branch; headings after it belong to that branch.
+      const opens = [...text.slice(0, index).matchAll(/\breturn\s*\(/g)].length;
+      return opens;
+    };
+    const byBranch = new Map();
+    for (const h of h1) {
+      const b = branchOf(h.i);
+      byBranch.set(b, (byBranch.get(b) ?? 0) + 1);
+    }
+    const collision = [...byBranch.values()].find((n) => n > 1);
+    if (collision) add("warn", "multiple-h1", h1[1].i, "More than one h1 can render together. One h1 per page.");
+  }
   for (let k = 1; k < headings.length; k++) if (headings[k].level - headings[k - 1].level > 1) add("warn", "heading-order", headings[k].i, `Heading jumps from h${headings[k - 1].level} to h${headings[k].level}. Keep levels in order.`);
   return out;
 }

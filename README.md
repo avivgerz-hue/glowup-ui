@@ -51,17 +51,15 @@ For a first trial, choose a disposable copy or a clean branch of your app. Start
 
 **Real renders. Fictional data. Maintainer examples, not controlled agent benchmarks.**
 
-| Before · functional fixture | TRANSFORM · same data and behavior tests |
-|---|---|
-| ![Plotline before: a plain project dashboard](assets/examples/transform-before-desktop.png) | ![Plotline after: editorial type, a clearer dashboard and shared navigation](assets/examples/transform-after-desktop.png) |
+![Before and after: the same Plotline dashboard, plain output on the left and an editorial redesign on the right](assets/marketing/hero-desktop.png)
 
-Fresh captures from the bundled source. Each version passes its original 12 behavior tests. [Source, exact provenance and reproduction](docs/examples.md).
+Fresh Chromium captures of the bundled source, composited side by side. Routes, copy, data and
+behaviour are unchanged; each version passes its original 12 behavior tests.
+[Source, exact provenance and reproduction](docs/examples.md).
 
 <details><summary>Compare the phone layouts · 390 × 844</summary>
 
-| Before | TRANSFORM |
-|---|---|
-| ![Original Plotline phone layout](assets/examples/transform-before-mobile.png) | ![Transformed Plotline phone layout](assets/examples/transform-after-mobile.png) |
+![Phone layouts: original, transformed, and a CREATE example, all at 390px wide](assets/marketing/hero-phone.png)
 
 </details>
 
