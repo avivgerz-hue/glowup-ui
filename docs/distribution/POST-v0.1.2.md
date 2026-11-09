@@ -6,9 +6,9 @@ Written for the published `v0.1.2` release. Copy the block you need; nothing her
 they are. If you cut for length, cut a number before you cut the provenance line — an unsourced
 claim in a post is the same defect as an unsourced claim in the skill.
 
-Images: [`comparison-desktop.png`](../../assets/marketing/comparison-desktop.png) (1600×900, link
-preview / wide feed) and [`comparison-phone.png`](../../assets/marketing/comparison-phone.png)
-(1080×1350, portrait feed).
+Images: [`hero-desktop.png`](../../assets/marketing/hero-desktop.png) (1828×1060, link preview /
+wide feed) and [`hero-phone.png`](../../assets/marketing/hero-phone.png) (1240×1250, portrait feed).
+Both are composited from the real Chromium captures in `assets/examples/`.
 
 ---
 
