@@ -23,7 +23,7 @@ function StudioLine({ items }) {
   const line = points.map((p) => `${p.px},${p.py}`).join(" ");
 
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-x-auto" role="region" aria-label="Project timeline, horizontally scrollable" tabIndex={0}>
       <svg
         role="img"
         aria-label="Projects plotted by due date and progress"

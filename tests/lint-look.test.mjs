@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { lintSource } from "../skills/glowup-ui/scripts/lint.mjs";
+import { lintSource, lintDir } from "../skills/glowup-ui/scripts/lint.mjs";
 import { detectLook } from "../skills/glowup-ui/scripts/look.mjs";
 import { pickDirection } from "../skills/glowup-ui/scripts/direction.mjs";
 import { spawnSync } from "node:child_process";
@@ -93,4 +93,38 @@ test("lint: unlabelled fields, multiple h1, and tiny icon targets are caught", (
 
   assert.ok(rules('<button aria-label="x" className="h-4 w-4"><svg /></button>').includes("small-target"));
   assert.ok(!rules('<button aria-label="x" className="h-10 w-10"><svg /></button>').includes("small-target"));
+});
+
+test("lint: multiple-h1 only fires when two h1s can render together", () => {
+  // A component that returns an error <h1> in one branch and the real <h1> in another is
+  // correct. Flagging it is how a rule trains people to ignore it -- and this repo's own
+  // showcase app tripped it.
+  const exclusive = `
+    export default function Page() {
+      if (!project) {
+        return (<div><h1>Project not found</h1></div>);
+      }
+      return (<div><h1>{project.name}</h1><p>ok</p></div>);
+    }`;
+  assert.equal(lintSource(exclusive, "exclusive.jsx").filter((f) => f.rule === "multiple-h1").length, 0);
+
+  const collision = `export default function P() { return (<main><h1>A</h1><h1>B</h1></main>); }`;
+  assert.equal(lintSource(collision, "same.jsx").filter((f) => f.rule === "multiple-h1").length, 1);
+
+  // Both: an error branch plus a real collision still has to be reported.
+  const both = `
+    export default function P() {
+      if (!x) return (<h1>not found</h1>);
+      return (<div><h1>A</h1><h1>B</h1></div>);
+    }`;
+  assert.equal(lintSource(both, "both.jsx").filter((f) => f.rule === "multiple-h1").length, 1);
+});
+
+test("lint: the repository's own examples are clean by the repository's own rules", () => {
+  // Dogfooding: if the skill flags its own showcase app, one of the two is wrong.
+  for (const dir of ["demo/after", "demo/before", "demo/create-ledger"]) {
+    const results = lintDir([dir]);
+    const errors = results.filter((r) => r.severity === "error");
+    assert.deepEqual(errors, [], `${dir} has lint errors: ${errors.map((e) => e.rule).join(", ")}`);
+  }
 });
