@@ -6,6 +6,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { auditAccessibility } from "../skills/glowup-ui/scripts/a11y.mjs";
+import { findings, review } from "../skills/glowup-ui/scripts/review.mjs";
 
 // Minimal element: only what the rules read, and only when a check reaches for it.
 class El {
@@ -206,4 +207,45 @@ test("a11y: reports its own limits and never claims to be a full audit", () => {
   assert.match(out.limitations, /not.*screen reader|no screen reader/i);
   assert.equal(out.engine, "glowup-dom-rules");
   assert.ok("byImpact" in out && "rules" in out && "findings" in out);
+});
+
+const BASE_SHOT = {
+  route: "/", viewport: "desktop", width: 1440, height: 900, status: "ok",
+  measurements: {
+    version: 1, headings: [{ level: 1, text: "x" }], occlusion: { checked: 0, skipped: 0, blocked: [] },
+    globalHeaders: 1, mainLandmarks: 1, controls: [], links: [], targets: [], tinyText: [], longLines: [],
+    scrollRegions: [], unnamedControls: 0, images: [], fonts: ["Inter"], webFonts: [],
+    contrast: { checked: 1, unverified: 0, failures: [] },
+  },
+};
+const A11Y = (list) => ({ version: 1, total: list.length, truncated: false, rules: [...new Set(list.map((f) => f.rule))], findings: list });
+
+test("review: a11y findings become blockers, and only critical/serious ones block", () => {
+  assert.equal(findings({ ...BASE_SHOT, a11y: A11Y([]) }).filter((f) => f.kind.startsWith("a11y")).length, 0);
+
+  const serious = findings({ ...BASE_SHOT, a11y: A11Y([
+    { rule: "image-alt", impact: "critical", node: "img#hero" },
+    { rule: "control-name", impact: "serious", node: "button.x" },
+  ]) });
+  const blocker = serious.find((f) => f.kind === "a11y");
+  assert.equal(blocker.severity, "blocker");
+  assert.equal(blocker.value, 2);
+  assert.ok(blocker.examples.some((e) => e.includes("image-alt")));
+
+  // A minor-only page must produce no blocker at all, and exactly one review finding.
+  const minor = findings({ ...BASE_SHOT, a11y: A11Y([{ rule: "duplicate-id", impact: "minor", node: "#a" }]) });
+  assert.equal(minor.find((f) => f.kind === "a11y"), undefined, "minor findings must not block");
+  assert.equal(minor.find((f) => f.kind === "a11y-minor").severity, "review");
+  assert.equal(minor.find((f) => f.kind === "a11y-minor").value, 1);
+});
+
+test("review: introducing accessibility violations is a regression against the baseline", () => {
+  const before = { shots: [BASE_SHOT] };
+  const after = { shots: [{ ...BASE_SHOT, a11y: A11Y([
+    { rule: "image-alt", impact: "critical", node: "img" },
+    { rule: "control-name", impact: "critical", node: "btn" },
+  ]) }] };
+  const result = review(after, before);
+  assert.ok(result.regressions.some((r) => r.kind === "a11y"), "a new violation must be reported as a regression");
+  assert.equal(result.status, "blocked");
 });
