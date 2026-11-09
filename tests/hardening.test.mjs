@@ -151,3 +151,25 @@ test("openai manifest brand color matches the published brand assets", () => {
   const mark = fs.readFileSync("assets/brand/mark.svg", "utf8");
   assert.ok(mark.toLowerCase().includes(declared), `brand_color ${declared} must appear in the brand mark`);
 });
+
+test("composition: realistic product descriptions all classify to the right domain", () => {
+  // The surface-word fix must not trade one failure mode for another. These are the shapes
+  // people actually use; each must land on its domain, and the whole set must not regress.
+  const cases = [
+    ["personal finance app", "finance"], ["banking dashboard", "finance"], ["invoice ledger", "finance"],
+    ["online store", "commerce"], ["stationery shop", "commerce"], ["checkout flow", "commerce"],
+    ["helpdesk tickets", "productivity"], ["team task tracker", "productivity"], ["project workspace", "productivity"],
+    ["photography portfolio", "portfolio"], ["artist gallery", "portfolio"],
+    ["spa appointments", "booking"], ["hotel reservation", "booking"], ["clinic schedule", "booking"],
+    ["chat assistant", "chat"], ["messaging app", "chat"], ["conversation interface", "chat"],
+  ];
+  for (const [product, expected] of cases) {
+    assert.equal(composition(product).profile, expected, product);
+  }
+  // Case, punctuation and emoji must not change the answer or throw.
+  for (const variant of ["FINANCE", "Finance Dashboard", "finance-dashboard!", "😀 finance"]) {
+    assert.equal(composition(variant).profile, "finance", variant);
+  }
+  // A non-word must fall back rather than guess.
+  assert.equal(composition("fin1ance").profile, "general");
+});
