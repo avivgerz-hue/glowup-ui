@@ -5,7 +5,12 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { sh } from "../benchmarks/lib/proc.mjs";
+
+// Resolve repo files from this file's own location, not the process cwd: the runner is invoked
+// from the package root today, but a test should not break if it is ever started elsewhere.
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
 test("proc: an executable path containing a space still runs", () => {
   // On Windows, spawn with shell:true concatenates argv unquoted, so
@@ -13,7 +18,10 @@ test("proc: an executable path containing a space still runs", () => {
   // any platform by copying the running Node into a directory with a space in its name.
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), "glowup-space-"));
   try {
-    const spaced = path.join(dir, "Program Files", "node-here");
+    // Keep the platform's real executable extension. Windows will not run a copy named
+    // plain `node-here` at all (PATHEXT), which would test the wrong thing and fail every time.
+    // The space being exercised lives in the DIRECTORY name, which is what broke in practice.
+    const spaced = path.join(dir, "Program Files", `node${path.extname(process.execPath)}`);
     fs.mkdirSync(path.dirname(spaced), { recursive: true });
     fs.copyFileSync(process.execPath, spaced);
     fs.chmodSync(spaced, 0o755);
@@ -26,14 +34,14 @@ test("proc: an executable path containing a space still runs", () => {
 });
 
 test("proc: plain commands are not routed through a shell needlessly", () => {
-  const src = fs.readFileSync("benchmarks/lib/proc.mjs", "utf8");
+  const src = fs.readFileSync(path.join(root, "benchmarks/lib/proc.mjs"), "utf8");
   // A shell is only needed for .cmd/.bat/npx/npm style shims on Windows.
   assert.match(src, /shellNeeded/, "proc must decide when a shell is actually required");
   assert.match(src, /quoteIfNeeded/, "and quote arguments when it is");
 });
 
 test("showcase: a failed run never overwrites the committed evidence", () => {
-  const src = fs.readFileSync("benchmarks/showcase.mjs", "utf8");
+  const src = fs.readFileSync(path.join(root, "benchmarks/showcase.mjs"), "utf8");
   // The catch block used to write evidence.json into assets/examples, replacing good hashes
   // with `pass: false` and failing the gallery tests for reasons unrelated to the fault.
   const catchBlock = src.slice(src.indexOf("} catch (error) {"));
@@ -45,7 +53,7 @@ test("showcase: a failed run never overwrites the committed evidence", () => {
 
 test("tests: symlink-dependent cases skip where the OS refuses symlinks", () => {
   for (const file of ["tests/checkpoint.test.mjs", "tests/inspection-reliability.test.mjs"]) {
-    const src = fs.readFileSync(file, "utf8");
+    const src = fs.readFileSync(path.join(root, file), "utf8");
     assert.match(src, /canSymlink/, `${file} must probe symlink support`);
     assert.match(src, /t\.skip\(/, `${file} must skip rather than fail when unsupported`);
   }
