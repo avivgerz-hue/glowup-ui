@@ -1,10 +1,10 @@
 {
   "schema": 1,
-  "generatedAt": "2026-10-28T12:47:49.009Z",
+  "generatedAt": "2026-11-09T22:40:52.305Z",
   "kind": "maintainer-directed examples and controlled fixture edits; not native activation or a model A/B benchmark",
   "browser": {
     "name": "Chromium",
-    "version": "154.0.8037.57",
+    "version": "153.0.8010.0",
     "deviceScaleFactor": 1,
     "colorScheme": "light",
     "locale": "en-US",
@@ -17,56 +17,56 @@
       "width": 1440,
       "height": 900,
       "route": "/#overview",
-      "sha256": "0d19dd96aa6aeb8c071ffb3748330b649f3f9d1ac1be0ba36ea763ba2b7c0103"
+      "sha256": "bd185087522d130e8102af1d2dc70c513fe460bdf11d12b352850df91d2a55dd"
     },
     {
       "file": "transform-before-desktop.png",
       "width": 1440,
       "height": 900,
       "route": "/",
-      "sha256": "f85edb31eaabd023403acf78d6ee3092ae3f27f7689e68fb96198d60b066db7f"
+      "sha256": "52086e9eddb2ba9e8a47ce1a53c62129a72f29794025ba74c0fca6d4285b1788"
     },
     {
       "file": "transform-after-desktop.png",
       "width": 1440,
       "height": 900,
       "route": "/",
-      "sha256": "aa5f39421df643671c4da19cc297229f1db716b322e439f418ba43dc8b2c5534"
+      "sha256": "96ef5353aff8c5b4ffb9d979390266d9a6c1509de7087923b14ee6428e34284b"
     },
     {
       "file": "refine-after-desktop.png",
       "width": 1440,
       "height": 900,
       "route": "/",
-      "sha256": "a7fb122215a083e32292f60d841d37e035c718b3f31eccd3d88c9c7a7c66fd68"
+      "sha256": "b7facc84c7f0f3c471390482ae34ed7769e84cf88fb92abbe999ab9139c1566b"
     },
     {
       "file": "create-mobile.png",
       "width": 390,
       "height": 844,
       "route": "/#overview",
-      "sha256": "8bc2db888d1f9f52afe828bf5391463ebfb15d387d6ade34fcf5b5d96bc0931e"
+      "sha256": "79088f34019250d27243113c59238d0a4626e2128b73e65eac0cd25198d25dc1"
     },
     {
       "file": "transform-before-mobile.png",
       "width": 390,
       "height": 844,
       "route": "/",
-      "sha256": "a892fccd3f1a96ccd2a203c951872849f4320d6e1f97fb295ed701a3c949480a"
+      "sha256": "8c56df587a2523883019d22b051d5f16209fc45ffe6cb694d02b199434527403"
     },
     {
       "file": "transform-after-mobile.png",
       "width": 390,
       "height": 844,
       "route": "/",
-      "sha256": "fc9a9fe93722b836c1a2aade00343f68f1aa5c9e21177a6eb3dceb89d2fc0973"
+      "sha256": "670e67ed34802c08d8c79e0f46936b5831f280659d2a68dab701578c4df4d4bc"
     },
     {
       "file": "refine-after-mobile.png",
       "width": 390,
       "height": 844,
       "route": "/",
-      "sha256": "2c9d4a5324541f146202e9f5ae8c96cf2cd53566fd1f82d45dbd4ac19aae4f89"
+      "sha256": "a735756dd2d7ee370d65cc4092329fbfab6784eb5675084201df714899548b70"
     }
   ],
   "checks": [
