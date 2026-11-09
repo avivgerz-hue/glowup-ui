@@ -31,6 +31,20 @@ Run from `benchmarks/`:
 node showcase.mjs --install
 ```
 
+> **If you use a Git Bash / MSYS shell on Windows, do not pass `--install` here.**
+> `sh()` forwards `--install` to `npm ci`, which needs `shell: true` on Windows; MSYS then rewrites
+> the `/…`-style paths and the install dies mid-way. Instead install the demo dependencies by hand
+> once, then run the capture without the flag:
+>
+> ```bash
+> (cd ../demo/before && npm ci --no-audit --no-fund)
+> (cd ../demo/after  && npm ci --no-audit --no-fund)
+> (cd ../demo/create-ledger && npm ci --no-audit --no-fund)
+> node showcase.mjs
+> ```
+>
+> In PowerShell the flag is fine.
+
 `--install` runs each demo's locked `npm ci`; without it the script refuses to run and tells you
 dependencies are missing. It then launches one Chromium, checks the behaviour contracts, and
 writes eight fresh images plus `evidence.json` into `assets/examples/`:
@@ -46,8 +60,10 @@ evidence.json
 Use `--out DIR` to write somewhere else first if you want to inspect before overwriting.
 
 **Wait for it to finish.** It asserts the apps still pass their tests and that the captures match
-the documented viewports. If it throws, the old images are untouched — that failure is real
-information, not noise.
+the documented viewports. If it throws, nothing is written to `assets/examples/` — the committed
+evidence is left byte-identical and the failure goes to `benchmarks/results/showcase/failure.json`.
+(Earlier versions overwrote the committed `evidence.json` with `pass: false`, which then failed
+the gallery tests and made a broken run look like a broken repository.)
 
 ---
 

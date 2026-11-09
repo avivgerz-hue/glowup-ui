@@ -9,6 +9,26 @@ import { snapshot, check } from '../skills/glowup-ui/scripts/checkpoint.mjs';
 import { discover } from '../skills/glowup-ui/scripts/discover.mjs';
 import { detectLook } from '../skills/glowup-ui/scripts/look.mjs';
 
+// Windows refuses file symlinks unless Developer Mode is on or the process is elevated
+// (EPERM). A test whose subject is symlink handling cannot run there -- skipping is honest,
+// failing is not. Probed once per process so the skip costs nothing.
+let symlinkProbe;
+export const canSymlink = (() => {
+  if (symlinkProbe !== undefined) return symlinkProbe;
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "glowup-symlink-probe-"));
+  try {
+    fs.writeFileSync(path.join(dir, "a"), "x");
+    fs.symlinkSync(path.join(dir, "a"), path.join(dir, "b"));
+    symlinkProbe = true;
+  } catch {
+    symlinkProbe = false;
+  } finally {
+    try { fs.rmSync(dir, { recursive: true, force: true }); } catch { /* best effort */ }
+  }
+  return symlinkProbe;
+})();
+
+
 function fixture(t, files) {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'glowup-inspection-'));
   t.after(() => fs.rmSync(root, { recursive: true, force: true }));
@@ -58,6 +78,7 @@ test('inspection resolves configured shared aliases and directory indexes to act
 });
 
 test('look inspection skips external and broken source symlinks', t => {
+  if (!canSymlink) { t.skip('this OS will not create symlinks without elevation'); return; }
   const outside = fixture(t, { 'private.css': ':root { --brand: #123456; --surface: #123456; }' });
   const root = fixture(t, { 'package.json': {}, 'src/App.jsx': '<main>Application</main>' });
   fs.symlinkSync(path.join(outside, 'private.css'), path.join(root, 'linked.css'));

@@ -1,7 +1,20 @@
 import { spawn, spawnSync } from "node:child_process";
+import path from "node:path";
+
+// Windows needs `shell: true` to resolve npm/npx, but then Node concatenates argv without
+// quoting. A Node install at "C:\Program Files\nodejs\node.exe" therefore arrives as
+// `C:\Program` and fails. Quote any argument that contains a space, and never pick up the
+// shell for plain commands that do not need it.
+const shellNeeded = (cmd) => process.platform === "win32" && !path.isAbsolute(cmd) && /\.(?:cmd|bat)$|^(?:npm|npx|yarn|pnpm)$/i.test(cmd);
+const quoteIfNeeded = (value) => process.platform === "win32" && /\s/.test(value) && !/^".*"$/.test(value) ? `"${value}"` : value;
 
 export function sh(cmd, args, opts = {}) {
-  const r = spawnSync(cmd, args, { encoding: "utf8", timeout: opts.timeout ?? 300000, cwd: opts.cwd, env: { ...process.env, CI: "1", ...(opts.env || {}) }, shell: process.platform === "win32" });
+  const shell = shellNeeded(cmd);
+  const prepared = shell ? [cmd, ...args].map(quoteIfNeeded) : args;
+  const r = spawnSync(shell ? quoteIfNeeded(cmd) : cmd, prepared, {
+    encoding: "utf8", timeout: opts.timeout ?? 300000, cwd: opts.cwd,
+    env: { ...process.env, CI: "1", ...(opts.env || {}) }, shell,
+  });
   return { status: r.status, out: `${r.stdout || ""}${r.stderr || ""}`, signal: r.signal, error: r.error?.message };
 }
 

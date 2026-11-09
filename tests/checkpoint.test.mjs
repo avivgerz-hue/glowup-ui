@@ -5,6 +5,25 @@ import os from "node:os";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
 import { snapshot, check } from "../skills/glowup-ui/scripts/checkpoint.mjs";
+// Windows refuses file symlinks unless Developer Mode is on or the process is elevated
+// (EPERM). A test whose subject is symlink handling cannot run there -- skipping is honest,
+// failing is not. Probed once per process so the skip costs nothing.
+let symlinkProbe;
+export const canSymlink = (() => {
+  if (symlinkProbe !== undefined) return symlinkProbe;
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "glowup-symlink-probe-"));
+  try {
+    fs.writeFileSync(path.join(dir, "a"), "x");
+    fs.symlinkSync(path.join(dir, "a"), path.join(dir, "b"));
+    symlinkProbe = true;
+  } catch {
+    symlinkProbe = false;
+  } finally {
+    try { fs.rmSync(dir, { recursive: true, force: true }); } catch { /* best effort */ }
+  }
+  return symlinkProbe;
+})();
+
 import { browserOptions } from "../skills/glowup-ui/scripts/screenshot.mjs";
 
 const SCRIPT = path.resolve("skills/glowup-ui/scripts/checkpoint.mjs");
@@ -162,6 +181,7 @@ test("checkpoint CLI: refuses to overwrite evidence and returns nonzero on regre
 });
 
 test("checkpoint: does not serialize environment values or follow external symlinks", (t) => {
+  if (!canSymlink) { t.skip("this OS will not create symlinks without elevation"); return; }
   const { root, write } = app(t, { ".env.local": "TOKEN=secret-test-value" });
   fs.symlinkSync("/outside/not-readable", path.join(root, "external"));
   const before = snapshot(root);
