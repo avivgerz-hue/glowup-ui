@@ -7,6 +7,7 @@ import { DIRECTIONS, SURFACES } from "../skills/glowup-ui/scripts/directions.mjs
 import { pickDirection, rankDirections, designSystem, themeCss } from "../skills/glowup-ui/scripts/direction.mjs";
 import { scaffold } from "../skills/glowup-ui/scripts/scaffold.mjs";
 import { spawnSync } from "node:child_process";
+import { improve } from "../benchmarks/lib/refine-edits.mjs";
 
 test("directions: every direction is complete and its palette passes contrast in both schemes", () => {
   assert.ok(DIRECTIONS.length >= 12);
@@ -133,4 +134,24 @@ test("scaffold: a generated project is complete enough to build and test", (t) =
   // A generated project must not contain any leftover .tpl extension.
   const walk = (d) => fs.readdirSync(d, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? walk(path.join(d, e.name)) : [path.join(d, e.name)]));
   assert.ok(walk(root).every((f) => !f.endsWith(".tpl")), "a .tpl file leaked into the generated project");
+});
+
+test("refine fixture: the edited starting state still matches what the refine edits expect", (t) => {
+  // The showcase applies scripted string edits to demo/after to produce the REFINE "after".
+  // Those edits intentionally target DEFECTS in demo/after -- it is the before state of the
+  // REFINE demo. "Fixing" one of those defects in the fixture breaks the demo with a confusing
+  // message ("Expected edit did not execute"), and it also destroys the thing being demonstrated.
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), "glowup-refine-"));
+  t.after(() => fs.rmSync(root, { recursive: true, force: true }));
+  fs.cpSync("demo/after", root, { recursive: true, filter: (s) => !s.includes("node_modules") });
+  assert.doesNotThrow(() => improve(root, "E"), "refine edit E must still apply to the fixture");
+  const dash = fs.readFileSync(path.join(root, "src/pages/Dashboard.jsx"), "utf8");
+  assert.match(dash, /tabIndex=\{0\}/, "edit E is what gives the scroll region keyboard access");
+  assert.match(dash, /aria-labelledby="line-title"/, "and a name");
+});
+
+test("refine fixture: demo/after must keep the defects its demo exists to fix", () => {
+  // Guard against the mistake of "fixing" the before state: these must remain unfixed.
+  const dash = fs.readFileSync("demo/after/src/pages/Dashboard.jsx", "utf8");
+  assert.match(dash, /<div className="overflow-x-auto">/, "the unlabelled scroll region is the defect DEMO E repairs; do not fix it here");
 });
