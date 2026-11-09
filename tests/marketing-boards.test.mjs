@@ -96,6 +96,41 @@ test("marketing: the README shows the boards and keeps provenance", () => {
   }
 });
 
+test("marketing: the phone board never claims an overflow count it did not measure", () => {
+  const src = gen();
+  // The board used to print a hardcoded "0 horizontal overflow" while evidence.json recorded a
+  // pre-existing mobile overflow in the BEFORE fixture -- a reassuring number printed directly
+  // above a screenshot that contradicted it. Counts must come from the evidence.
+  assert.ok(!/>\s*0<\/tspan>\s*horizontal overflow/.test(src), "the overflow count must not be typed");
+  assert.match(src, /baselineFindings/, "the overflow claim must be read from the recorded findings");
+  assert.match(src, /overflowCount/, "and counted rather than assumed");
+  const evidence = JSON.parse(fs.readFileSync("assets/examples/evidence.json", "utf8"));
+  const overflows = evidence.baselineFindings.filter((f) => f.kind.includes("overflow"));
+  // Whatever the count is, the phrase printed for it must not repeat the number as text.
+  const phrase = src.match(/const overflowWho = [\s\S]*?;\n/);
+  assert.ok(phrase, "the board must build the overflow phrase from the findings");
+  assert.ok(
+    !/\$\{overflowCount\}[^`]*\$\{overflowCount\}/.test(src),
+    "the count is printed once by the board; the phrase must not repeat it",
+  );
+  assert.ok(Array.isArray(overflows), "evidence keeps its baseline findings");
+});
+
+test("marketing: phones are laid out from their own widths and cannot be clipped", () => {
+  const src = gen();
+  // A hand-tuned x offset pushed the outer phones past the canvas edge; they rendered cut off.
+  assert.match(src, /const rowW = phones\.reduce/, "the phone row width must be computed");
+  assert.match(src, /assert\.ok\(rowW <= W - PAD \* 2/, "and must be proven to fit the canvas");
+  assert.match(src, /const xs = phones\.map/, "positions must derive from the row");
+  assert.ok(!/const W = 1240, H = \d+, xs = \[/.test(src), "no hardcoded phone coordinates");
+  // Every device must sit fully inside the canvas.
+  const phone = png("hero-phone.png");
+  const evidence = JSON.parse(fs.readFileSync("assets/examples/evidence.json", "utf8"));
+  const mobile = evidence.captures.filter((c) => c.width === 390);
+  assert.ok(mobile.length >= 3, "the board composites three phone captures");
+  assert.ok(phone.height > 1100, "the phone board keeps its devices and footer inside the canvas");
+});
+
 test("marketing: no orphaned or stale board files are left behind", () => {
   const files = fs.readdirSync("assets/marketing").filter((f) => f.endsWith(".png"));
   const src = gen();
