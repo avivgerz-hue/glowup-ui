@@ -107,3 +107,30 @@ test("starter kit: every export in the barrel resolves to a file, and no class n
     assert.ok(!/className=\{?[`"][^`"]*\$\{/.test(text) && !/cn\(`[^`]*\$\{/.test(text), `${f}: Tailwind cannot see classes assembled with template strings`);
   }
 });
+
+test("scaffold: a generated project is complete enough to build and test", (t) => {
+  // The starter is the first thing a CREATE user runs. Nothing proved it produced a working
+  // project until now — only that files were written. This checks the shape that makes
+  // `npm run build` and `npm test` possible without installing anything here.
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), "glowup-e2e-"));
+  t.after(() => fs.rmSync(root, { recursive: true, force: true }));
+  scaffold({ name: "Ledger", product: "personal finance app", surface: "app", dir: root });
+
+  const pkg = JSON.parse(fs.readFileSync(path.join(root, "package.json"), "utf8"));
+  for (const script of ["dev", "build", "test"]) assert.ok(pkg.scripts[script], `missing ${script} script`);
+  for (const dep of ["react", "react-dom", "react-router-dom"]) assert.ok(pkg.dependencies[dep], `missing ${dep}`);
+  for (const entry of ["index.html", "src/main.jsx", "src/routes.jsx", "src/index.css", "src/ui/index.js", "tests/smoke.test.jsx", "vite.config.js"]) {
+    assert.ok(fs.existsSync(path.join(root, entry)), `missing ${entry}`);
+  }
+  // The direction theme must actually carry font declarations, or the app cannot render its
+  // intended type hierarchy.
+  assert.match(fs.readFileSync(path.join(root, "src/index.css"), "utf8"), /font-|@theme|--color/);
+  // The declared fonts must be in dependencies, or the first install cannot resolve the theme.
+  const css = fs.readFileSync(path.join(root, "src/index.css"), "utf8");
+  for (const [, font] of css.matchAll(/@fontsource-variable\/([a-z0-9-]+)/g)) {
+    assert.ok(pkg.dependencies[`@fontsource-variable/${font}`], `theme imports ${font} but it is not a dependency`);
+  }
+  // A generated project must not contain any leftover .tpl extension.
+  const walk = (d) => fs.readdirSync(d, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? walk(path.join(d, e.name)) : [path.join(d, e.name)]));
+  assert.ok(walk(root).every((f) => !f.endsWith(".tpl")), "a .tpl file leaked into the generated project");
+});
