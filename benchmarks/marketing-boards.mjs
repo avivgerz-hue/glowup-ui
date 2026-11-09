@@ -12,6 +12,7 @@
 //
 // Usage: npm i --no-save sharp && node benchmarks/marketing-boards.mjs [--out DIR]
 import sharp from "sharp";
+import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -39,6 +40,17 @@ const behaviourTestCount = (fs.readFileSync(R("demo/before/tests/behavior.test.j
 
 const evidence = JSON.parse(fs.readFileSync(R("assets/examples/evidence.json"), "utf8"));
 const captureLine = `${evidence.browser.name} ${evidence.browser.version.split(".")[0]}, deviceScaleFactor ${evidence.browser.deviceScaleFactor}, reduced motion`;
+
+// The phone board used to print "0 horizontal overflow" as a constant. It was not true: the
+// BEFORE fixture is a pre-existing document that overflows at 390px, and evidence.json has
+// always recorded that. Printing a reassuring number over a screenshot that contradicts it is
+// exactly the kind of claim this project is supposed to never make, so both figures are counted.
+const overflowDevices = evidence.baselineFindings.filter((f) => f.kind.includes("overflow")).map((f) => f.device);
+const overflowCount = overflowDevices.length;
+// The count is printed separately on the board, so this phrase must not repeat it.
+const overflowWho = overflowCount
+  ? `pre-existing overflow in the BEFORE app (${overflowDevices.join(", ")})`
+  : `horizontal overflow`;
 
 // ---------------------------------------------------------------- primitives
 async function plate(file, width, radius = 8) {
@@ -108,30 +120,41 @@ const write = async (img, file) => { await img.toFile(path.join(outDir, file)); 
 
 // ---------------------------------------------------------------- 2. hero phone
 {
-  const P_W = 300, top = 372;
+  // Geometry is computed, never hand-tuned. An earlier revision placed the devices at typed
+  // coordinates and silently pushed the outer two past the canvas edge, so they rendered clipped.
+  const W = 1240, PAD = 48, GAP = 46, P_W = 310;
   const beforePh = await device(R("assets/examples/transform-before-mobile.png"), P_W);
   const afterPh = await device(R("assets/examples/transform-after-mobile.png"), P_W);
   const createPh = await device(R("assets/examples/create-mobile.png"), P_W);
-  const W = 1240, H = 1250, xs = [150, 470, 790];
+  const phones = [beforePh, afterPh, createPh];
+  const rowW = phones.reduce((sum, p) => sum + p.fw, 0) + GAP * (phones.length - 1);
+  assert.ok(rowW <= W - PAD * 2, `phone row ${rowW}px does not fit inside ${W - PAD * 2}px of canvas`);
+  const left = Math.round((W - rowW) / 2);
+  const xs = phones.map((_, i) => left + phones.slice(0, i).reduce((sum, p) => sum + p.fw + GAP, 0));
+
+  const top = 382;
+  const bottom = top + Math.max(...phones.map((p) => p.fh));
+  assert.ok(bottom < 1160, `devices end at ${bottom}px; leave room for the footer`);
+  const ruleY = bottom + 52, statsY = bottom + 100, noteY = bottom + 138;
+  const H = bottom + 166;
 
   const head = `<svg width="${W}" height="${H}" xmlns="http://www.w3.org/2000/svg">
-    <text x="${W / 2}" y="86" text-anchor="middle" font-family="${SANS}" font-size="14" letter-spacing="3.2" font-weight="bold" fill="${P.vermilion}">GLOWUP UI</text>
-    <text x="${W / 2}" y="168" text-anchor="middle" font-family="${SERIF}" font-size="62" font-weight="bold" fill="${P.ink}">The same care on a phone.</text>
-    <text x="${W / 2}" y="216" text-anchor="middle" font-family="${SANS}" font-size="18" fill="${P.muted}">Real 390 &#215; 844 captures. Not a separate mobile design &#8212; the same system, reflowed.</text>
-    <text x="${xs[0] + beforePh.fw / 2}" y="${top - 18}" text-anchor="middle" font-family="${SANS}" font-size="12" letter-spacing="2.2" font-weight="bold" fill="${P.faint}">BEFORE</text>
-    <text x="${xs[1] + afterPh.fw / 2}" y="${top - 18}" text-anchor="middle" font-family="${SANS}" font-size="12" letter-spacing="2.2" font-weight="bold" fill="${P.vermilion}">AFTER</text>
-    <text x="${xs[2] + createPh.fw / 2}" y="${top - 18}" text-anchor="middle" font-family="${SANS}" font-size="12" letter-spacing="2.2" font-weight="bold" fill="${P.primary}">CREATE</text>
-    <line x1="80" y1="1112" x2="${W - 80}" y2="1112" stroke="${P.ruleStrong}"/>
-    <text x="${W / 2}" y="1170" text-anchor="middle" font-family="${SANS}" font-size="16" fill="${P.muted}"><tspan font-family="${SERIF}" font-size="29" font-weight="bold" fill="${P.ink}">390px</tspan> narrowest layout    &#183;    <tspan font-family="${SERIF}" font-size="29" font-weight="bold" fill="${P.ink}">0</tspan> horizontal overflow    &#183;    <tspan font-family="${SERIF}" font-size="29" font-weight="bold" fill="${P.ink}">0</tspan> routes changed</text>
-    <text x="${W / 2}" y="1210" text-anchor="middle" font-family="${SANS}" font-size="12" fill="${P.faint}">${captureLine}. Full provenance in assets/examples/evidence.json.</text>
+    <text x="${W / 2}" y="92" text-anchor="middle" font-family="${SANS}" font-size="14" letter-spacing="3.2" font-weight="bold" fill="${P.vermilion}">GLOWUP UI</text>
+    <text x="${W / 2}" y="190" text-anchor="middle" font-family="${SERIF}" font-size="62" font-weight="bold" fill="${P.ink}">The same care on a phone.</text>
+    <text x="${W / 2}" y="244" text-anchor="middle" font-family="${SANS}" font-size="18" fill="${P.muted}">Real 390 &#215; 844 captures. Not a separate mobile design &#8212; the same system, reflowed.</text>
+    <text x="${xs[0] + beforePh.fw / 2}" y="${top - 22}" text-anchor="middle" font-family="${SANS}" font-size="12" letter-spacing="2.2" font-weight="bold" fill="${P.faint}">BEFORE</text>
+    <text x="${xs[1] + afterPh.fw / 2}" y="${top - 22}" text-anchor="middle" font-family="${SANS}" font-size="12" letter-spacing="2.2" font-weight="bold" fill="${P.vermilion}">AFTER</text>
+    <text x="${xs[2] + createPh.fw / 2}" y="${top - 22}" text-anchor="middle" font-family="${SANS}" font-size="12" letter-spacing="2.2" font-weight="bold" fill="${P.primary}">CREATE</text>
+    <line x1="80" y1="${ruleY}" x2="${W - 80}" y2="${ruleY}" stroke="${P.ruleStrong}"/>
+    <text x="${W / 2}" y="${statsY}" text-anchor="middle" font-family="${SANS}" font-size="15" fill="${P.muted}"><tspan font-family="${SERIF}" font-size="27" font-weight="bold" fill="${P.ink}">390px</tspan> narrowest layout    &#183;    <tspan font-family="${SERIF}" font-size="27" font-weight="bold" fill="${P.ink}">0</tspan> routes changed    &#183;    <tspan font-family="${SERIF}" font-size="24" font-weight="bold" fill="${P.ink}">${overflowCount}</tspan> ${overflowWho}</text>
+    <text x="${W / 2}" y="${noteY}" text-anchor="middle" font-family="${SANS}" font-size="12" fill="${P.faint}">${captureLine}. Full provenance in assets/examples/evidence.json.</text>
   </svg>`;
 
   await write(sharp(Buffer.from(head))
-    .composite([
-      { input: beforePh.shell, top, left: xs[0] }, { input: beforePh.body, top: top + 9, left: xs[0] + 9 },
-      { input: afterPh.shell, top, left: xs[1] }, { input: afterPh.body, top: top + 9, left: xs[1] + 9 },
-      { input: createPh.shell, top, left: xs[2] }, { input: createPh.body, top: top + 9, left: xs[2] + 9 },
-    ]).png({ compressionLevel: 9 }), "hero-phone.png");
+    .composite(phones.flatMap((p, i) => [
+      { input: p.shell, top, left: xs[i] },
+      { input: p.body, top: top + 9, left: xs[i] + 9 },
+    ])).png({ compressionLevel: 9 }), "hero-phone.png");
 }
 
 console.log("done");

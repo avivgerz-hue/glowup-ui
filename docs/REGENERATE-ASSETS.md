@@ -31,10 +31,10 @@ Run from `benchmarks/`:
 node showcase.mjs --install
 ```
 
-> **If you use a Git Bash / MSYS shell on Windows, do not pass `--install` here.**
-> `sh()` forwards `--install` to `npm ci`, which needs `shell: true` on Windows; MSYS then rewrites
-> the `/…`-style paths and the install dies mid-way. Instead install the demo dependencies by hand
-> once, then run the capture without the flag:
+> **Give `--install` several minutes and expect no output while it works.**
+> It runs three `npm ci` calls back to back with nothing printed between them, which looks
+> exactly like a hang. If you do interrupt it (or your terminal does), finish the installs by
+> hand and capture without the flag:
 >
 > ```bash
 > (cd ../demo/before && npm ci --no-audit --no-fund)
@@ -43,7 +43,8 @@ node showcase.mjs --install
 > node showcase.mjs
 > ```
 >
-> In PowerShell the flag is fine.
+> Because a failed or interrupted run now writes nothing into `assets/examples/`, stopping it
+> half-way costs you nothing but time.
 
 `--install` runs each demo's locked `npm ci`; without it the script refuses to run and tells you
 dependencies are missing. It then launches one Chromium, checks the behaviour contracts, and
