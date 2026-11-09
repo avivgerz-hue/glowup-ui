@@ -73,3 +73,19 @@ test("inspect: existing designed apps get a compact preservation plan with real 
   assert.ok(!JSON.stringify(r).includes("Redesign every page"));
   assert.equal(r.truncated, false);
 });
+
+// measure.mjs cannot run in Node without a DOM, so this asserts the one property that makes its
+// contrast evidence trustworthy: it reports what it could not resolve instead of guessing.
+test("measure: contrast refuses to guess when the background is not a solid colour", async () => {
+  const { measurePage } = await import("../skills/glowup-ui/scripts/measure.mjs");
+  const src = measurePage.toString();
+  // A gradient or a translucent layer must set `unknown`, which becomes `unverified` — not a pass.
+  assert.match(src, /backgroundImage !== "none" \|\| !bg/, "a background image must be treated as unknown");
+  assert.match(src, /Number\(s\.opacity\) !== 1/, "opacity must be treated as unknown");
+  assert.match(src, /mixBlendMode !== "normal"/, "a blend mode must be treated as unknown");
+  assert.match(src, /if \(unknown\) \{ contrastUnverified\+\+; continue; \}/, "unknown cases must count as unverified, never as passing");
+  assert.match(src, /contrastFailures\.push/, "resolvable failures must be recorded");
+  // The required ratio must follow WCAG: 3:1 large text, 4.5:1 normal text.
+  assert.match(src, /const required = large \? 3 : 4\.5/);
+  assert.match(src, /size >= 24 \|\| size >= 18\.66 && Number\(style\.fontWeight\) >= 700/, "large-text thresholds must match WCAG");
+});

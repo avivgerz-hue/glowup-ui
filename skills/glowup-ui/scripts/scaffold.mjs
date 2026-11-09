@@ -135,20 +135,57 @@ export function scaffold({ name = "app", dir = ".", only = null, force = false, 
   return { root, created, skipped, design };
 }
 
+const HELP = `scaffold.mjs — create a new Vite + React + React Router + Tailwind project
+
+Usage:
+  node scaffold.mjs --name "<Name>" --product "<product and audience>" --surface <app|marketing|commerce|editorial|service> [options]
+
+Required for a new project: --name, --product.
+
+Options:
+  --dir <path>        Target directory (default: .). Must be empty or absent for a new project.
+  --kit minimal|full  minimal (default) copies the working starter; full adds shells, charts,
+                      illustrations and motifs. Do not load full unless the product needs it.
+  --install           Run one npm install after writing files (declares fonts first).
+  --direction <id>    Override the keyword-chosen direction (see direction.mjs).
+  --brand <#hex>      Seed color to keep an existing brand accent.
+  --force             Overwrite generated files that already exist.
+  --only ui           Add kit components to an existing app instead of scaffolding a project.
+  --components A,B    With --only ui: modules to add (dependencies included).
+
+Docs: <skill-dir>/references/create-mode.md
+`;
+const OPTIONS = {
+  name: { type: "string", default: "app" }, dir: { type: "string", default: "." }, only: { type: "string" }, force: { type: "boolean", default: false },
+  product: { type: "string" }, surface: { type: "string", default: "app" }, direction: { type: "string" }, brand: { type: "string" }, install: { type: "boolean", default: false },
+  kit: { type: "string", default: "minimal" }, components: { type: "string" },
+  help: { type: "boolean", short: "h", default: false },
+};
+
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  const { values } = parseArgs({ options: {
-    name: { type: "string", default: "app" }, dir: { type: "string", default: "." }, only: { type: "string" }, force: { type: "boolean", default: false },
-    product: { type: "string" }, surface: { type: "string", default: "app" }, direction: { type: "string" }, brand: { type: "string" }, install: { type: "boolean", default: false },
-    kit: { type: "string", default: "minimal" }, components: { type: "string" },
-  } });
-  const r = scaffold(values);
-  const rel = (p) => path.relative(process.cwd(), p) || p;
-  console.log(`Scaffolded ${r.created.length} files in ${rel(r.root)}${r.skipped.length ? ` (${r.skipped.length} existing files kept)` : ""}`);
-  if (r.design) console.log(`DIRECTION: ${r.design.name} (${r.design.id})\n${r.design.summary}\nShell: ${r.design.shell}\nSignature moves: ${r.design.moves.join("; ")}`);
-  if (values.only !== "ui") {
-    if (values.install && r.created.includes(path.join(r.root, "package.json"))) {
-      const n = spawnSync("npm", ["install", "--no-audit", "--no-fund", "--loglevel=error"], { cwd: r.root, stdio: ["ignore", "ignore", "inherit"] });
-      if (n.status !== 0) { console.error("npm install failed"); process.exit(1); }
+  let values;
+  try {
+    ({ values } = parseArgs({ options: OPTIONS }));
+  } catch (error) {
+    // Usage errors exit 64 like the other helpers, without an unhandled stack trace.
+    console.error(`${error.message}\n\n${HELP}`);
+    process.exit(64);
+  }
+  if (values.help) { console.log(HELP); } else if (values.only !== "ui" && !values.product) {
+    // A project scaffold without a product cannot choose a direction, and silently inventing
+    // one is how agents end up with a generic template. Refuse instead of guessing.
+    console.error(`--product is required for a new project (it selects the visual direction and composition).\n\n${HELP}`);
+    process.exitCode = 64;
+  } else {
+    const r = scaffold(values);
+    const rel = (p) => path.relative(process.cwd(), p) || p;
+    console.log(`Scaffolded ${r.created.length} files in ${rel(r.root)}${r.skipped.length ? ` (${r.skipped.length} existing files kept)` : ""}`);
+    if (r.design) console.log(`DIRECTION: ${r.design.name} (${r.design.id})\n${r.design.summary}\nShell: ${r.design.shell}\nSignature moves: ${r.design.moves.join("; ")}`);
+    if (values.only !== "ui") {
+      if (values.install && r.created.includes(path.join(r.root, "package.json"))) {
+        const n = spawnSync("npm", ["install", "--no-audit", "--no-fund", "--loglevel=error"], { cwd: r.root, stdio: ["ignore", "ignore", "inherit"] });
+        if (n.status !== 0) { console.error("npm install failed"); process.exit(1); }
+      }
     }
   }
 }

@@ -1,5 +1,22 @@
 # Changelog
 
+## Unreleased
+
+Engineering hardening and one new capability. No design-quality or activation claim is changed by any of it.
+
+- **Real accessibility audit.** `screenshot.mjs --a11y` runs 17 DOM rules (alt text and failed images, control and field names, ARIA roles and required attributes, `aria-hidden` containing focusable content, duplicate ids, heading order and a missing page heading, landmarks, `lang`/title, keyboard-reachable scroll regions, button type, 24px target size, missing focus styling). Every rule has a test that asserts it fires on a defect and stays quiet on correct markup. Critical/serious violations become blockers in `review.mjs`. Scoped as DOM-only evidence: no screen reader, keyboard trap, focus movement or contrast-over-imagery proof.
+- **Preservation checks see relocations.** Moving a handler or copy between existing files previously kept the aggregate count and passed silently. It is now reported as `moved (review)`; extraction into a new component stays a pass as `extracted (ok)` because nothing can be lost.
+- **Inspection survives unreadable paths.** An EACCES directory in `look.mjs` aborted orientation for the whole app, including `direction`/`inspect`/`checkpoint`. It now skips the path, reports it, and marks the fingerprint partial.
+- **Composition stops degrading on surface words.** `dashboard` lived in productivity's term list, so `personal finance dashboard` tied and fell back to the generic recipe. Surface words now break ties instead of creating them; two genuinely different domains still fall back.
+- **Scaffold usage handling.** `--help`/`-h` print usage instead of a raw `parseArgs` stack; a new project without `--product` is refused (exit 64) instead of silently generating a generic template.
+- **Benchmark settings are configurable and recorded.** `BENCH_MODEL`, `BENCH_EFFORT`, `BENCH_BUDGET_USD` and `BENCH_TIMEOUT_MS` override the pins; invalid values are rejected; `meta.json` records each setting and whether it came from the default or an override.
+- **Palette contrast no longer claims more than it checks.** The primary action was never compared against the surface it sits on, so a white seed produced a 1.00:1 button while the report said every pair passed. That pair is now scored for light schemes, and the `#facc15` seed's 1.43:1 yellow action is reported as a failure instead of hidden by a test that could not detect it.
+- One unlabelled form field is reported once, not twice; an empty `<label>` no longer counts as a name; "headings but no h1" is treated as a missing page heading.
+- Every accessibility rule and the three previously untested lint rules now assert both that they fire on a defect and stay quiet on correct markup.
+- OpenAI manifest `brand_color` corrected from `#7C3AED` (used nowhere else) to the actual brand green `#143C33`.
+
+Suite: 158 → 182 tests, all passing; `validate` still clean; `SKILL.md` remains 32 body lines.
+
 ## v0.1.2 — Public Preview (release preparation)
 
 Prepared patch release; no tag or publication is performed by this PR. Public installation pins stay on v0.1.1 until v0.1.2 is published and remotely verified.

@@ -25,6 +25,8 @@ Use `GLOWUP_BROWSER_EXECUTABLE` for an existing Chromium. Checks cover measureme
 
 Use [PAIRED-EVALUATION.md](PAIRED-EVALUATION.md) for matched CREATE/TRANSFORM runs and randomized X/Y review. Authentication, explicit full instruction delivery, equal settings and runtime isolation are prerequisites. Reviewers assess screenshots; generated scores start empty. Keep logs, keys and personal data outside Git.
 
+Both conditions always run with identical settings. Override them explicitly when the default pin is stale, and record what you used: `BENCH_MODEL`, `BENCH_EFFORT`, `BENCH_BUDGET_USD`, `BENCH_TIMEOUT_MS`. Every run's `meta.json` stores the model, effort, budget, timeout and whether they came from the default pin or an environment override, so a comparison can never be attributed to the wrong settings after the fact.
+
 The single-cell Claude harness also supports identical scenario tasks in `scenarios.mjs`:
 
 ```bash

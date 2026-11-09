@@ -3,6 +3,10 @@ import assert from "node:assert/strict";
 import { hexToOklch, oklchToHex, buildScale, buildPalette, format } from "../skills/glowup-ui/scripts/palette.mjs";
 
 const SEEDS = ["#17543f", "#7c3aed", "#f59e0b", "#e11d48", "#0ea5e9", "#facc15", "#111827", "#22c55e", "#64748b"];
+// Bright yellow is a genuinely poor action color on a light canvas: as a filled button it sits at
+// 1.43:1 against the page. The generator keeps the seed (it has readable dark on-primary text),
+// so the palette must report the boundary as a failure instead of claiming every pair passes.
+const SEEDS_WITH_WEAK_BOUNDARY = new Set(["#facc15"]);
 
 test("palette: hex → OKLCH → hex round-trips", () => {
   for (const hex of [...SEEDS, "#ffffff", "#000000", "#808080"]) {
@@ -23,11 +27,29 @@ test("palette: scales get darker step by step and keep the seed", () => {
 
 test("palette: every role pair passes WCAG AA, light and dark", () => {
   for (const seed of SEEDS) {
+    if (SEEDS_WITH_WEAK_BOUNDARY.has(seed)) continue;
     for (const scheme of ["light", "dark"]) {
       const { checks } = buildPalette({ primary: seed, scheme });
       const failed = checks.filter((c) => !c.pass).map((c) => `${c.fg}/${c.bg} ${c.ratio}`);
       assert.deepEqual(failed, [], `${seed} ${scheme}`);
     }
+  }
+});
+
+test("palette: an action that disappears into the page is reported, not hidden", () => {
+  // Regression: the boundary pair was never checked, so these reported "all pairs pass".
+  const white = buildPalette({ primary: "#ffffff", scheme: "light" });
+  const whiteFail = white.checks.filter((c) => !c.pass).map((c) => c.fg);
+  assert.ok(whiteFail.includes("primary"), "a white action on a white card must fail");
+
+  const yellow = buildPalette({ primary: "#facc15", scheme: "light" });
+  assert.ok(yellow.checks.some((c) => !c.pass && c.fg === "primary" && c.bg === "canvas"),
+    "a 1.43:1 yellow button on a light canvas must be reported");
+
+  // The pair only applies to light schemes; a dark scheme's light primary is intended.
+  for (const seed of ["#17543f", "#facc15", "#ffffff"]) {
+    const dark = buildPalette({ primary: seed, scheme: "dark" });
+    assert.ok(!dark.checks.some((c) => !c.pass), `${seed} dark`);
   }
 });
 

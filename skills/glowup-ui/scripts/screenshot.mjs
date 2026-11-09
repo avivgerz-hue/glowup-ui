@@ -14,6 +14,7 @@ import { spawn } from "node:child_process";
 import { escapeHtml } from "./compare.mjs";
 import { discover } from "./discover.mjs";
 import { measurePage } from "./measure.mjs";
+import { auditAccessibility } from "./a11y.mjs";
 
 export const DEFAULT_VIEWPORTS = "desktop=1440x900,mobile=390x844";
 const INSTALL_HINT = "To opt in, install it in the project: npm i -D playwright && npx playwright install chromium";
@@ -116,7 +117,7 @@ async function check() {
 }
 
 export async function capture(options) {
-  const { baseUrl, routes, viewports, label, outDir, fullPage = true, extraWait = 300, timeout = 30_000, readySelector } = options;
+  const { baseUrl, routes, viewports, label, outDir, fullPage = true, extraWait = 300, timeout = 30_000, readySelector, a11y = false } = options;
   const safeName = value => typeof value === 'string' && /^[a-z0-9][a-z0-9_.-]{0,63}$/i.test(value);
   if (!safeName(label) || viewports.some(v => !safeName(v.name))) throw new Error('Capture label and viewport names must be simple directory names (letters, digits, _, . or -)');
   const origin = new URL(baseUrl).origin;
@@ -161,6 +162,8 @@ export async function capture(options) {
           }
           shot.overflowX = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1);
           shot.measurements = await page.evaluate(measurePage);
+          // Opt-in: costs a second DOM pass, so it runs only when asked for.
+          if (options.a11y) shot.a11y = await page.evaluate(auditAccessibility, options.a11y === true ? {} : options.a11y);
           shot.runtimeErrors = [...runtimeErrors];
           fs.mkdirSync(path.join(labelDir, viewport.name), { recursive: true });
           await page.screenshot({ path: path.join(labelDir, rel), fullPage, animations: "disabled" });
@@ -193,7 +196,7 @@ export async function capture(options) {
   } finally {
     await browser.close();
   }
-  const manifest = { label, baseUrl, capturedAt: new Date().toISOString(), fullPage, viewports, routes, shots };
+  const manifest = { label, baseUrl, capturedAt: new Date().toISOString(), fullPage, a11y: Boolean(a11y), viewports, routes, shots };
   fs.writeFileSync(path.join(labelDir, "manifest.json"), JSON.stringify(manifest, null, 2) + "\n");
   return manifest;
 }
@@ -238,6 +241,7 @@ async function main() {
       wait: { type: "string", default: "300" },
       timeout: { type: "string", default: "30000" },
       "allow-remote": { type: "boolean", default: false },
+      a11y: { type: "boolean", default: false },
       help: { type: "boolean", short: "h", default: false },
     },
   });
@@ -248,7 +252,8 @@ async function main() {
   node screenshot.mjs --base-url <url> [--routes /,/a,/b | auto | --routes-file f.txt] [--label before|after]
                       [--serve "npx vite preview --port 4173"]   start the server if the URL is not up, stop it afterwards
                       [--viewports ${DEFAULT_VIEWPORTS}] [--out .glowup/screenshots]
-                      [--ready-selector "main"] [--full-page true|false] [--wait 300] [--timeout 30000] [--allow-remote]`);
+                      [--ready-selector "main"] [--full-page true|false] [--wait 300] [--timeout 30000] [--allow-remote]
+                      [--a11y]                     also run the DOM accessibility rules and store them in the manifest`);
     return 0;
   }
   if (values.check) return check();
@@ -277,6 +282,7 @@ async function main() {
       extraWait: Number(values.wait),
       timeout: Number(values.timeout),
       readySelector: values["ready-selector"],
+      a11y: values.a11y,
     });
     const ok = manifest.shots.filter((s) => s.status === "ok").length;
     console.log(`\nSaved ${ok}/${manifest.shots.length} screenshots to ${path.join(values.out, values.label)} (manifest.json included).`);

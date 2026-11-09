@@ -1,0 +1,330 @@
+// Tests for the opt-in DOM accessibility rules (a11y.mjs).
+//
+// a11y.mjs is written to be passed to page.evaluate, so it must be self-contained and must
+// only touch a small, standard slice of the DOM. That contract is what lets this test run a
+// tiny hand-built document instead of pulling a browser or a DOM library into CI.
+import { test } from "node:test";
+import assert from "node:assert/strict";
+import { auditAccessibility } from "../skills/glowup-ui/scripts/a11y.mjs";
+import { findings, review } from "../skills/glowup-ui/scripts/review.mjs";
+
+// Minimal element: only what the rules read, and only when a check reaches for it.
+class El {
+  constructor(spec = {}) {
+    this.tagName = (spec.tag || "div").toUpperCase();
+    this.id = spec.id || "";
+    this.className = spec.class || "";
+    this.attrs = spec.attrs || {};
+    this.children = [];
+    this.textContent = spec.text || "";
+    this.parent = null;
+    this.broken = spec.broken === true;
+    this.form = spec.form || null;
+    this.tabIndex = spec.tabIndex ?? -1;
+    this.type = spec.type || "";
+    this.style = spec.style || {};
+    this.rect = spec.rect || { width: 100, height: 40 };
+    this.scrollWidth = spec.scrollWidth ?? this.rect.width;
+    this.scrollHeight = spec.scrollHeight ?? this.rect.height;
+    this.clientWidth = spec.clientWidth ?? this.rect.width;
+    this.clientHeight = spec.clientHeight ?? this.rect.height;
+    if ("lang" in this.attrs) this.lang = this.attrs.lang;
+    for (const child of this.children) child.parent = this;
+  }
+  get labels() {
+    const byFor = this.id ? El.document.querySelectorAll("label").filter((l) => l.attrs.for === this.id) : [];
+    const wrapped = this.parent && this.parent.tagName === "LABEL" ? [this.parent] : [];
+    return [...byFor, ...wrapped];
+  }
+  getElementsByTagName(tag) { return El.document.querySelectorAll(tag); }
+  matches(selector) { return El.matches(this, selector); }
+  querySelector(selector) {
+    for (const el of this.walk()) if (el !== this && El.matches(el, selector)) return el;
+    return null;
+  }
+  querySelectorAll(selector) {
+    const out = [];
+    for (const el of this.walk()) if (el !== this && El.matches(el, selector)) out.push(el);
+    return out;
+  }
+  *walk() { yield this; for (const child of this.children) yield* child.walk(); }
+  // The rules scope some checks with closest("main, ...") to decide whether an element is
+  // page chrome; the fake tree only needs ancestry, not the full selector grammar.
+  closest(selector) {
+    const parts = String(selector).split(",").map((x) => x.trim()).filter(Boolean);
+    for (let node = this.parent; node; node = node.parent) {
+      for (const part of parts) {
+        const m = /^([a-z][a-z0-9]*)$/.exec(part);
+        if (m && node.tagName.toLowerCase() === m[1]) return node;
+        const a = /^\[([a-z-]+)="([^"]*)"\]$/.exec(part);
+        if (a && node.getAttribute(a[1]) === a[2]) return node;
+      }
+    }
+    return null;
+  }
+  getBoundingClientRect() { return { ...this.rect, top: 0, left: 0, right: this.rect.width, bottom: this.rect.height }; }
+  getAttribute(name) { return name in this.attrs ? String(this.attrs[name]) : null; }
+  hasAttribute(name) { return name in this.attrs; }
+  matches(selector) { return El.matches(this, selector); }
+  // jsdom/browser images report load state; a fake tree has no loader, so default to "loaded"
+  // and let a spec opt into a failed image with broken: true.
+  get complete() { return true; }
+  get naturalWidth() { return this.broken ? 0 : 100; }
+}
+
+// Selector support is deliberately small but real: a tag/attribute base plus any number of
+// chained :not([attr]) and :not([attr="v"]) clauses. That is the whole grammar the rules use.
+El.matches = (el, selector) => {
+  const tagOf = el.tagName.toLowerCase();
+  const attrOf = (name) => el.getAttribute(name);
+  for (const part of String(selector).split(",").map((s) => s.trim()).filter(Boolean)) {
+    let rest = part;
+    let tag = null;
+    const named = /^([a-z][a-z0-9]*)/.exec(rest);
+    if (named) { tag = named[1]; rest = rest.slice(named[1].length); }
+    if (rest === "*") return true;
+    const tests = [];
+    let ok = true;
+    while (rest.length) {
+      let m;
+      if ((m = /^\[([a-z-]+)(?:="([^"]*)"|='([^']*)'|=([^\]]+))?\]/.exec(rest))) {
+        const [, name, dq, sq, bare] = m;
+        const value = dq ?? sq ?? bare;
+        tests.push(value === undefined ? () => attrOf(name) !== null : () => attrOf(name) === value);
+        rest = rest.slice(m[0].length);
+      } else if ((m = /^:not\(\[([a-z-]+)(?:="([^"]*)"|='([^']*)'|=([^\]]+))?\]\)/.exec(rest))) {
+        const [, name, dq, sq, bare] = m;
+        const value = dq ?? sq ?? bare;
+        tests.push(value === undefined ? () => attrOf(name) === null : () => attrOf(name) !== value);
+        rest = rest.slice(m[0].length);
+      } else { ok = false; break; }
+    }
+    if (!ok) continue;
+    if (tag && tagOf !== tag) continue;
+    if (tests.every((t) => t())) return true;
+  }
+  return false;
+};
+
+El.document = {
+  all: [],
+  querySelectorAll(selector) {
+    // "*" is how the rules enumerate every element; other values are simple tag names.
+    if (String(selector).trim() === "*") return this.all;
+    if (String(selector).trim() === "style") return this.styles;
+    return this.all.filter((el) => El.matches(el, selector));
+  },
+  querySelector(selector) {
+    for (const el of this.all) if (El.matches(el, selector)) return el;
+    return null;
+  },
+  documentElement: { lang: "en" },
+  title: "Test page",
+  styleSheets: [],
+  styles: [],
+};
+
+function audit(specs) {
+  El.document.all = [];
+  const root = new El({ tag: "body" });
+  // Build one real tree and index every node, so children/parent links match a browser.
+  const build = (spec) => {
+    const el = new El({ ...spec, children: [] });
+    El.document.all.push(el);
+    for (const childSpec of spec.children || []) { const child = build(childSpec); child.parent = el; el.children.push(child); }
+    return el;
+  };
+  for (const spec of specs) { const el = build(spec); el.parent = root; root.children.push(el); }
+  El.document.all.push(root);
+  // A caller may set a specific documentElement/title (e.g. to test the lang/title rules);
+  // default to a well-formed document so unrelated rules are not triggered.
+  if (!El.document.documentElement?.callerSet) {
+    El.document.documentElement = new El({ tag: "html", attrs: { lang: "en" } });
+    El.document.documentElement.lang = "en";
+  }
+  if (El.document.title === undefined || El.document.title === null) El.document.title = "Test page";
+
+  const saved = { doc: globalThis.document, win: globalThis.window, gcs: globalThis.getComputedStyle };
+  globalThis.document = El.document;
+  globalThis.window = { document: El.document, innerWidth: 1440, innerHeight: 900 };
+  globalThis.getComputedStyle = (el) => ({
+    display: "block", visibility: "visible", opacity: "1", overflowX: "visible", overflowY: "visible",
+    outlineStyle: "solid", boxShadow: "none", borderColor: "rgb(1,1,1)", backgroundColor: "rgb(2,2,2)",
+    ...(el.style || {}),
+  });
+  try {
+    return auditAccessibility({});
+  } finally {
+    globalThis.document = saved.doc;
+    globalThis.window = saved.win;
+    globalThis.getComputedStyle = saved.gcs;
+  }
+}
+
+const rulesOf = (specs) => audit(specs).rules;
+
+test("a11y: catches the accessibility defects a redesign must not introduce", () => {
+  assert.ok(rulesOf([{ tag: "main", children: [{ tag: "h1", text: "x" }, { tag: "img", attrs: { src: "a.png" } }] }]).includes("image-alt"));
+  assert.ok(rulesOf([{ tag: "main", children: [{ tag: "h1", text: "x" }, { tag: "button", children: [{ tag: "svg" }] }] }]).includes("control-name"));
+  assert.ok(rulesOf([{ tag: "main", children: [{ tag: "h1", text: "x" }, { tag: "input", attrs: { placeholder: "Email" } }] }]).includes("field-label"));
+  assert.ok(rulesOf([{ tag: "main", children: [{ tag: "h1", text: "x" }, { tag: "div", attrs: { role: "buton" }, text: "go" }] }]).includes("aria-role-invalid"));
+  assert.ok(rulesOf([{ tag: "main", children: [{ tag: "h1", text: "x" }, { tag: "div", attrs: { role: "checkbox" }, text: "Pick" }] }]).includes("aria-required-attr"));
+  assert.ok(rulesOf([{ tag: "main", children: [{ tag: "h1", text: "x" }, { tag: "div", attrs: { "aria-hidden": "true" }, children: [{ tag: "button", text: "Go" }] }] }]).includes("aria-hidden-focus"));
+  assert.ok(rulesOf([{ tag: "main", children: [{ tag: "h1", text: "x" }, { tag: "h4", text: "y" }] }]).includes("heading-skip"));
+  assert.ok(rulesOf([{ tag: "div", children: [{ tag: "h1", text: "x" }] }]).includes("landmark-main"));
+});
+
+test("a11y: does not invent findings for correct, accessible markup", () => {
+  // A real accessible page declares focus styling; without this the page-level focus rule
+  // would (correctly) fire and this test would be measuring the fixture, not the rules.
+  El.document.styleSheets = [{ cssRules: [{ selectorText: "button:focus-visible" }] }];
+  let clean;
+  try {
+    clean = rulesOf([
+    { tag: "main", children: [
+      { tag: "h1", text: "Projects" },
+      { tag: "img", attrs: { src: "a.png", alt: "Chart" } },
+      { tag: "label", attrs: { for: "q" }, text: "Search", children: [{ tag: "input", id: "q", attrs: { id: "q" } }] },
+      { tag: "button", attrs: { type: "button", "aria-label": "Close" }, children: [{ tag: "svg" }] },
+      { tag: "h2", text: "List" },
+    ] },
+    ]);
+  } finally { El.document.styleSheets = []; }
+  assert.deepEqual(clean, []);
+});
+
+test("a11y: a page with no focus styling is reported once, not once per control", () => {
+  const out = audit([{ tag: "main", children: [
+    { tag: "h1", text: "x" },
+    { tag: "button", attrs: { type: "button", "aria-label": "A" }, text: "A" },
+    { tag: "button", attrs: { type: "button", "aria-label": "B" }, text: "B" },
+    { tag: "a", attrs: { href: "/x" }, text: "x" },
+  ] }]);
+  const focus = out.findings.filter((f) => f.rule === "focus-style-missing");
+  assert.equal(focus.length, 1, "one page-level finding, not one per element");
+  assert.equal(focus[0].impact, "serious");
+
+  // With a declared :focus rule, the finding disappears.
+  El.document.styleSheets = [{ cssRules: [{ selectorText: "button:focus-visible" }] }];
+  try {
+    const withRule = audit([{ tag: "main", children: [{ tag: "h1", text: "x" }, { tag: "button", attrs: { type: "button", "aria-label": "A" }, text: "A" }] }]);
+    assert.equal(withRule.findings.filter((f) => f.rule === "focus-style-missing").length, 0);
+  } finally { El.document.styleSheets = []; }
+});
+
+test("a11y: reports its own limits and never claims to be a full audit", () => {
+  const out = audit([{ tag: "main", children: [{ tag: "h1", text: "Projects" }] }]);
+  assert.equal(out.version, 1);
+  assert.match(out.limitations, /not.*screen reader|no screen reader/i);
+  assert.equal(out.engine, "glowup-dom-rules");
+  assert.ok("byImpact" in out && "rules" in out && "findings" in out);
+});
+
+const BASE_SHOT = {
+  route: "/", viewport: "desktop", width: 1440, height: 900, status: "ok",
+  measurements: {
+    version: 1, headings: [{ level: 1, text: "x" }], occlusion: { checked: 0, skipped: 0, blocked: [] },
+    globalHeaders: 1, mainLandmarks: 1, controls: [], links: [], targets: [], tinyText: [], longLines: [],
+    scrollRegions: [], unnamedControls: 0, images: [], fonts: ["Inter"], webFonts: [],
+    contrast: { checked: 1, unverified: 0, failures: [] },
+  },
+};
+const A11Y = (list) => ({ version: 1, total: list.length, truncated: false, rules: [...new Set(list.map((f) => f.rule))], findings: list });
+
+test("review: a11y findings become blockers, and only critical/serious ones block", () => {
+  assert.equal(findings({ ...BASE_SHOT, a11y: A11Y([]) }).filter((f) => f.kind.startsWith("a11y")).length, 0);
+
+  const serious = findings({ ...BASE_SHOT, a11y: A11Y([
+    { rule: "image-alt", impact: "critical", node: "img#hero" },
+    { rule: "control-name", impact: "serious", node: "button.x" },
+  ]) });
+  const blocker = serious.find((f) => f.kind === "a11y");
+  assert.equal(blocker.severity, "blocker");
+  assert.equal(blocker.value, 2);
+  assert.ok(blocker.examples.some((e) => e.includes("image-alt")));
+
+  // A minor-only page must produce no blocker at all, and exactly one review finding.
+  const minor = findings({ ...BASE_SHOT, a11y: A11Y([{ rule: "duplicate-id", impact: "minor", node: "#a" }]) });
+  assert.equal(minor.find((f) => f.kind === "a11y"), undefined, "minor findings must not block");
+  assert.equal(minor.find((f) => f.kind === "a11y-minor").severity, "review");
+  assert.equal(minor.find((f) => f.kind === "a11y-minor").value, 1);
+});
+
+test("review: introducing accessibility violations is a regression against the baseline", () => {
+  const before = { shots: [BASE_SHOT] };
+  const after = { shots: [{ ...BASE_SHOT, a11y: A11Y([
+    { rule: "image-alt", impact: "critical", node: "img" },
+    { rule: "control-name", impact: "critical", node: "btn" },
+  ]) }] };
+  const result = review(after, before);
+  assert.ok(result.regressions.some((r) => r.kind === "a11y"), "a new violation must be reported as a regression");
+  assert.equal(result.status, "blocked");
+});
+
+test("a11y: one unlabelled field is reported once, not twice", () => {
+  const checkbox = rulesOf([{ tag: "main", children: [{ tag: "h1", text: "x" }, { tag: "input", type: "checkbox" }] }]);
+  assert.ok(checkbox.includes("field-label"), "an unlabelled checkbox is a field-label problem");
+  assert.ok(!checkbox.includes("form-field-name"), "it must not also be reported under the old duplicate rule");
+
+  const select = rulesOf([{ tag: "main", children: [{ tag: "h1", text: "x" }, { tag: "select", children: [{ tag: "option", text: "a" }] }] }]);
+  assert.deepEqual(select.filter((r) => r === "field-label").length, 1);
+});
+
+test("a11y: catches the remaining defect classes", () => {
+  // Heading missing entirely, and headings that never reach level 1.
+  assert.ok(rulesOf([{ tag: "main", children: [{ tag: "p", text: "body only" }] }]).includes("page-has-heading"));
+  assert.ok(rulesOf([{ tag: "main", children: [{ tag: "h2", text: "sub" }] }]).includes("page-has-heading"),
+    "h2 with no h1 is a missing page heading");
+  assert.ok(rulesOf([{ tag: "main", children: [{ tag: "h1", text: "a" }, { tag: "h1", text: "b" }] }]).includes("page-multiple-h1"));
+
+  // A scroll container with no keyboard access: content wider than the box, overflow auto.
+  const scrollable = (extra = {}) => rulesOf([{ tag: "main", children: [
+    { tag: "h1", text: "x" },
+    { tag: "div", style: { overflowX: "auto" }, scrollWidth: 900, clientWidth: 300, ...extra },
+  ] }]);
+  assert.ok(scrollable().includes("scrollable-region-focusable"), "a scroll box with no focusable content and no tabIndex is unreachable");
+  assert.ok(!scrollable({ tabIndex: 0 }).includes("scrollable-region-focusable"), "tabIndex makes it reachable");
+  assert.ok(!scrollable({ scrollWidth: 300 }).includes("scrollable-region-focusable"), "no overflow, nothing to scroll");
+
+  // Touch/click target smaller than the 24px minimum.
+  const small = rulesOf([{ tag: "main", children: [
+    { tag: "h1", text: "x" },
+    { tag: "button", attrs: { type: "button", "aria-label": "Go" }, text: "Go", rect: { width: 10, height: 10 } },
+  ] }]);
+  assert.ok(small.includes("target-size-min"), "a 10px button is below the WCAG 2.5.8 minimum");
+});
+
+test("a11y: button-type only fires for a button inside a form", () => {
+  const form = { tag: "form", attrs: { action: "/x" }, children: [{ tag: "button", text: "Save", form: true }] };
+  const insideForm = rulesOf([{ tag: "main", children: [{ tag: "h1", text: "x" }, form] }]);
+  assert.ok(insideForm.includes("button-type"));
+  const outside = rulesOf([{ tag: "main", children: [{ tag: "h1", text: "x" }, { tag: "button", text: "Save" }] }]);
+  assert.ok(!outside.includes("button-type"), "a button outside a form cannot submit anything");
+});
+
+test("a11y: document language, title, and broken images are judged both ways", () => {
+  const setDoc = (lang, title) => {
+    El.document.documentElement = { lang, callerSet: true };
+    El.document.title = title;
+  };
+  const page = [{ tag: "main", children: [{ tag: "h1", text: "x" }] }];
+
+  setDoc("", "T");
+  assert.ok(rulesOf(page).includes("html-lang"), "missing lang is reported");
+  setDoc("en", "T");
+  assert.ok(!rulesOf(page).includes("html-lang"), "a declared lang is not reported");
+
+  setDoc("en", "");
+  assert.ok(rulesOf(page).includes("document-title"), "missing title is reported");
+  setDoc("en", "T");
+  assert.ok(!rulesOf(page).includes("document-title"), "a real title is not reported");
+
+  // The fake element reports complete=true/naturalWidth=100 by default; override per element.
+  const broken = [{ tag: "main", children: [{ tag: "h1", text: "x" }, { tag: "img", attrs: { src: "a.png", alt: "A" }, broken: true }] }];
+  assert.ok(rulesOf(broken).includes("image-broken"), "a failed image is reported");
+  const good = [{ tag: "main", children: [{ tag: "h1", text: "x" }, { tag: "img", attrs: { src: "a.png", alt: "A" } }] }];
+  assert.ok(!rulesOf(good).includes("image-broken"), "a loaded image is not reported");
+
+  // restore a well-formed document for any later test
+  setDoc("en", "Test page");
+});

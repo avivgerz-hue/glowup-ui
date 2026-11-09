@@ -72,9 +72,21 @@ export function composition(product, { profile, mode = 'create' } = {}) {
   if (!['create','redesign','polish','refine'].includes(mode)) throw new Error('mode must be create, redesign, refine or polish');
   if (profile && !Object.hasOwn(RECIPES, profile)) throw new Error('Unknown profile');
   const words = String(product).toLowerCase().split(/[^a-z]+/);
-  const candidates = Object.entries(RECIPES).filter(([id]) => id !== 'general').map(([id,r]) => ({ id, matches: r.terms.filter(term => words.includes(term) || words.includes(term+'s')) })).sort((a,b) => b.matches.length-a.matches.length);
+  // A word that names a surface ("dashboard", "app") says how the product is packaged, not what
+  // it is for. Counting it like a domain noun made "finance dashboard" tie with "helpdesk
+  // dashboard" and fall back to the generic recipe, so surface words break ties instead of
+  // creating them.
+  const SURFACE = new Set(['dashboard','app','apps','workspace','panel','admin','tool','platform','portal','site','website','web','dashboard']);
+  const candidates = Object.entries(RECIPES).filter(([id]) => id !== 'general').map(([id,r]) => {
+    const matched = r.terms.filter(term => words.includes(term) || words.includes(term+'s'));
+    return { id, matches: matched, domain: matched.filter(term => !SURFACE.has(term)) };
+  }).sort((a,b) => b.domain.length - a.domain.length || b.matches.length - a.matches.length);
   const winner = candidates[0];
-  const ambiguous = winner.matches.length > 0 && candidates[1].matches.length === winner.matches.length;
+  // Two genuinely different domains ("finance booking") stay ambiguous on purpose: guessing one
+  // would silently miscompose the product. A surface word only never decides on its own, and it
+  // no longer drags a single real domain into that ambiguity.
+  const rival = candidates[1];
+  const ambiguous = winner.domain.length > 0 && rival.domain.length === winner.domain.length;
   const id = profile || (winner.matches.length && !ambiguous ? winner.id : 'general');
   const { terms, ...recipe } = RECIPES[id];
   return { profile: id, selection: profile ? 'explicit' : id === 'general' ? 'fallback; specify --profile if useful' : 'keyword heuristic; verify product fit', matched: candidates.filter(c=>c.matches.length), mode,

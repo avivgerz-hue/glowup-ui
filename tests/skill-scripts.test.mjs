@@ -257,3 +257,24 @@ test('screenshot capture rejects path traversal and cross-origin routes before b
  await assert.rejects(capture({...options,viewports:[{name:'../escape'}]}),/directory names/);
  await assert.rejects(capture({...options,routes:['//example.com/private']}),/base URL origin/);
 });
+
+test("verify-flow: a flow contract must end in an assertion, or it proves nothing", async () => {
+  const { validateFlow } = await import("../skills/glowup-ui/scripts/verify-flow.mjs");
+  const reject = (flow, why) => assert.throws(() => validateFlow(flow), undefined, why);
+  const accept = (flow, why) => assert.doesNotThrow(() => validateFlow(flow), why);
+
+  accept({ steps: [{ click: "#a" }, { expectURL: "/done" }] }, "click then assertion");
+  accept({ steps: [{ fill: { selector: "#i", value: "x" } }, { expectText: { selector: "#o", text: "x" } }] }, "fill then assertion");
+
+  // The whole value of a contract is that it asserts an outcome. A flow that ends on an
+  // interaction would report "passed" without having checked anything.
+  reject({ steps: [{ click: "#a" }] }, "a flow with no assertion must not validate");
+  reject({ steps: [{ expectText: { selector: "#o", text: "x" } }, { click: "#a" }] }, "the assertion must be last");
+  reject({ steps: [] }, "an empty flow proves nothing");
+  reject({ steps: "nope" }, "steps must be a list");
+  reject(null, "a missing flow must not validate");
+  reject({ steps: [{ click: "#a", expectURL: "/x" }] }, "one action per step");
+  reject({ steps: [{ fill: { selector: "#i" } }, { expectURL: "/x" }] }, "fill needs a value");
+  reject({ steps: [{ teleport: "#a" }] }, "only the documented actions are allowed");
+  reject({ steps: Array.from({ length: 101 }, () => ({ click: "#a" })).concat([{ expectURL: "/x" }]) }, "bounded step count");
+});

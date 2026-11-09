@@ -33,7 +33,7 @@ Account for every requested screen/state as implemented, intentionally preserved
 - `scripts/checkpoint.mjs save|check [dir]`: original-state fingerprints; save before edits, never reset to hide a failure. Warnings require review, not blind rollback of authorized design changes.
 - `scripts/composition.mjs`: compact product/layout/type/phone decisions; explicit `--profile finance|commerce|productivity|portfolio|booking|chat|general` overrides keyword matching. Read-only, no network.
 - `scripts/scaffold.mjs` / `scripts/direction.mjs`: CREATE foundation; keep an existing stack and brand. Do not scaffold inside an existing app.
-- `scripts/screenshot.mjs`, `scripts/review.mjs`, `scripts/compare.mjs`: capture and group rendered issues. Measurements are not aesthetic scores or proof of preserved behavior.
+- `scripts/screenshot.mjs`, `scripts/review.mjs`, `scripts/compare.mjs`: capture and group rendered issues. Add `--a11y` to run real DOM accessibility rules (ARIA, labels, ids, landmarks, target size) instead of relying on heuristics; critical/serious findings become blockers. Measurements are not aesthetic scores or proof of preserved behavior.
 - `scripts/verify-flow.mjs`: optional browser outcome assertions when existing behavior tests do not cover an affected flow; see verification guidance.
 - `scripts/palette.mjs`, `scripts/contrast.mjs`, `scripts/lint.mjs`: focused checks when relevant. Do not run every helper by habit.
 

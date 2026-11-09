@@ -80,3 +80,17 @@ test("direction: refine mode keeps the brand and fonts and never overwrites an e
   assert.equal(fs.readFileSync(path.join(dir, "src/index.css"), "utf8"), css, "existing theme untouched");
   assert.equal(fs.existsSync(path.join(dir, "src/index.suggested.css")), false, "refining must not introduce a second palette or typography system");
 });
+
+test("lint: unlabelled fields, multiple h1, and tiny icon targets are caught", () => {
+  // These three rules existed but had no test, so nothing proved they worked.
+  assert.ok(rules('<input type="text" />').includes("input-label"));
+  assert.ok(rules('<input type="text" placeholder="Email" />').includes("input-label"), "a placeholder is not a label");
+  assert.deepEqual(rules('<><label htmlFor="q">Q</label><input id="q" /></>'), []);
+  assert.deepEqual(rules('<input type="text" aria-label="Search" />'), []);
+
+  assert.ok(rules("<h1>a</h1><h1>b</h1>").includes("multiple-h1"));
+  assert.ok(!rules("<h1>a</h1>").includes("multiple-h1"));
+
+  assert.ok(rules('<button aria-label="x" className="h-4 w-4"><svg /></button>').includes("small-target"));
+  assert.ok(!rules('<button aria-label="x" className="h-10 w-10"><svg /></button>').includes("small-target"));
+});

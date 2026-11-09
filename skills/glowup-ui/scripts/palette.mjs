@@ -157,6 +157,17 @@ export function contrastChecks(r) {
     ["text", "canvas", 4.5], ["text", "surface", 4.5], ["muted", "canvas", 4.5], ["muted", "surface", 4.5], ["muted", "sunken", 4.5],
     ["on-primary", "primary", 4.5], ["on-primary", "primary-hover", 4.5], [r["primary-text"] ? "primary-text" : "primary", "surface", 4.5], ["primary-ink", "primary-soft", 4.5],
     ["border-strong", "surface", 3], ["focus", "surface", 3],
+    // A filled action in a LIGHT scheme must be distinguishable from the page it sits on. This
+    // pair was missing entirely: an extreme seed produced a button at 1.0:1 against its own
+    // surface while the report still claimed every pair passed. Text on primary is governed by
+    // on-primary, and text-link contrast by primary-text; this is the non-text boundary
+    // (WCAG 1.4.11), which only applies when the surrounding surface is light. In a dark scheme
+    // the primary is deliberately light, so the pair does not apply and is not scored.
+    // WCAG 1.4.11 does not require a boundary when the control is identifiable another way, and
+    // a mid-tone action with dark on-primary text (amber, pink) is a legitimate direction. What is
+    // never acceptable is an action that disappears into the page, so the floor is that it must be
+    // perceptibly different from both the card and the canvas.
+    ...(r.surface === "#ffffff" ? [["primary", "surface", 1.5], ["primary", "canvas", 1.5]] : []),
   ];
   for (const s of Object.keys(STATUS)) pairs.push([`${s}-ink`, `${s}-soft`, 4.5], [`${s}`, "surface", 3]);
   return pairs.map(([fg, bg, min]) => {

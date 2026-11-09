@@ -9,7 +9,7 @@ import path from "node:path";
 import { spawn } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { parseArgs } from "node:util";
-import { SCENARIOS, CONDITIONS, MODEL, EFFORT, BUDGET_USD, TIMEOUT_MS, ALLOWED_TOOLS, buildPrompt } from "./scenarios.mjs";
+import { SCENARIOS, CONDITIONS, MODEL, EFFORT, BUDGET_USD, TIMEOUT_MS, SETTINGS_SOURCE, ALLOWED_TOOLS, buildPrompt } from "./scenarios.mjs";
 import { parseTranscript } from "./lib/metrics.mjs";
 import { evaluate, ensureBefore } from "./lib/evaluate.mjs";
 import { sh } from "./lib/proc.mjs";
@@ -90,7 +90,7 @@ function runAgent(prompt) {
   });
 }
 
-const meta = { scenario: scenario.id, label, condition: a.condition, model: MODEL, effort: EFFORT, budgetUsd: BUDGET_USD, port, startedAt: new Date().toISOString() };
+const meta = { scenario: scenario.id, label, condition: a.condition, model: MODEL, effort: EFFORT, budgetUsd: BUDGET_USD, timeoutMs: TIMEOUT_MS, settingsSource: SETTINGS_SOURCE, port, startedAt: new Date().toISOString() };
 if (!a["eval-only"]) {
   meta.skillHash = prepareWorkspace();
   if (scenario.kind === "transform") await ensureBefore(scenario, RESULTS, port + 500, workRoot);

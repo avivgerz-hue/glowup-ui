@@ -1,10 +1,21 @@
 // The four benchmark scenarios. The task text is identical for every condition; the only
 // differences are the "/glowup-ui " prefix for skill conditions and the preview-server port.
 
-export const MODEL = "claude-sonnet-5-5";
-export const EFFORT = "medium";
-export const BUDGET_USD = 6;
-export const TIMEOUT_MS = 45 * 60 * 1000;
+// Both conditions must use identical settings, so these are read once from the environment and
+// recorded in every run's meta.json. Overriding them keeps an old pin from silently deciding
+// which model a comparison actually measured.
+const envInt = (name, fallback) => {
+  const raw = process.env[name];
+  if (raw === undefined || raw === "") return fallback;
+  const n = Number(raw);
+  if (!Number.isFinite(n) || n <= 0) throw new Error(`${name} must be a positive number (got "${raw}")`);
+  return n;
+};
+export const MODEL = process.env.BENCH_MODEL || "claude-sonnet-5-5";
+export const EFFORT = process.env.BENCH_EFFORT || "medium";
+export const BUDGET_USD = envInt("BENCH_BUDGET_USD", 6);
+export const TIMEOUT_MS = envInt("BENCH_TIMEOUT_MS", 45 * 60 * 1000);
+export const SETTINGS_SOURCE = process.env.BENCH_MODEL || process.env.BENCH_EFFORT || process.env.BENCH_BUDGET_USD || process.env.BENCH_TIMEOUT_MS ? "environment override" : "default pin";
 
 // Both conditions use the same current source; no historical Git commits are required.
 export const CONDITIONS = {
