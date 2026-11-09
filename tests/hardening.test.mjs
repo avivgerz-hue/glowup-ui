@@ -17,6 +17,10 @@ const tmp = (t, prefix) => {
   t.after(() => fs.rmSync(dir, { recursive: true, force: true }));
   return dir;
 };
+// chmod 000 denies read access on POSIX only. Windows ignores the POSIX mode bits and root
+// bypasses them entirely, so a test that depends on the denial must not run there: asserting
+// EACCES on a platform that will happily read the directory just fails for the wrong reason.
+const canMakeUnreadable = () => process.platform !== "win32" && process.getuid?.() !== 0;
 const write = (root, name, text) => {
   fs.mkdirSync(path.dirname(path.join(root, name)), { recursive: true });
   fs.writeFileSync(path.join(root, name), text);
@@ -34,7 +38,7 @@ test("look: an unreadable directory degrades to a partial fingerprint instead of
   fs.mkdirSync(locked);
   fs.writeFileSync(path.join(locked, "secret.jsx"), "export default 1;");
   fs.chmodSync(locked, 0o000);
-  if (process.getuid?.() === 0) return; // root ignores directory permissions
+  if (!canMakeUnreadable()) return;
 
   const look = detectLook(root); // previously threw EACCES and aborted orientation
   assert.equal(look.partial, true);
@@ -134,7 +138,7 @@ test("inspect: a partial identity fingerprint is visible in the orientation outp
   fs.mkdirSync(locked);
   fs.writeFileSync(path.join(locked, "a.jsx"), "export default 1;");
   fs.chmodSync(locked, 0o000);
-  if (process.getuid?.() === 0) return; // root ignores directory permissions
+  if (!canMakeUnreadable()) return;
 
   const out = inspect(root);
   assert.equal(out.identity.partial, true, "orientation must not present a degraded fingerprint as complete");
