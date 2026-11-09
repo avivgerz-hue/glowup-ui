@@ -14,6 +14,9 @@ const NEUTRALS = new Set(["gray", "slate", "zinc", "neutral", "stone", "white", 
 // Words direction.mjs understands, one per hue range.
 const FAMILY = [["red", 345, 30], ["orange", 30, 70], ["amber", 70, 100], ["green", 100, 170], ["teal", 170, 205], ["blue", 205, 265], ["indigo", 265, 290], ["purple", 290, 330], ["pink", 330, 345]];
 
+// Report project-relative paths with forward slashes, matching the rest of the helpers on
+// Windows as well as POSIX.
+const rel = (root, target) => (path.relative(root, target) || ".").split(path.sep).join("/");
 const inRange = (h, a, b) => (a <= b ? h >= a && h < b : h >= a || h < b);
 const familyOfHue = (h) => (FAMILY.find(([, a, b]) => inRange(h, a, b)) || FAMILY[0])[0];
 const familyOfWord = (w) => { const r = HUE_WORDS[w]; return familyOfHue(((r[0] + (r[1] < r[0] ? r[1] + 360 : r[1])) / 2) % 360); };
@@ -25,7 +28,7 @@ function listFiles(root, dir = root, out = [], skipped = []) {
   } catch (error) {
     // An unreadable directory must not abort orientation for the whole app. Record it so
     // the caller can say the identity fingerprint is partial instead of silently guessing.
-    skipped.push({ dir: path.relative(root, dir) || ".", code: error.code || "EUNKNOWN" });
+    skipped.push({ dir: rel(root, dir), code: error.code || "EUNKNOWN" });
     return out;
   }
   for (const e of entries) {
@@ -50,7 +53,7 @@ export function detectLook(root = ".") {
   for (const f of files) {
     let text;
     try { text = fs.readFileSync(f, "utf8"); }
-    catch { skipped.push({ dir: path.relative(path.resolve(root), f) || f, code: "EREAD" }); continue; }
+    catch { skipped.push({ dir: rel(path.resolve(root), f), code: "EREAD" }); continue; }
     const isCss = /\.s?css$/.test(f);
     for (const m of text.matchAll(/\b(?:bg|text|border|ring|from|to|via|fill|stroke|accent|outline|decoration)-([a-z]+)-(\d{2,3})\b/g)) {
       const [, color, shade] = m;

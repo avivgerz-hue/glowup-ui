@@ -113,13 +113,30 @@ export function auditAccessibility(options = {}) {
     if (!btn.hasAttribute("type") && btn.form) push("button-type", "minor", "A <button> inside a form should declare type=\"button\" unless it submits", describe(btn));
   }
 
-  // 11. Removed focus indication on interactive elements.
-  for (const el of shown.filter((e) => e.matches("a[href], button, input, select, textarea, [tabindex]"))) {
-    const s = getComputedStyle(el);
-    if (s.outlineStyle === "none" && s.boxShadow === "none" && s.borderColor === s.backgroundColor) {
-      // Only report when nothing else could show focus; static inspection cannot see :focus styles.
-      push("focus-visible-uncertain", "minor", "No static focus indicator found; confirm a :focus-visible style exists", describe(el));
+  // 11. Focus visibility.
+  //
+  // This cannot be judged from the computed style of an unfocused element: browsers resolve
+  // outline-style to "none" until :focus applies, so per-element testing flags every control on
+  // the page. What is knowable statically is whether the page declares any focus styling at all.
+  // A stylesheet with no :focus rule is the common "agent removed the outline" failure, so it
+  // is reported once, at page level, instead of hundreds of per-element guesses.
+  let focusRules = 0;
+  const readRules = (rules) => {
+    for (const rule of rules || []) {
+      const text = rule.selectorText || rule.cssText || "";
+      if (/:focus(-visible|-within)?\b/.test(text)) focusRules++;
+      if (rule.cssRules) readRules(rule.cssRules);
     }
+  };
+  for (const sheet of document.styleSheets || []) {
+    try { readRules(sheet.cssRules); } catch { /* cross-origin sheet: unreadable, not evidence */ }
+  }
+  for (const style of document.querySelectorAll("style")) {
+    if (/:focus(-visible|-within)?\b/.test(style.textContent || "")) focusRules++;
+  }
+  const interactive = shown.filter((e) => e.matches("a[href], button, input, select, textarea, [tabindex]"));
+  if (interactive.length && focusRules === 0) {
+    push("focus-style-missing", "serious", "No :focus or :focus-visible rule found anywhere; keyboard users may get no visible focus", `${interactive.length} interactive elements`, "static check: add an explicit focus style and confirm with the keyboard");
   }
 
   // 12. Target size (WCAG 2.5.8 AA = 24px; the skill's design bar is 44px for touch).
@@ -144,6 +161,6 @@ export function auditAccessibility(options = {}) {
     byImpact,
     rules: [...new Set(findings.map((f) => f.rule))],
     findings,
-    limitations: "DOM-only rules: no contrast-over-image, no screen reader, no keyboard trap, no live-region or focus-movement proof. Static focus detection cannot see :focus-visible rules and reports focus-visible-uncertain for review, not as a defect.",
+    limitations: "DOM-only rules: no contrast-over-image, no screen reader, no keyboard trap, no live-region or focus-movement proof. focus-style-missing only detects a page with no :focus rules at all; it cannot judge whether a declared style is actually visible, so confirm focus with the keyboard.",
   };
 }

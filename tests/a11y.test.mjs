@@ -105,6 +105,7 @@ El.document = {
   querySelectorAll(selector) {
     // "*" is how the rules enumerate every element; other values are simple tag names.
     if (String(selector).trim() === "*") return this.all;
+    if (String(selector).trim() === "style") return this.styles;
     return this.all.filter((el) => El.matches(el, selector));
   },
   querySelector(selector) {
@@ -113,6 +114,8 @@ El.document = {
   },
   documentElement: { lang: "en" },
   title: "Test page",
+  styleSheets: [],
+  styles: [],
 };
 
 function audit(specs) {
@@ -160,7 +163,12 @@ test("a11y: catches the accessibility defects a redesign must not introduce", ()
 });
 
 test("a11y: does not invent findings for correct, accessible markup", () => {
-  const clean = rulesOf([
+  // A real accessible page declares focus styling; without this the page-level focus rule
+  // would (correctly) fire and this test would be measuring the fixture, not the rules.
+  El.document.styleSheets = [{ cssRules: [{ selectorText: "button:focus-visible" }] }];
+  let clean;
+  try {
+    clean = rulesOf([
     { tag: "main", children: [
       { tag: "h1", text: "Projects" },
       { tag: "img", attrs: { src: "a.png", alt: "Chart" } },
@@ -168,8 +176,28 @@ test("a11y: does not invent findings for correct, accessible markup", () => {
       { tag: "button", attrs: { type: "button", "aria-label": "Close" }, children: [{ tag: "svg" }] },
       { tag: "h2", text: "List" },
     ] },
-  ]).filter((r) => r !== "focus-visible-uncertain");
+    ]);
+  } finally { El.document.styleSheets = []; }
   assert.deepEqual(clean, []);
+});
+
+test("a11y: a page with no focus styling is reported once, not once per control", () => {
+  const out = audit([{ tag: "main", children: [
+    { tag: "h1", text: "x" },
+    { tag: "button", attrs: { type: "button", "aria-label": "A" }, text: "A" },
+    { tag: "button", attrs: { type: "button", "aria-label": "B" }, text: "B" },
+    { tag: "a", attrs: { href: "/x" }, text: "x" },
+  ] }]);
+  const focus = out.findings.filter((f) => f.rule === "focus-style-missing");
+  assert.equal(focus.length, 1, "one page-level finding, not one per element");
+  assert.equal(focus[0].impact, "serious");
+
+  // With a declared :focus rule, the finding disappears.
+  El.document.styleSheets = [{ cssRules: [{ selectorText: "button:focus-visible" }] }];
+  try {
+    const withRule = audit([{ tag: "main", children: [{ tag: "h1", text: "x" }, { tag: "button", attrs: { type: "button", "aria-label": "A" }, text: "A" }] }]);
+    assert.equal(withRule.findings.filter((f) => f.rule === "focus-style-missing").length, 0);
+  } finally { El.document.styleSheets = []; }
 });
 
 test("a11y: reports its own limits and never claims to be a full audit", () => {

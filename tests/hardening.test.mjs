@@ -9,6 +9,7 @@ import { spawnSync } from "node:child_process";
 import { detectLook } from "../skills/glowup-ui/scripts/look.mjs";
 import { snapshot, check } from "../skills/glowup-ui/scripts/checkpoint.mjs";
 import { composition } from "../skills/glowup-ui/scripts/composition.mjs";
+import { inspect } from "../skills/glowup-ui/scripts/inspect.mjs";
 
 const SCRIPT = (name) => path.resolve("skills/glowup-ui/scripts", name);
 const tmp = (t, prefix) => {
@@ -119,6 +120,29 @@ test("scaffold: --help prints usage and writes nothing; missing --product is ref
   const bad = run(["--nope"]);
   assert.equal(bad.status, 64);
   assert.match(bad.stderr, /Unknown option/);
+});
+
+test("inspect: a partial identity fingerprint is visible in the orientation output", (t) => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), "glowup-inspect-"));
+  const locked = path.join(root, "locked");
+  t.after(() => {
+    try { fs.chmodSync(locked, 0o755); } catch { /* never created */ }
+    fs.rmSync(root, { recursive: true, force: true });
+  });
+  write(root, "src/App.jsx", "export default () => <div className=\"bg-blue-600\" />;");
+  write(root, "package.json", JSON.stringify({ name: "x", scripts: { build: "vite build" } }));
+  fs.mkdirSync(locked);
+  fs.writeFileSync(path.join(locked, "a.jsx"), "export default 1;");
+  fs.chmodSync(locked, 0o000);
+  if (process.getuid?.() === 0) return; // root ignores directory permissions
+
+  const out = inspect(root);
+  assert.equal(out.identity.partial, true, "orientation must not present a degraded fingerprint as complete");
+  assert.ok(out.limitations.some((l) => /partial/.test(l)), "the limitation must be readable, not only a flag");
+
+  // A complete app must not claim to be partial.
+  const clean = inspect(path.resolve("demo/before"));
+  assert.notEqual(clean.identity.partial, true);
 });
 
 test("openai manifest brand color matches the published brand assets", () => {

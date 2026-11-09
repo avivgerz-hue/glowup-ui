@@ -48,12 +48,16 @@ export function inspect(root = ".", { scope = "auto" } = {}) {
   const shells = [...d.componentUsage.filter((c) => /layout|shell|header|navbar/i.test(c.module)).map((c) => c.module), "src/App", "src/app/layout", "app/layout", "src/components/Layout"].map(resolve).filter(Boolean).slice(0, 4);
   return {
     root: d.root, product: d.name, mode: scope === "redesign" ? "TRANSFORM (full redesign; preserve product and behavior)" : ["refine", "polish"].includes(scope) ? "REFINE (preserve identity and composition)" : "Select TRANSFORM or REFINE from the user request; existing files do not determine redesign scope", framework: d.framework, packageManager: d.packageManager,
-    identity: { scheme: look.scheme, accent: look.accent, brand: look.brand, fonts: d.fonts, shell: look.shell, designedSignals: look.designSignals },
+    identity: { scheme: look.scheme, accent: look.accent, brand: look.brand, fonts: d.fonts, shell: look.shell, designedSignals: look.designSignals, ...(look.partial ? { partial: true, unreadable: look.unreadable } : {}) },
     scale: d.scale, routes: d.routes, checks,
     readFirst: [...new Set([...(d.styling.tokenFiles || []).map((t) => t.file), ...shells, ...d.componentUsage.slice(0, 6).map((c) => resolve(c.module)).filter(Boolean)])],
     sharedComponents: d.componentUsage.slice(0, 8),
     next: ["Save a checkpoint before editing; baseline the app's own tests/build.", "Capture the requested routes at desktop/mobile; include real dynamic IDs and existing states.", "Use review.mjs findings and the request to choose up to three priorities, not a limit on edits. Full redesign may span composition and shared components; REFINE stays local.", "Make one representative route better before applying a shared change; compare the same captures after."],
-    truncated: d.truncated, limitations: [...d.notes, "readFirst resolves local files and aliases from plain JSON tsconfig/jsconfig only; inherited/JSONC/bundler/workspace aliases need manual inspection."],
+    truncated: d.truncated, limitations: [
+      ...d.notes,
+      ...(look.partial ? [`identity fingerprint is partial: ${look.unreadable.length} unreadable path(s) skipped (${look.unreadable.map((u) => `${u.dir}: ${u.code}`).join(", ")}); inspect them by hand before concluding the app has no identity`] : []),
+      "readFirst resolves local files and aliases from plain JSON tsconfig/jsconfig only; inherited/JSONC/bundler/workspace aliases need manual inspection.",
+    ],
   };
 }
 
