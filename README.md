@@ -13,7 +13,7 @@ Use it with Claude Code, Codex, OpenCode or GitHub Copilot through one canonical
 
 **Skill source:** [published v0.1.2 skill](https://github.com/avivgerz-hue/glowup-ui/blob/v0.1.2/skills/glowup-ui/SKILL.md) · [development instructions](skills/glowup-ui/SKILL.md). These links identify the canonical Agent Skill maintained in this repository; the tagged source matches the pinned installation commands below.
 
-**v0.1.2 (published):** [engineering fixes and verification limits](docs/release/NOTES-v0.1.2.md). It adds an opt-in DOM accessibility audit (`screenshot.mjs --a11y`, 17 rules whose critical/serious findings become REFINE blockers) and corrects several defects it found in the skill itself — including a palette contrast check that never compared a filled action against its own page. The commands below use the published v0.1.2 tag, which was installed, hash-compared and removed from a clean directory after publication.
+**v0.1.2 (published):** [engineering fixes and verification limits](docs/release/NOTES-v0.1.2.md). It adds an opt-in DOM accessibility audit (`screenshot.mjs --a11y`, 18 rules whose critical/serious findings become REFINE blockers) and corrects several defects it found in the skill itself — including a palette contrast check that never compared a filled action against its own page. The commands below use the published v0.1.2 tag, which was installed, hash-compared and removed from a clean directory after publication.
 
 ## Try it in your app
 
