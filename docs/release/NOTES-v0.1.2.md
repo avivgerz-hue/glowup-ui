@@ -19,12 +19,12 @@ No runtime dependencies, frameworks or application implementations were added or
 
 On the 0.1.2 candidate, locally:
 
-- **152 repository tests passed**, zero failed/skipped; skill validation and final diff checks passed. Package, Claude plugin and canonical skill versions agree at 0.1.2.
+- **182 repository tests passed**, zero failed/skipped; skill validation and final diff checks passed. Package, Claude plugin and canonical skill versions agree at 0.1.2.
 - Extracted `npm pack` payload contains **53 canonical files** matching the reviewed source. Actual CLI install, version inspection, full hash comparison, validation, doctor and recoverable removal passed for Claude/Codex/OpenCode in isolated project and user directories.
 - Claude's custom user-root install/doctor/removal passed. A local-tarball `npx` install, installed composition helper and removal passed.
 - Standard `skills@1.7.4` installed the **local candidate payload** for Codex with matching full hash; removal and lock cleanup passed. Telemetry remained disabled. This is not a remote v0.1.2-tag test.
 
-Canonical directory hash (`hashDir`'s SHA-256 over sorted relative paths and contents): `c4dfbfd0bde42fc0a8a6190699caeb4ea8d2c9d3c21385efc5f199adbe487083`. This is not an archive checksum.
+Canonical directory hash (`hashDir`'s SHA-256 over sorted relative paths and contents): **recomputed on the merged tag target at publication time**; it changes with every code change, so the value in this paragraph is intentionally not fixed here. See the published release body for the hash of the tagged commit. This is not an archive checksum.
 
 Exact-head hosted CI must pass on the preparation PR and again on final merged main before tagging: Node 20/22 across Linux/macOS/Windows, dependency audits, Agent Skills/plugin validation, browser contracts and existing example tests/builds. PR check results are the authoritative current CI record; older reports remain dated historical evidence.
 

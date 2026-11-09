@@ -15,7 +15,7 @@ Engineering hardening and one new capability. No design-quality or activation cl
 - Every accessibility rule and the three previously untested lint rules now assert both that they fire on a defect and stay quiet on correct markup.
 - OpenAI manifest `brand_color` corrected from `#7C3AED` (used nowhere else) to the actual brand green `#143C33`.
 
-Suite: 158 → 179 tests, all passing; `validate` still clean; `SKILL.md` remains 32 body lines.
+Suite: 158 → 182 tests, all passing; `validate` still clean; `SKILL.md` remains 32 body lines.
 
 ## v0.1.2 — Public Preview (release preparation)
 
