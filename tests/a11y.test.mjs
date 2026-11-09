@@ -18,11 +18,16 @@ class El {
     this.children = [];
     this.textContent = spec.text || "";
     this.parent = null;
+    this.broken = spec.broken === true;
     this.form = spec.form || null;
     this.tabIndex = spec.tabIndex ?? -1;
     this.type = spec.type || "";
     this.style = spec.style || {};
     this.rect = spec.rect || { width: 100, height: 40 };
+    this.scrollWidth = spec.scrollWidth ?? this.rect.width;
+    this.scrollHeight = spec.scrollHeight ?? this.rect.height;
+    this.clientWidth = spec.clientWidth ?? this.rect.width;
+    this.clientHeight = spec.clientHeight ?? this.rect.height;
     if ("lang" in this.attrs) this.lang = this.attrs.lang;
     for (const child of this.children) child.parent = this;
   }
@@ -61,10 +66,10 @@ class El {
   getAttribute(name) { return name in this.attrs ? String(this.attrs[name]) : null; }
   hasAttribute(name) { return name in this.attrs; }
   matches(selector) { return El.matches(this, selector); }
-  // jsdom/browser images report load state; a fake tree has no loader, so say "loaded" and
-  // let the image-alt rule be the one under test.
+  // jsdom/browser images report load state; a fake tree has no loader, so default to "loaded"
+  // and let a spec opt into a failed image with broken: true.
   get complete() { return true; }
-  get naturalWidth() { return 100; }
+  get naturalWidth() { return this.broken ? 0 : 100; }
 }
 
 // Selector support is deliberately small but real: a tag/attribute base plus any number of
@@ -131,7 +136,13 @@ function audit(specs) {
   };
   for (const spec of specs) { const el = build(spec); el.parent = root; root.children.push(el); }
   El.document.all.push(root);
-  El.document.documentElement = new El({ tag: "html", attrs: { lang: "en" } });
+  // A caller may set a specific documentElement/title (e.g. to test the lang/title rules);
+  // default to a well-formed document so unrelated rules are not triggered.
+  if (!El.document.documentElement?.callerSet) {
+    El.document.documentElement = new El({ tag: "html", attrs: { lang: "en" } });
+    El.document.documentElement.lang = "en";
+  }
+  if (El.document.title === undefined || El.document.title === null) El.document.title = "Test page";
 
   const saved = { doc: globalThis.document, win: globalThis.window, gcs: globalThis.getComputedStyle };
   globalThis.document = El.document;
@@ -248,4 +259,72 @@ test("review: introducing accessibility violations is a regression against the b
   const result = review(after, before);
   assert.ok(result.regressions.some((r) => r.kind === "a11y"), "a new violation must be reported as a regression");
   assert.equal(result.status, "blocked");
+});
+
+test("a11y: one unlabelled field is reported once, not twice", () => {
+  const checkbox = rulesOf([{ tag: "main", children: [{ tag: "h1", text: "x" }, { tag: "input", type: "checkbox" }] }]);
+  assert.ok(checkbox.includes("field-label"), "an unlabelled checkbox is a field-label problem");
+  assert.ok(!checkbox.includes("form-field-name"), "it must not also be reported under the old duplicate rule");
+
+  const select = rulesOf([{ tag: "main", children: [{ tag: "h1", text: "x" }, { tag: "select", children: [{ tag: "option", text: "a" }] }] }]);
+  assert.deepEqual(select.filter((r) => r === "field-label").length, 1);
+});
+
+test("a11y: catches the remaining defect classes", () => {
+  // Heading missing entirely, and headings that never reach level 1.
+  assert.ok(rulesOf([{ tag: "main", children: [{ tag: "p", text: "body only" }] }]).includes("page-has-heading"));
+  assert.ok(rulesOf([{ tag: "main", children: [{ tag: "h2", text: "sub" }] }]).includes("page-has-heading"),
+    "h2 with no h1 is a missing page heading");
+  assert.ok(rulesOf([{ tag: "main", children: [{ tag: "h1", text: "a" }, { tag: "h1", text: "b" }] }]).includes("page-multiple-h1"));
+
+  // A scroll container with no keyboard access: content wider than the box, overflow auto.
+  const scrollable = (extra = {}) => rulesOf([{ tag: "main", children: [
+    { tag: "h1", text: "x" },
+    { tag: "div", style: { overflowX: "auto" }, scrollWidth: 900, clientWidth: 300, ...extra },
+  ] }]);
+  assert.ok(scrollable().includes("scrollable-region-focusable"), "a scroll box with no focusable content and no tabIndex is unreachable");
+  assert.ok(!scrollable({ tabIndex: 0 }).includes("scrollable-region-focusable"), "tabIndex makes it reachable");
+  assert.ok(!scrollable({ scrollWidth: 300 }).includes("scrollable-region-focusable"), "no overflow, nothing to scroll");
+
+  // Touch/click target smaller than the 24px minimum.
+  const small = rulesOf([{ tag: "main", children: [
+    { tag: "h1", text: "x" },
+    { tag: "button", attrs: { type: "button", "aria-label": "Go" }, text: "Go", rect: { width: 10, height: 10 } },
+  ] }]);
+  assert.ok(small.includes("target-size-min"), "a 10px button is below the WCAG 2.5.8 minimum");
+});
+
+test("a11y: button-type only fires for a button inside a form", () => {
+  const form = { tag: "form", attrs: { action: "/x" }, children: [{ tag: "button", text: "Save", form: true }] };
+  const insideForm = rulesOf([{ tag: "main", children: [{ tag: "h1", text: "x" }, form] }]);
+  assert.ok(insideForm.includes("button-type"));
+  const outside = rulesOf([{ tag: "main", children: [{ tag: "h1", text: "x" }, { tag: "button", text: "Save" }] }]);
+  assert.ok(!outside.includes("button-type"), "a button outside a form cannot submit anything");
+});
+
+test("a11y: document language, title, and broken images are judged both ways", () => {
+  const setDoc = (lang, title) => {
+    El.document.documentElement = { lang, callerSet: true };
+    El.document.title = title;
+  };
+  const page = [{ tag: "main", children: [{ tag: "h1", text: "x" }] }];
+
+  setDoc("", "T");
+  assert.ok(rulesOf(page).includes("html-lang"), "missing lang is reported");
+  setDoc("en", "T");
+  assert.ok(!rulesOf(page).includes("html-lang"), "a declared lang is not reported");
+
+  setDoc("en", "");
+  assert.ok(rulesOf(page).includes("document-title"), "missing title is reported");
+  setDoc("en", "T");
+  assert.ok(!rulesOf(page).includes("document-title"), "a real title is not reported");
+
+  // The fake element reports complete=true/naturalWidth=100 by default; override per element.
+  const broken = [{ tag: "main", children: [{ tag: "h1", text: "x" }, { tag: "img", attrs: { src: "a.png", alt: "A" }, broken: true }] }];
+  assert.ok(rulesOf(broken).includes("image-broken"), "a failed image is reported");
+  const good = [{ tag: "main", children: [{ tag: "h1", text: "x" }, { tag: "img", attrs: { src: "a.png", alt: "A" } }] }];
+  assert.ok(!rulesOf(good).includes("image-broken"), "a loaded image is not reported");
+
+  // restore a well-formed document for any later test
+  setDoc("en", "Test page");
 });

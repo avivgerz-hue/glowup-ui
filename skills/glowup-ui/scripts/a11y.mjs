@@ -52,15 +52,20 @@ export function auditAccessibility(options = {}) {
   }
 
   // 2. Interactive elements need a name.
+  // Form fields are handled once, by rule 3, so a single unlabelled checkbox cannot be
+  // reported three times under two rules.
+  const FIELD = "input:not([type=hidden]):not([type=submit]):not([type=button]):not([type=reset]), select, textarea";
   for (const el of shown) {
-    if (!el.matches("button, a[href], input:not([type=hidden]), select, textarea, [role=button], [role=link], [role=checkbox], [role=radio], [role=tab], [role=switch]")) continue;
-    if (el.matches("input[type=checkbox], input[type=radio]") && !accessibleName(el)) push("form-field-name", "critical", "Form controls need a name", describe(el));
-    else if (!accessibleName(el) && !el.matches("input[type=checkbox], input[type=radio]")) push("control-name", "critical", "Interactive controls need an accessible name", describe(el));
+    if (el.matches(FIELD)) continue;
+    if (!el.matches("button, a[href], [role=button], [role=link], [role=checkbox], [role=radio], [role=tab], [role=switch]")) continue;
+    if (!accessibleName(el)) push("control-name", "critical", "Interactive controls need an accessible name", describe(el));
   }
 
   // 3. Form fields need a real label (a placeholder is not a label).
-  for (const field of shown.filter((el) => el.matches("input:not([type=hidden]):not([type=submit]):not([type=button]):not([type=reset]), select, textarea"))) {
-    const hasLabel = Boolean(field.labels?.length || text(field.getAttribute("aria-label")) || text(field.getAttribute("aria-labelledby")));
+  for (const field of shown.filter((el) => el.matches(FIELD))) {
+    // An associated but empty <label> names nothing, so require actual text.
+    const labelText = text([...(field.labels || [])].map((l) => l.textContent).join(" "));
+    const hasLabel = Boolean(labelText || text(field.getAttribute("aria-label")) || text(field.getAttribute("aria-labelledby")) || accessibleName(field));
     if (!hasLabel) push("field-label", "critical", "Form fields need a visible or programmatic label, not only a placeholder", describe(field), field.getAttribute("placeholder") ? `only placeholder "${field.getAttribute("placeholder")}"` : "");
   }
 
@@ -93,7 +98,10 @@ export function auditAccessibility(options = {}) {
   for (let i = 1; i < headings.length; i++) {
     if (headings[i].level - headings[i - 1].level > 1) push("heading-skip", "moderate", `Heading level jumps ${headings[i - 1].level} -> ${headings[i].level}`, describe(headings[i].el));
   }
+  // No heading at all, or headings that never reach level 1, are both a missing page title.
+  // Reporting only the zero-heading case missed the common "h2s but no h1" page.
   if (!headings.length) push("page-has-heading", "moderate", "Page has no headings", "document");
+  else if (!headings.some((h) => h.level === 1)) push("page-has-heading", "moderate", "Page has no h1 heading", `${headings.length} heading(s), none at level 1`);
   if (headings.filter((h) => h.level === 1).length > 1) push("page-multiple-h1", "moderate", "More than one h1", `${headings.filter((h) => h.level === 1).length} h1 elements`);
 
   // 8. Landmarks.
